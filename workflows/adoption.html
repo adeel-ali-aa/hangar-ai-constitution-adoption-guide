@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en"
+  data-page-id="P9-adopt"
+  data-registry-version="2.0.0"
+  data-render-timestamp="2026-05-07T18:00:00Z">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P9-adopt · Adoption Workflow — Hangar AI Constitution</title>
+<style>
+/* ── Reset & Base ───────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: #f4f6f9;
+  color: #1a1a2e;
+  line-height: 1.6;
+  font-size: 15px;
+}
+a { color: #0066cc; text-decoration: none; }
+a:hover { text-decoration: underline; }
+code, pre {
+  font-family: 'Cascadia Code', 'Consolas', 'Menlo', 'Monaco', monospace;
+  font-size: 0.875em;
+}
+
+/* ── Layout ─────────────────────────────────────────────────── */
+.page-wrap { max-width: 980px; margin: 0 auto; padding: 0 16px 40px; }
+
+/* ── Header ─────────────────────────────────────────────────── */
+.site-header {
+  background: linear-gradient(135deg, #003366 0%, #00264d 100%);
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.site-header a.back-link {
+  color: #d0d6de;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  text-decoration: none;
+  border: 1px solid rgba(208,214,222,0.3);
+  padding: 5px 12px;
+  border-radius: 4px;
+  transition: background 0.15s;
+}
+.site-header a.back-link:hover { background: rgba(255,255,255,0.12); }
+.site-header h1 {
+  color: #fff;
+  font-size: 1.35rem;
+  font-weight: 600;
+}
+
+/* ── Persona Badge Row — DC-12 ──────────────────────────────── */
+.persona-row {
+  background: #fff;
+  border: 1px solid #d0d6de;
+  border-top: 3px solid #003366;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 0.9rem;
+  margin-top: 20px;
+  border-radius: 0 0 6px 6px;
+}
+.persona-row .label { font-weight: 600; color: #003366; }
+.persona-badge {
+  background: #e8f4e8;
+  border: 1px solid #4caf50;
+  color: #1b5e20;
+  border-radius: 20px;
+  padding: 3px 12px;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+.dc-badge {
+  margin-left: auto;
+  font-size: 0.75rem;
+  color: #666;
+  font-style: italic;
+}
+
+/* ── When to Use — DC-08 ────────────────────────────────────── */
+.when-to-use {
+  background: #e8f0ff;
+  border-left: 5px solid #0066cc;
+  border-radius: 0 8px 8px 0;
+  padding: 20px 24px;
+  margin: 24px 0;
+}
+.when-to-use h2 {
+  color: #003366;
+  font-size: 1.1rem;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.wtu-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+@media (max-width: 640px) { .wtu-cols { grid-template-columns: 1fr; } }
+.wtu-use, .wtu-dont {
+  background: #fff;
+  border-radius: 6px;
+  padding: 14px 16px;
+}
+.wtu-use h3 { color: #1b5e20; font-size: 0.9rem; margin-bottom: 10px; }
+.wtu-dont h3 { color: #b71c1c; font-size: 0.9rem; margin-bottom: 10px; }
+.wtu-use ul, .wtu-dont ul { list-style: none; padding: 0; }
+.wtu-use li { color: #2e7d32; padding: 4px 0; font-size: 0.88rem; }
+.wtu-dont li { color: #c62828; padding: 4px 0; font-size: 0.88rem; }
+.dc-tag {
+  font-size: 0.7rem;
+  background: #003366;
+  color: #fff;
+  border-radius: 3px;
+  padding: 2px 6px;
+  margin-right: 4px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* ── Non-Determinism — DC-11 ────────────────────────────────── */
+.nondeterminism-box {
+  background: #e8f5e9;
+  border: 2px solid #4caf50;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 20px 0;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.nondeterminism-box .dc-icon { font-size: 1.5rem; flex-shrink: 0; }
+.nondeterminism-box p { font-size: 0.9rem; color: #1b5e20; line-height: 1.5; }
+.nondeterminism-box strong { color: #145214; }
+
+/* ── Workflow Overview ──────────────────────────────────────── */
+.workflow-overview { margin: 24px 0; }
+.workflow-overview h2 { color: #003366; font-size: 1rem; margin-bottom: 14px; font-weight: 600; }
+.phase-flow {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  flex-wrap: wrap;
+  background: #fff;
+  border: 1px solid #d0d6de;
+  border-radius: 8px;
+  padding: 20px;
+  position: relative;
+}
+.flow-step {
+  flex: 1;
+  min-width: 160px;
+  text-align: center;
+  position: relative;
+}
+.flow-step-inner {
+  background: #003366;
+  color: #fff;
+  border-radius: 8px;
+  padding: 12px 10px;
+  margin: 0 6px;
+}
+.flow-step-inner .phase-num {
+  display: inline-block;
+  background: #cc0000;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  border-radius: 12px;
+  padding: 2px 8px;
+  margin-bottom: 6px;
+}
+.flow-step-inner .phase-title { font-size: 0.85rem; font-weight: 600; }
+.flow-arrow {
+  display: flex;
+  align-items: center;
+  align-self: center;
+  color: #0066cc;
+  font-size: 1.4rem;
+  padding: 0 2px;
+  flex-shrink: 0;
+}
+.flow-branch-note {
+  width: 100%;
+  margin-top: 12px;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #555;
+  border-top: 1px dashed #d0d6de;
+  padding-top: 10px;
+}
+.flow-branch-note .branch-pill {
+  background: #fff3cd;
+  border: 1px solid #cc8800;
+  border-radius: 12px;
+  padding: 3px 12px;
+  font-size: 0.78rem;
+  color: #664400;
+}
+
+/* ── YAML Trigger Box ───────────────────────────────────────── */
+.trigger-box {
+  background: #fff;
+  border: 1px solid #d0d6de;
+  border-top: 3px solid #003366;
+  border-radius: 0 0 8px 8px;
+  padding: 18px 20px;
+  margin: 20px 0;
+}
+.trigger-box .trigger-label {
+  font-size: 0.82rem;
+  color: #555;
+  font-weight: 600;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.trigger-code-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.trigger-code {
+  background: #1a1a2e;
+  color: #a8ff78;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  flex: 1;
+  min-width: 200px;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+.trigger-alts {
+  margin-top: 10px;
+  font-size: 0.8rem;
+  color: #666;
+}
+.trigger-alts ul { list-style: none; padding: 0; margin-top: 4px; }
+.trigger-alts li::before { content: "› "; color: #0066cc; }
+
+/* ── Copy Button ────────────────────────────────────────────── */
+.copy-btn {
+  background: #0066cc;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 7px 14px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  font-family: inherit;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+.copy-btn:hover { background: #0052a3; }
+.copy-btn:focus-visible {
+  outline: 2px solid #0066cc;
+  outline-offset: 2px;
+}
+
+/* ── Phase Sections ─────────────────────────────────────────── */
+.phase-section { margin: 24px 0; border-radius: 8px; overflow: visible; }
+.phase-header {
+  background: #003366;
+  color: #fff;
+  padding: 0;
+  border-radius: 8px 8px 0 0;
+  display: flex;
+  align-items: center;
+}
+.phase-toggle-btn {
+  flex: 1;
+  background: none;
+  border: none;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.phase-toggle-btn:hover { background: rgba(255,255,255,0.08); }
+.phase-toggle-btn:focus-visible { outline: 2px solid #fff; outline-offset: -4px; }
+.phase-pill {
+  background: #cc0000;
+  color: #fff;
+  border-radius: 14px;
+  padding: 3px 12px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.phase-name { flex: 1; }
+.phase-purpose { font-size: 0.82rem; color: #d0d6de; font-weight: 400; margin-left: 8px; }
+.toggle-icon { font-size: 1.1rem; transition: transform 0.2s; flex-shrink: 0; }
+.phase-section.collapsed .toggle-icon { transform: rotate(-90deg); }
+
+.phase-body {
+  background: #fff;
+  border: 1px solid #d0d6de;
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  padding: 20px;
+  display: block;
+}
+.phase-section.collapsed .phase-body { display: none; }
+
+/* ── Prompt Library — DC-09 ─────────────────────────────────── */
+.prompt-library { margin: 16px 0; }
+.prompt-library-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #003366;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.prompt-cards { display: grid; grid-template-columns: 1fr; gap: 10px; }
+.prompt-card {
+  background: #f4f6f9;
+  border: 1px solid #d0d6de;
+  border-radius: 6px;
+  padding: 12px 14px;
+}
+.prompt-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+.prompt-type {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.prompt-type.cli { color: #6a0dad; }
+.prompt-type.ide { color: #0066cc; }
+.prompt-type.yaml-trigger { color: #cc8800; }
+.prompt-text {
+  background: #1a1a2e;
+  color: #e2e8f0;
+  padding: 10px 13px;
+  border-radius: 5px;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  word-break: break-word;
+  display: block;
+}
+.prompt-text.yaml { color: #a8ff78; }
+
+/* ── Phase Gate Evidence — DC-10 ────────────────────────────── */
+.evidence-card {
+  background: #fffbf0;
+  border: 1px solid #e8d5a3;
+  border-left: 5px solid #cc8800;
+  border-radius: 0 8px 8px 0;
+  padding: 16px 20px;
+  margin: 16px 0;
+}
+.evidence-card h4 {
+  color: #664400;
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.evidence-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+@media (max-width: 600px) { .evidence-grid { grid-template-columns: 1fr; } }
+.evidence-item label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #886600;
+  display: block;
+  margin-bottom: 4px;
+}
+.evidence-item p {
+  font-size: 0.85rem;
+  color: #3d2b00;
+  line-height: 1.4;
+}
+.evidence-item code {
+  background: #fff3cd;
+  border: 1px solid #e8d5a3;
+  padding: 2px 6px;
+  border-radius: 3px;
+  color: #5c3b00;
+}
+.drift-signals { grid-column: 1 / -1; }
+.drift-signals ul { list-style: none; padding: 0; }
+.drift-signals li {
+  padding: 6px 10px;
+  margin: 4px 0;
+  background: #fff0f0;
+  border-left: 3px solid #cc0000;
+  border-radius: 0 4px 4px 0;
+  font-size: 0.83rem;
+  color: #7a0000;
+}
+.drift-signals li .drift-action {
+  display: block;
+  color: #b71c1c;
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+/* ── Adaptive Scope ─────────────────────────────────────────── */
+.adaptive-scope {
+  background: #e8f5e9;
+  border: 1px solid #a5d6a7;
+  border-left: 5px solid #4caf50;
+  border-radius: 0 8px 8px 0;
+  padding: 18px 20px;
+  margin: 24px 0;
+}
+.adaptive-scope h2 {
+  color: #1b5e20;
+  font-size: 1rem;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.scope-items { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 640px) { .scope-items { grid-template-columns: 1fr; } }
+.scope-item {
+  background: #fff;
+  border-radius: 6px;
+  padding: 12px 14px;
+  border: 1px solid #c8e6c9;
+}
+.scope-item strong { color: #2e7d32; display: block; margin-bottom: 4px; font-size: 0.88rem; }
+.scope-item p { font-size: 0.83rem; color: #2d4a2f; }
+
+/* ── Followed-by ────────────────────────────────────────────── */
+.followed-by { margin: 24px 0; }
+.followed-by h2 { color: #003366; font-size: 1rem; margin-bottom: 12px; font-weight: 600; }
+.next-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+@media (max-width: 700px) { .next-cards { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 460px) { .next-cards { grid-template-columns: 1fr; } }
+.next-card {
+  background: #fff;
+  border: 1px solid #d0d6de;
+  border-top: 3px solid #0066cc;
+  border-radius: 0 0 8px 8px;
+  padding: 14px 16px;
+  text-decoration: none;
+  display: block;
+  transition: box-shadow 0.15s, transform 0.15s;
+}
+.next-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.12); transform: translateY(-2px); }
+.next-card .card-arrow { color: #0066cc; font-size: 1.1rem; margin-bottom: 4px; }
+.next-card .card-title { font-weight: 600; color: #003366; font-size: 0.9rem; margin-bottom: 4px; }
+.next-card .card-hint { font-size: 0.78rem; color: #555; }
+
+/* ── Footer ─────────────────────────────────────────────────── */
+.site-footer {
+  margin-top: 32px;
+  padding: 16px 0;
+  border-top: 1px solid #d0d6de;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: #666;
+}
+.site-footer a { color: #0066cc; }
+.footer-meta { text-align: right; }
+
+/* ── Utility ─────────────────────────────────────────────────── */
+.section-heading {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #003366;
+  margin: 18px 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.divider { border: none; border-top: 1px solid #e0e4ea; margin: 18px 0; }
+</style>
+</head>
+<body>
+
+<!-- ── Header ─────────────────────────────────────────── -->
+<header class="site-header">
+  <a href="index.html" class="back-link">← Workflows Hub</a>
+  <h1>📋 Adoption Workflow</h1>
+</header>
+
+<main class="page-wrap">
+
+  <!-- DC-12 Persona Badge Row -->
+  <div class="persona-row" role="region" aria-label="DC-12 persona routing">
+    <span class="label">👥 Who uses this:</span>
+    <span class="persona-badge">Technical Coach ✅</span>
+    <span class="persona-badge">Senior Architect ✅</span>
+    <span class="persona-badge">Engineer ✅</span>
+    <span class="dc-badge">DC-12 · Persona Routing</span>
+  </div>
+
+  <!-- DC-08 When to Use (VISIBLE — NOT in accordion) -->
+  <section class="when-to-use" aria-label="DC-08 When to Use">
+    <h2><span class="dc-tag">DC-08</span> 🎯 When to Use This Workflow</h2>
+    <div class="wtu-cols">
+      <div class="wtu-use">
+        <h3>✅ Use Adoption when:</h3>
+        <ul>
+          <li>✅ The repo does <strong>NOT</strong> have a <code>hangar-ai-constitution/</code> directory adjacent to it</li>
+          <li>✅ There is no <code>AGENTS.md</code> at repo root</li>
+          <li>✅ There is no <code>hangar-ai-specs/</code> directory</li>
+          <li>✅ You are about to run Legacy Rescue, Greenfield, or any other workflow for the first time</li>
+          <li>✅ Your <code>AGENTS.md</code> is stale or references the old brownfield guide</li>
+          <li>✅ An <code>openspec/</code> directory exists (pre-rename legacy — migration required)</li>
+        </ul>
+      </div>
+      <div class="wtu-dont">
+        <h3>❌ Do NOT run Adoption if:</h3>
+        <ul>
+          <li>❌ <code>hangar-ai-constitution/</code> and <code>AGENTS.md</code> already exist — adoption is complete</li>
+          <li>❌ You just want to run a scan — use Legacy Rescue Phase 1 instead</li>
+          <li>❌ <code>hangar-ai-specs/evidence/adoption-verified.md</code> exists and is current</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- DC-11 Non-Determinism Callout (VISIBLE) -->
+  <div class="nondeterminism-box" role="note" aria-label="DC-11 Non-Determinism Notice">
+    <span class="dc-icon" aria-hidden="true">🎲</span>
+    <p>
+      <strong>DC-11 · Non-Determinism Notice</strong> — This workflow is non-deterministic.
+      The agent may produce different <code>AGENTS.md</code> content or different phase artifact structures between runs.
+      Both can be constitutionally valid. Your <strong>APPROVE</strong> at each gate is the constitutional
+      checkpoint — not the agent's output format. Review artifacts for intent and completeness, not exact wording.
+    </p>
+  </div>
+
+  <!-- Workflow Overview -->
+  <div class="workflow-overview">
+    <h2>📐 Workflow Overview</h2>
+    <div class="phase-flow" role="img" aria-label="Workflow phases: Phase 1 Check, Phase 2 Adopt, Phase 2b Provision Gate (optional), Phase 3 Verify">
+      <div class="flow-step">
+        <div class="flow-step-inner">
+          <div class="phase-num">Phase 1</div>
+          <div class="phase-title">Check</div>
+        </div>
+      </div>
+      <div class="flow-arrow" aria-hidden="true">→</div>
+      <div class="flow-step">
+        <div class="flow-step-inner">
+          <div class="phase-num">Phase 2</div>
+          <div class="phase-title">Adopt</div>
+        </div>
+      </div>
+      <div class="flow-arrow" aria-hidden="true">→</div>
+      <div class="flow-step">
+        <div class="flow-step-inner" style="background:#0066cc;">
+          <div class="phase-num" style="background:#cc8800;">Phase 2b</div>
+          <div class="phase-title">Provision Gate</div>
+        </div>
+      </div>
+      <div class="flow-arrow" aria-hidden="true">→</div>
+      <div class="flow-step">
+        <div class="flow-step-inner">
+          <div class="phase-num">Phase 3</div>
+          <div class="phase-title">Verify</div>
+        </div>
+      </div>
+      <div class="flow-branch-note">
+        <span class="branch-pill">⚡ Phase 2b (Provision Gate) runs if SonarQube is available — skip if not yet ready</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- YAML Trigger Phrase Box (DC-09) -->
+  <div class="trigger-box">
+    <div class="trigger-label">
+      <span class="dc-tag">DC-09</span>
+      🔑 Constitutional Trigger Phrase — use this to start the workflow:
+    </div>
+    <div class="trigger-code-row">
+      <code class="trigger-code">"Adopt the Hangar AI Constitution"</code>
+      <button class="copy-btn"
+        aria-label="Copy adoption workflow trigger phrase"
+        onclick="copyPrompt(this, 'Adopt the Hangar AI Constitution')">📋 Copy</button>
+    </div>
+    <div class="trigger-alts">
+      <strong>Also recognised by the agent:</strong>
+      <ul>
+        <li>"Set up constitutional governance in my repo"</li>
+        <li>"Initialize hangar-ai-specs"</li>
+        <li>"Create AGENTS.md"</li>
+        <li>"Migrate from openspec to hangar-ai-specs"</li>
+        <li>"Update my constitution adoption"</li>
+        <li>"My adoption is stale"</li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ══════════════════════════════════════════════════
+       PHASE 1: CHECK
+       ══════════════════════════════════════════════════ -->
+  <section class="phase-section" id="phase-1">
+    <div class="phase-header">
+      <button class="phase-toggle-btn"
+        aria-expanded="true"
+        aria-controls="phase-1-body"
+        onclick="togglePhase(this)">
+        <span class="phase-pill" aria-hidden="true">Phase 1</span>
+        <span class="phase-name">Check</span>
+        <span class="phase-purpose">— Pre-flight: verify repo state and classify the adoption action required</span>
+        <span class="toggle-icon" aria-hidden="true">▼</span>
+      </button>
+    </div>
+    <div class="phase-body" id="phase-1-body">
+
+      <!-- DC-09 Prompt Library -->
+      <div class="prompt-library">
+        <div class="prompt-library-title">
+          <span class="dc-tag">DC-09</span> 🗂 Prompt Library — Phase 1: Check
+        </div>
+        <div class="prompt-cards">
+
+          <!-- CLI Prompt -->
+          <div class="prompt-card">
+            <div class="prompt-card-header">
+              <span class="prompt-type cli">🖥 CLI · <code>gh copilot ask</code></span>
+              <button class="copy-btn"
+                aria-label="Copy Phase 1 CLI prompt for gh copilot ask"
+                onclick="copyPrompt(this, 'gh copilot ask &quot;Read the Hangar AI Constitution adoption workflow. Run Phase 1 Check: verify whether this repo already has AGENTS.md, hangar-ai-constitution adjacent directory, and hangar-ai-specs/. Report findings as a pre-adoption checklist.&quot;')">📋 Copy</button>
+            </div>
+            <code class="prompt-text">gh copilot ask "Read the Hangar AI Constitution adoption workflow. Run Phase 1 Check: verify whether this repo already has AGENTS.md, hangar-ai-constitution adjacent directory, and hangar-ai-specs/. Report findings as a pre-adoption checklist."</code>
+          </div>
+
+          <!-- IDE Chat Prompt -->
+          <div class="prompt-card">
+            <div class="prompt-card-header">
+              <span class="prompt-type ide">💬 IDE Chat · Copilot inline</span>
+              <button class="copy-btn"
+                aria-label="Copy Phase 1 IDE chat prompt"
+                onclick="copyPrompt(this, 'Read the adoption workflow and check if this repo is already adopted. Show me a pre-adoption checklist.')">📋 Copy</button>
+            </div>
+            <code class="prompt-text">Read the adoption workflow and check if this repo is already adopted. Show me a pre-adoption checklist.</code>
+          </div>
+
+          <!-- YAML Trigger -->
+          <div class="prompt-card">
+            <div class="prompt-card-header">
+              <span class="prompt-type yaml-trigger">⚙ YAML Trigger · workflow front-matter</span>
+              <button class="copy-btn"
+                aria-label="Copy Phase 1 YAML trigger phrase"
+                onclick="copyPrompt(this, 'Adopt the Hangar AI Constitution — Phase 1')">📋 Copy</button>
+            </div>
+            <code class="prompt-text yaml">Adopt the Hangar AI Constitution — Phase 1</code>
+          </div>
+
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <!-- DC-10 Phase Gate Evidence -->
+      <div class="evidence-card">
+        <h4><span class="dc-tag">DC-10</span> 🏛 Phase Gate Evidence — Phase 1: Check</h4>
+        <div class="evidence-grid">
+          <div class="evidence-item">
+            <label>Artifact Produced</label>
+            <p><code>hangar-ai-specs/evidence/adoption-check.md</code></p>
+          </div>
+          <div class="evidence-item">
+            <label>What to Read</label>
+            <p>The YAML front-matter fields: <code>action</code>, <code>agents_md_exists</code>, <code>hangar_ai_specs_exists</code>, and <code>openspec_exists</code>. Confirm the action classification matches what you see in the repo.</p>
+          </div>
+          <div class="evidence-item">
+            <label>Decision to Make</label>
+            <p><strong>APPROVE</strong> — action classification is correct, proceed to Phase 2.<br>
+            <strong>OBJECT</strong> — classification is wrong (e.g., says SKIP when AGENTS.md is missing) — re-run inspection manually.</p>
+          </div>
+          <div class="evidence-item drift-signals">
+            <label>⚠ Drift Signals</label>
+            <ul>
+              <li>Artifact says <code>action: skip</code> but <code>AGENTS.md</code> is missing from repo root
+                <span class="drift-action">→ Scope check failed — run Step 1.1 manually and correct the artifact</span>
+              </li>
+              <li>Artifact says <code>openspec_exists: false</code> but an <code>openspec/</code> directory is present
+                <span class="drift-action">→ Agent checked wrong directory — verify working directory is repo root</span>
+              </li>
+              <li>No artifact created at all
+                <span class="drift-action">→ <code>hangar-ai-specs/evidence/</code> directory may not exist — agent should create it; re-run Phase 1</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       PHASE 2: ADOPT
+       ══════════════════════════════════════════════════ -->
+  <section class="phase-section" id="phase-2">
+    <div class="phase-header">
+      <button class="phase-toggle-btn"
+        aria-expanded="true"
+        aria-controls="phase-2-body"
+        onclick="togglePhase(this)">
+        <span class="phase-pill" aria-hidden="true">Phase 2</span>
+        <span class="phase-name">Adopt</span>
+        <span class="phase-purpose">— Create/update all constitutional governance artifacts (AGENTS.md, hangar-ai-specs/)</span>
+        <span class="toggle-icon" aria-hidden="true">▼</span>
+      </button>
+    </div>
+    <div class="phase-body" id="phase-2-body">
+
+      <!-- DC-09 Prompt Library -->
+      <div class="prompt-library">
+        <div class="prompt-library-title">
+          <span class="dc-tag">DC-09</span> 🗂 Prompt Library — Phase 2: Adopt
+        </div>
+        <div class="prompt-cards">
+
+          <div class="prompt-card">
+            <div class="prompt-card-header">
+              <span class="prompt-type cli">🖥 CLI · <code>gh copilot ask</code></span>
+              <button class="copy-btn"
+                aria-label="Copy Phase 2 CLI prompt for gh copilot ask"
+                onclick="copyPrompt(this, 'gh copilot ask &quot;Run Adoption Phase 2: clone hangar-ai-constitution to the parent directory, create AGENTS.md at repo root with constitutional bindings, and create hangar-ai-specs/ directory structure. Follow the adoption workflow exactly.&quot;')">📋 Copy</button>
+            </div>
+            <code class="prompt-text">gh copilot ask "Run Adoption Phase 2: clone hangar-ai-constitution to the parent directory, create AGENTS.md at repo root with constitutional bindings, and create hangar-ai-specs/ directory structure. Follow the adoption workflow exactly."</code>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-card-header">
+              <span class="prompt-type ide">💬 IDE Chat · Copilot inline</span>
+              <button class="copy-btn"
+                aria-label="Copy Phase 2 IDE chat prompt"
+                onclick="copyPrompt(this, 'Run the Adoption Phase 2. Create AGENTS.md and hangar-ai-specs/ following the constitutional adoption workflow.')">📋 Copy</button>
+            </div>
+            <code class="prompt-text">Run the Adoption Phase 2. Create AGENTS.md and hangar-ai-specs/ following the constitutional adoption workflow.</code>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-card-header">
+              <span class="prompt-type yaml-trigger">⚙ YAML Trigger · workflow front-matter</span>
+              <button class="copy-btn"
+                aria-label="Copy Phase 2 YAML trigger phrase"
+                onclick="copyPrompt(this, 'Adopt the Hangar AI Constitution — Phase 2')">📋 Copy</button>
+            </div>
+            <code class="prompt-text yaml">Adopt the Hangar AI Constitution — Phase 2</code>
+          </div>
+
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <!-- DC-10 Phase Gate Evidence -->
+      <div class="evidence-card">
+        <h4><span class="dc-tag">DC-10</span> 🏛 Phase Gate Evidence — Phase 2: Adopt</h4>
+        <div class="evidence-grid">
+          <div class="evidence-item">
+            <label>Artifact Produced</label>
+            <p>
+              <code>AGENTS.md</code> at repo root<br>
+              <code>hangar-ai-specs/changes/</code>, <code>hangar-ai-specs/archive/</code>, <code>hangar-ai-specs/specs/</code><br>
+              <code>hangar-ai-specs/project-rules.md</code>
+            </p>
+          </div>
+          <div class="evidence-item">
+            <label>What to Read</label>
+            <p>Open <code>AGENTS.md</code> and confirm: (1) authority hierarchy present, (2) constitution path correct, (3) technology and product avatars resolved, (4) non-negotiable laws listed.</p>
+          </div>
+          <div class="evidence-item">
+            <label>Decision to Make</label>
+            <p><strong>APPROVE</strong> — all governance artifacts present and correct, proceed to Phase 2b or Phase 3.<br>
+            <strong>OBJECT</strong> — AGENTS.md missing constitution reference, or directory structure incomplete — re-run Phase 2 steps explicitly.</p>
+          </div>
+          <div class="evidence-item drift-signals">
+            <label>⚠ Drift Signals</label>
+            <ul>
+              <li><code>AGENTS.md</code> created but does not contain <code>hangar-ai-constitution</code> in the constitution path field
+                <span class="drift-action">→ Re-run Phase 2 with explicit path — agent used wrong reference</span>
+              </li>
+              <li><code>hangar-ai-specs/</code> was not created (agent stopped early)
+                <span class="drift-action">→ Run Step 2.3 manually; confirm directory structure and re-verify</span>
+              </li>
+              <li><code>openspec/</code> directory still exists after migration step
+                <span class="drift-action">→ Migration was partial — rerun Step 2.5; do NOT remove openspec/ until contents confirmed in hangar-ai-specs/</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       PHASE 2b: PROVISION GATE
+       ══════════════════════════════════════════════════ -->
+  <section class="phase-section" id="phase-2b">
+    <div class="phase-header" style="background:#0052a3;">
+      <button class="phase-toggle-btn"
+        aria-expanded="true"
+        aria-controls="phase-2b-body"
+        onclick="togglePhase(this)">
+        <span class="phase-pill" style="background:#cc8800;" aria-hidden="true">Phase 2b</span>
+        <span class="phase-name">Provision Gate</span>
+        <span class="phase-purpose">— Set up SonarQube quality gate and confirm dashboard open (ENG-12.1)</span>
+        <span class="toggle-icon" aria-hidden="true">▼</span>
+      </button>
+    </div>
+    <div class="phase-body" id="phase-2b-body">
+
+      <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:6px;padding:10px 14px;margin-bottom:14px;font-size:0.85rem;color:#5d4037;">
+        ⚡ <strong>Optional but recommended.</strong> Phase 2b runs if SonarQube is available.
+        You can skip provisioning if your project isn't ready — adoption is still constitutionally valid without it.
+        However, <strong>the dashboard must be open before any workflow phase begins</strong> (ENG-12.2 — never skipped).
+      </div>
+
+      <!-- DC-09 Prompt Library -->
+      <div class="prompt-library">
+        <div class="prompt-library-title">
+          <span class="dc-tag">DC-09</span> 🗂 Prompt Library — Phase 2b: Provision Gate
+        </div>
+        <div class="prompt-cards">
+
+          <div class="prompt-card">
+            <div class="prompt-card-header">
+              <span class="prompt-type cli">🖥 CLI · <code>gh copilot ask</code></span>
+              <button class="copy-btn"
+                aria-label="Copy Phase 2b CLI prompt for gh copilot ask"
+                onclick="copyPrompt(this, 'gh copilot ask &quot;Run Adoption Phase 2b Provision Gate: set up SonarQube baseline and mutation testing configuration for this repo. Document the baseline metrics in a phase artifact.&quot;')">📋 Copy</button>
+            </div>
+            <code class="prompt-text">gh copilot ask "Run Adoption Phase 2b Provision Gate: set up SonarQube baseline and mutation testing configuration for this repo. Document the baseline metrics in a phase artifact."</code>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-card-header">
+              <span class="prompt-type ide">💬 IDE Chat · Copilot inline</span>
+              <button class="copy-btn"
+                aria-label="Copy Phase 2b IDE chat prompt"
+                onclick="copyPrompt(this, 'Set up the SonarQube and mutation testing baseline for constitutional gate compliance.')">📋 Copy</button>
+            </div>
+            <code class="prompt-text">Set up the SonarQube and mutation testing baseline for constitutional gate compliance.</code>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-card-header">
+              <span class="prompt-type yaml-trigger">⚙ YAML Trigger · workflow front-matter</span>
+              <button class="copy-btn"
+                aria-label="Copy Phase 2b YAML trigger phrase"
+                onclick="copyPrompt(this, 'Adopt the Hangar AI Constitution — Phase 2b')">📋 Copy</button>
+            </div>
+            <code class="prompt-text yaml">Adopt the Hangar AI Constitution — Phase 2b</code>
+          </div>
+
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <!-- DC-10 Phase Gate Evidence -->
+      <div class="evidence-card">
+        <h4><span class="dc-tag">DC-10</span> 🏛 Phase Gate Evidence — Phase 2b: Provision Gate</h4>
+        <div class="evidence-grid">
+          <div class="evidence-item">
+            <label>Artifact Produced</label>
+            <p>
+              Updated <code>hangar-ai-specs/evidence/adoption-check.md</code> with gate fields:<br>
+              <code>gate_provisioned</code>, <code>sonarqube_url</code>, <code>sonarqube_project_key</code>,
+              <code>sonar_token_gitignored</code>, <code>dashboard_confirmed</code>
+            </p>
+          </div>
+          <div class="evidence-item">
+            <label>What to Read</label>
+            <p>Confirm <code>gate_provisioned: true</code>, <code>sonar_token_gitignored: true</code>, and the SonarQube dashboard is open and shows your project (even if "no analysis yet" — that is the confirmed starting state).</p>
+          </div>
+          <div class="evidence-item">
+            <label>Decision to Make</label>
+            <p><strong>APPROVE</strong> — SonarQube running, dashboard visible, token gitignored. Proceed to Phase 3.<br>
+            <strong>OBJECT</strong> — Any of the three conditions unmet — do not advance.</p>
+          </div>
+          <div class="evidence-item drift-signals">
+            <label>⚠ Drift Signals</label>
+            <ul>
+              <li>Sonar baseline shows <code>0 files scanned</code> after first analysis
+                <span class="drift-action">→ SonarQube not connected — check instance URL and project key</span>
+              </li>
+              <li><code>.sonar-token</code> file committed to git history
+                <span class="drift-action">→ Revoke token immediately, rotate, re-add to .gitignore, and git-filter history if needed (ENG-12.1 violation)</span>
+              </li>
+              <li>Dashboard shows different project key than <code>adoption-check.md</code>
+                <span class="drift-action">→ Mismatched provisioning — delete project in SonarQube and re-run provision.sh with correct key</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       PHASE 3: VERIFY
+       ══════════════════════════════════════════════════ -->
+  <section class="phase-section" id="phase-3">
+    <div class="phase-header">
+      <button class="phase-toggle-btn"
+        aria-expanded="true"
+        aria-controls="phase-3-body"
+        onclick="togglePhase(this)">
+        <span class="phase-pill" aria-hidden="true">Phase 3</span>
+        <span class="phase-name">Verify</span>
+        <span class="phase-purpose">— Run aa-constitution-lint; confirm all artifacts; commit adoption-verified.md</span>
+        <span class="toggle-icon" aria-hidden="true">▼</span>
+      </button>
+    </div>
+    <div class="phase-body" id="phase-3-body">
+
+      <!-- DC-09 Prompt Library -->
+      <div class="prompt-library">
+        <div class="prompt-library-title">
+          <span class="dc-tag">DC-09</span> 🗂 Prompt Library — Phase 3: Verify
+        </div>
+        <div class="prompt-cards">
+
+          <div class="prompt-card">
+            <div class="prompt-card-header">
+              <span class="prompt-type cli">🖥 CLI · <code>gh copilot ask</code></span>
+              <button class="copy-btn"
+                aria-label="Copy Phase 3 CLI prompt for gh copilot ask"
+                onclick="copyPrompt(this, 'gh copilot ask &quot;Run Adoption Phase 3 Verify: run the constitutional agent against this codebase and produce the first phase artifact in hangar-ai-specs/changes/. Report any law violations found.&quot;')">📋 Copy</button>
+            </div>
+            <code class="prompt-text">gh copilot ask "Run Adoption Phase 3 Verify: run the constitutional agent against this codebase and produce the first phase artifact in hangar-ai-specs/changes/. Report any law violations found."</code>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-card-header">
+              <span class="prompt-type ide">💬 IDE Chat · Copilot inline</span>
+              <button class="copy-btn"
+                aria-label="Copy Phase 3 IDE chat prompt"
+                onclick="copyPrompt(this, 'Run the constitutional verify phase and produce the first phase artifact showing law compliance status.')">📋 Copy</button>
+            </div>
+            <code class="prompt-text">Run the constitutional verify phase and produce the first phase artifact showing law compliance status.</code>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-card-header">
+              <span class="prompt-type yaml-trigger">⚙ YAML Trigger · workflow front-matter</span>
+              <button class="copy-btn"
+                aria-label="Copy Phase 3 YAML trigger phrase"
+                onclick="copyPrompt(this, 'Adopt the Hangar AI Constitution — Phase 3')">📋 Copy</button>
+            </div>
+            <code class="prompt-text yaml">Adopt the Hangar AI Constitution — Phase 3</code>
+          </div>
+
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <!-- DC-10 Phase Gate Evidence -->
+      <div class="evidence-card">
+        <h4><span class="dc-tag">DC-10</span> 🏛 Phase Gate Evidence — Phase 3: Verify</h4>
+        <div class="evidence-grid">
+          <div class="evidence-item">
+            <label>Artifact Produced</label>
+            <p>
+              <code>hangar-ai-specs/evidence/adoption-verified.md</code><br>
+              YAML fields: <code>linter_result: PASS</code>, <code>linter_failures: 0</code>, <code>verdict: PASS</code>, <code>next_workflow</code>
+            </p>
+          </div>
+          <div class="evidence-item">
+            <label>What to Read</label>
+            <p>Check <code>verdict: PASS</code> and <code>linter_failures: 0</code>. Verify the <code>avatars</code> block matches your actual technology and product domain. Confirm <code>next_workflow</code> points to your intended next step.</p>
+          </div>
+          <div class="evidence-item">
+            <label>Decision to Make</label>
+            <p><strong>APPROVE</strong> — Linter passed, all artifacts committed, verdict PASS. Adoption complete — proceed to your target workflow.<br>
+            <strong>OBJECT</strong> — Any linter failure or missing artifact — address violations before committing.</p>
+          </div>
+          <div class="evidence-item drift-signals">
+            <label>⚠ Drift Signals</label>
+            <ul>
+              <li>Phase artifact references law IDs not present in <code>laws/</code> directory
+                <span class="drift-action">→ Agent hallucinated law IDs — verify each ID against laws/index.yaml before accepting</span>
+              </li>
+              <li><code>linter_result: PASS</code> but <code>AGENTS.md</code> is missing required fields
+                <span class="drift-action">→ Linter may not have checked all fields — manually verify AGENTS.md authority hierarchy</span>
+              </li>
+              <li>Artifact <code>verdict: PASS</code> but <code>hangar-ai-specs/</code> subdirectory is missing <code>archive/</code> or <code>specs/</code>
+                <span class="drift-action">→ Incomplete directory structure — re-run Phase 2.3 and re-verify</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- Adaptive Scope (DC-07 / DC-11 — VISIBLE) -->
+  <section class="adaptive-scope" role="region" aria-label="Adaptive Scope Guidance">
+    <h2>🔧 Adaptive Scope — Adoption Scoping Guidance</h2>
+    <div class="scope-items">
+      <div class="scope-item">
+        <strong>1. Scope adoption to setup only</strong>
+        <p>Skip SonarQube (Phase 2b) if your project isn't ready. Adoption is still constitutionally valid without it — you can provision the gate later.</p>
+      </div>
+      <div class="scope-item">
+        <strong>2. Run adoption per bounded context</strong>
+        <p>If your repo is a monorepo, adopt one module at a time. Each module gets its own <code>AGENTS.md</code> binding scoped to that module's root.</p>
+      </div>
+      <div class="scope-item">
+        <strong>3. Avatar creation is optional at adoption</strong>
+        <p>You don't have to run the Avatar workflow immediately. Adopt first, add avatar context later. Use the base constitution without avatar enrichment and note this in <code>AGENTS.md</code>.</p>
+      </div>
+      <div class="scope-item">
+        <strong>4. Phase 2b dashboard is never skipped</strong>
+        <p>Even if SonarQube is already provisioned, Step 2b.3 (open the dashboard) must occur before every workflow session begins. This is ENG-12.2 — the human engagement contract.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Followed-by -->
+  <section class="followed-by" aria-label="Next workflows after adoption">
+    <h2>▶ Next: Where to Go After Adoption</h2>
+    <div class="next-cards">
+      <a href="legacy-rescue.html" class="next-card">
+        <div class="card-arrow">→</div>
+        <div class="card-title">Legacy Rescue</div>
+        <div class="card-hint">If you have existing code with issues to assess or remediate</div>
+      </a>
+      <a href="greenfield.html" class="next-card">
+        <div class="card-arrow">→</div>
+        <div class="card-title">Greenfield</div>
+        <div class="card-hint">If you are building new features from a blank canvas</div>
+      </a>
+      <a href="index.html" class="next-card" style="border-top-color:#003366;">
+        <div class="card-arrow" style="color:#003366;">⬡</div>
+        <div class="card-title">Workflows Hub</div>
+        <div class="card-hint">Return to the full workflow catalogue</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-links">
+      <a href="index.html">← Workflows Hub</a>
+      &nbsp;|&nbsp;
+      <a href="../p1-landing.html">← Adoption Guide</a>
+    </div>
+    <div class="footer-meta">
+      Registry: laws/index.yaml v2.0.0 · DC-08–DC-12 binding · Rendered: 2026-05-07
+    </div>
+  </footer>
+
+</main>
+
+<script>
+function copyPrompt(btn, text) {
+  // Unescape HTML entities in the text before copying
+  var decoded = text.replace(/&quot;/g, '"').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+  navigator.clipboard.writeText(decoded).then(function() {
+    var orig = btn.innerHTML;
+    btn.innerHTML = '&#10003; Copied!';
+    setTimeout(function() { btn.innerHTML = orig; }, 2000);
+  }).catch(function() {
+    btn.innerHTML = '&#9888; Copy manually';
+    setTimeout(function() { btn.innerHTML = '&#128203; Copy'; }, 3000);
+  });
+}
+
+function togglePhase(btn) {
+  var section = btn.closest('.phase-section');
+  section.classList.toggle('collapsed');
+  var isExpanded = !section.classList.contains('collapsed');
+  btn.setAttribute('aria-expanded', String(isExpanded));
+}
+</script>
+
+</body>
+</html>

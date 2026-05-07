@@ -1,0 +1,1785 @@
+<!DOCTYPE html>
+<html lang="en"
+  data-page-id="P9-av"
+  data-registry-version="2.0.0"
+  data-render-timestamp="2026-05-07T18:00:00Z">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P9-av · Avatar Creation + Product Discovery — Hangar AI Constitution</title>
+<style>
+/* ── Reset & Base ──────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: #f4f6f9;
+  color: #1a1a2e;
+  line-height: 1.6;
+  font-size: 15px;
+}
+a { color: #0066cc; text-decoration: none; }
+a:hover { text-decoration: underline; }
+code, pre {
+  font-family: 'Cascadia Code', 'Consolas', 'Menlo', 'Monaco', monospace;
+  font-size: 0.875em;
+}
+
+/* ── Layout ───────────────────────────────────────────────────────────── */
+.page-wrap { max-width: 980px; margin: 0 auto; padding: 0 16px 48px; }
+
+/* ── Header ───────────────────────────────────────────────────────────── */
+.site-header {
+  background: linear-gradient(135deg, #003366 0%, #00264d 100%);
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  border-bottom: 3px solid #cc0000;
+}
+.site-header .back-link {
+  color: #d0d6de;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  text-decoration: none;
+  border: 1px solid rgba(208,214,222,0.3);
+  padding: 5px 12px;
+  border-radius: 4px;
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+.site-header .back-link:hover { background: rgba(255,255,255,0.12); }
+.header-titles { flex: 1; }
+.site-header h1 {
+  color: #fff;
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+.site-header .header-sub {
+  color: #d0d6de;
+  font-size: 0.82rem;
+  margin-top: 3px;
+}
+.header-badge {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  color: #d0d6de;
+  white-space: nowrap;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* ── Page-level nav ──────────────────────────────────────────────────── */
+.page-nav {
+  background: #003366;
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid #cc0000;
+}
+.page-nav a {
+  color: #d0d6de;
+  text-decoration: none;
+  padding: 8px 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-right: 1px solid rgba(255,255,255,0.1);
+  transition: background 0.15s;
+}
+.page-nav a:hover { background: rgba(255,255,255,0.1); color: #fff; }
+.page-nav a.active { background: rgba(255,255,255,0.15); color: #fff; }
+
+/* ── Persona Badge Row — DC-12 ──────────────────────────────────────── */
+.persona-row {
+  background: #fff;
+  border: 1px solid #d0d6de;
+  border-top: 3px solid #003366;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 0.9rem;
+  margin-top: 20px;
+  border-radius: 0 0 6px 6px;
+}
+.persona-row .label { font-weight: 600; color: #003366; }
+.persona-badge {
+  background: #e8f4e8;
+  border: 1px solid #4caf50;
+  color: #1b5e20;
+  border-radius: 20px;
+  padding: 3px 12px;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+.dc-badge {
+  margin-left: auto;
+  font-size: 0.75rem;
+  color: #666;
+  font-style: italic;
+}
+
+/* ── DC-08 When to Use ──────────────────────────────────────────────── */
+.when-to-use {
+  background: #e8f0ff;
+  border-left: 5px solid #0066cc;
+  border-radius: 0 8px 8px 0;
+  padding: 20px 24px;
+  margin: 20px 0;
+}
+.when-to-use h2 {
+  color: #003366;
+  font-size: 1.05rem;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.wtu-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+@media (max-width: 640px) { .wtu-cols { grid-template-columns: 1fr; } }
+.wtu-use, .wtu-dont {
+  background: #fff;
+  border-radius: 6px;
+  padding: 14px 16px;
+}
+.wtu-use h3 { color: #1b5e20; font-size: 0.9rem; margin-bottom: 10px; }
+.wtu-dont h3 { color: #b71c1c; font-size: 0.9rem; margin-bottom: 10px; }
+.wtu-use ul, .wtu-dont ul { list-style: none; padding: 0; }
+.wtu-use li { color: #2e7d32; padding: 4px 0; font-size: 0.88rem; }
+.wtu-dont li { color: #c62828; padding: 4px 0; font-size: 0.88rem; }
+.dc-tag {
+  font-size: 0.7rem;
+  background: #003366;
+  color: #fff;
+  border-radius: 3px;
+  padding: 2px 6px;
+  margin-right: 4px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* ── DC-11 Non-Determinism ──────────────────────────────────────────── */
+.nondeterminism-box {
+  background: #e8f5e9;
+  border: 2px solid #4caf50;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 18px 0;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.nondeterminism-box .dc-icon { font-size: 1.5rem; flex-shrink: 0; }
+.nondeterminism-box p { font-size: 0.9rem; color: #1b5e20; line-height: 1.55; }
+.nondeterminism-box strong { color: #145214; }
+
+/* ── Workflow Overview bar ───────────────────────────────────────────── */
+.workflow-overview { margin: 20px 0; }
+.workflow-overview h2 { color: #003366; font-size: 0.98rem; margin-bottom: 12px; font-weight: 600; }
+.phase-flow {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  flex-wrap: wrap;
+  background: #fff;
+  border: 1px solid #d0d6de;
+  border-radius: 8px;
+  padding: 18px 16px;
+}
+.flow-step { flex: 1; min-width: 110px; text-align: center; position: relative; }
+.flow-step-inner {
+  background: #003366;
+  color: #fff;
+  border-radius: 8px;
+  padding: 10px 8px;
+  margin: 0 4px;
+}
+.flow-step-inner .phase-num {
+  display: inline-block;
+  background: #cc0000;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  border-radius: 12px;
+  padding: 2px 8px;
+  margin-bottom: 5px;
+}
+.flow-step-inner .phase-title { font-size: 0.82rem; font-weight: 600; }
+.flow-arrow {
+  display: flex;
+  align-items: center;
+  align-self: center;
+  color: #0066cc;
+  font-size: 1.3rem;
+  padding: 0 1px;
+  flex-shrink: 0;
+}
+
+/* ── Trigger box ─────────────────────────────────────────────────────── */
+.trigger-box {
+  background: #fff;
+  border: 1px solid #d0d6de;
+  border-top: 3px solid #003366;
+  border-radius: 0 0 8px 8px;
+  padding: 16px 20px;
+  margin: 20px 0;
+  font-size: 0.88rem;
+}
+.trigger-box .trigger-label {
+  font-size: 0.8rem;
+  color: #555;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.trigger-meta { display: flex; gap: 32px; flex-wrap: wrap; color: #444; }
+.trigger-meta span strong { color: #003366; }
+
+/* ── Phase accordion cards ───────────────────────────────────────────── */
+.phase-section { margin: 18px 0; border-radius: 8px; overflow: visible; }
+.phase-header {
+  background: #003366;
+  color: #fff;
+  padding: 0;
+  border-radius: 8px 8px 0 0;
+  display: flex;
+  align-items: center;
+}
+.phase-toggle-btn {
+  flex: 1;
+  background: none;
+  border: none;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px 20px;
+  text-align: left;
+  cursor: pointer;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  font-size: 0.97rem;
+  font-weight: 600;
+}
+.phase-toggle-btn:hover { background: rgba(255,255,255,0.08); }
+.phase-toggle-btn:focus-visible { outline: 2px solid #fff; outline-offset: -4px; }
+.phase-pill {
+  background: #cc0000;
+  color: #fff;
+  border-radius: 14px;
+  padding: 3px 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.phase-pill.stage { background: #0066cc; }
+.phase-name { flex: 1; }
+.phase-purpose { font-size: 0.8rem; color: #d0d6de; font-weight: 400; margin-left: 6px; }
+.toggle-icon { font-size: 1rem; transition: transform 0.2s; flex-shrink: 0; }
+.phase-section.collapsed .toggle-icon { transform: rotate(-90deg); }
+
+.phase-body {
+  background: #fff;
+  border: 1px solid #d0d6de;
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  padding: 20px;
+  display: block;
+}
+.phase-section.collapsed .phase-body { display: none; }
+
+/* ── Prompt Library — DC-09 ──────────────────────────────────────────── */
+.prompt-library { margin: 14px 0; }
+.prompt-library-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #003366;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.prompt-cards { display: grid; grid-template-columns: 1fr; gap: 10px; }
+.prompt-card {
+  background: #f4f6f9;
+  border: 1px solid #d0d6de;
+  border-radius: 6px;
+  padding: 12px 14px;
+}
+.prompt-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+.prompt-type {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.prompt-type.cli { color: #6a0dad; }
+.prompt-type.ide { color: #0066cc; }
+.prompt-text {
+  background: #1a1a2e;
+  color: #e2e8f0;
+  padding: 10px 13px;
+  border-radius: 5px;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  word-break: break-word;
+  display: block;
+}
+.prompt-text.ide-text { color: #a8d8ff; }
+
+/* ── Copy Button ─────────────────────────────────────────────────────── */
+.copy-btn {
+  background: #0066cc;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 6px 13px;
+  font-size: 0.78rem;
+  cursor: pointer;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  white-space: nowrap;
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+.copy-btn:hover { background: #0052a3; }
+.copy-btn:focus-visible { outline: 2px solid #0066cc; outline-offset: 2px; }
+
+/* ── Phase Gate Evidence — DC-10 ─────────────────────────────────────── */
+.evidence-card {
+  background: #fffbf0;
+  border: 1px solid #e8d5a3;
+  border-left: 5px solid #cc8800;
+  border-radius: 0 8px 8px 0;
+  padding: 16px 20px;
+  margin: 14px 0;
+}
+.evidence-card h4 {
+  color: #664400;
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.evidence-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+@media (max-width: 600px) { .evidence-grid { grid-template-columns: 1fr; } }
+.evidence-item label {
+  font-size: 0.73rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #886600;
+  display: block;
+  margin-bottom: 4px;
+}
+.evidence-item p {
+  font-size: 0.85rem;
+  color: #3d2b00;
+  line-height: 1.45;
+}
+.evidence-item code {
+  background: #fff3cd;
+  border: 1px solid #e8d5a3;
+  padding: 2px 6px;
+  border-radius: 3px;
+  color: #5c3b00;
+}
+.drift-signals { grid-column: 1 / -1; }
+.drift-signals ul { list-style: none; padding: 0; }
+.drift-signals li {
+  padding: 6px 10px;
+  margin: 4px 0;
+  background: #fff0f0;
+  border-left: 3px solid #cc0000;
+  border-radius: 0 4px 4px 0;
+  font-size: 0.83rem;
+  color: #7a0000;
+}
+.drift-signals li .drift-action {
+  display: block;
+  color: #b71c1c;
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+/* ── Section divider ─────────────────────────────────────────────────── */
+.workflow-divider {
+  margin: 48px 0 36px;
+  position: relative;
+  text-align: center;
+}
+.workflow-divider hr {
+  border: none;
+  border-top: 2px solid #d0d6de;
+  margin: 0;
+}
+.workflow-divider .divider-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #f4f6f9;
+  padding: 0 20px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #003366;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+.workflow-divider .divider-accent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #f4f6f9;
+  padding: 4px 24px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #003366;
+  white-space: nowrap;
+  border: 2px solid #0066cc;
+  border-radius: 20px;
+  line-height: 1.5;
+}
+
+/* ── Section intro card ─────────────────────────────────────────────── */
+.section-intro {
+  background: #fff;
+  border: 1px solid #d0d6de;
+  border-top: 4px solid #cc0000;
+  border-radius: 0 0 8px 8px;
+  padding: 18px 22px;
+  margin: 20px 0;
+}
+.section-intro h2 {
+  color: #003366;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-intro p { color: #444; font-size: 0.9rem; }
+.workflow-id-tag {
+  background: #003366;
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  border-radius: 4px;
+  padding: 3px 8px;
+  letter-spacing: 0.5px;
+}
+
+/* ── Footer nav ─────────────────────────────────────────────────────── */
+.site-footer {
+  margin-top: 32px;
+  padding: 16px 0;
+  border-top: 1px solid #d0d6de;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 0.85rem;
+}
+.footer-nav-left { display: flex; gap: 16px; flex-wrap: wrap; }
+.footer-nav-left a, .footer-nav-right a {
+  color: #0066cc;
+  font-weight: 600;
+  padding: 6px 12px;
+  border: 1px solid #0066cc;
+  border-radius: 5px;
+  transition: background 0.15s;
+}
+.footer-nav-left a:hover, .footer-nav-right a:hover { background: #e8f0ff; text-decoration: none; }
+.footer-nav-right a { background: #003366; color: #fff; border-color: #003366; }
+.footer-nav-right a:hover { background: #00264d; }
+.footer-meta { font-size: 0.75rem; color: #888; text-align: right; align-self: flex-end; }
+
+/* ── Utility ─────────────────────────────────────────────────────────── */
+.section-heading {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #003366;
+  margin: 16px 0 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.divider-light { border: none; border-top: 1px solid #e8ecf0; margin: 14px 0; }
+.phase-intro-text { font-size: 0.88rem; color: #444; margin-bottom: 14px; line-height: 1.5; }
+</style>
+</head>
+<body>
+
+<!-- ── Header ───────────────────────────────────────────────────── -->
+<header class="site-header">
+  <a href="index.html" class="back-link">← Workflows Hub</a>
+  <div class="header-titles">
+    <h1>🤖 Avatar Creation &amp; Product Discovery</h1>
+    <p class="header-sub">P9-av · Two combined workflows — Avatar Creation (Phases 0–6) and Product Discovery (Stages A–F)</p>
+  </div>
+  <span class="header-badge">P9-av · v2.0.0</span>
+</header>
+
+<!-- ── Page-level nav ─────────────────────────────────────────── -->
+<nav class="page-nav" aria-label="Page sections">
+  <a href="#avatar" class="active">🤖 Part 1: Avatar Creation</a>
+  <a href="#discovery">🔍 Part 2: Product Discovery</a>
+</nav>
+
+<main class="page-wrap">
+
+<!-- ════════════════════════════════════════════════════════════════
+     PART 1 — AVATAR CREATION WORKFLOW
+     ════════════════════════════════════════════════════════════════ -->
+<section id="avatar" aria-label="Avatar Creation Workflow">
+
+  <div class="section-intro">
+    <h2>
+      <span class="workflow-id-tag">avatar-workflow · v1.0.0</span>
+      🤖 Part 1 — Avatar Creation Workflow
+    </h2>
+    <p>
+      Six-Mode Avatar Lifecycle Management. Creates a constitutional avatar — a structured context file — that gives the AI deep knowledge of your tech stack, domain model, and patterns before running any other workflow.
+      Governed by <strong>ENG-11.1</strong> (NON-NEGOTIABLE), <strong>ENG-1.2</strong>, <strong>ENG-10.1</strong>.
+    </p>
+  </div>
+
+  <!-- DC-12 Persona Row -->
+  <div class="persona-row" role="region" aria-label="DC-12 persona routing for Avatar workflow">
+    <span class="label">👥 Who uses this:</span>
+    <span class="persona-badge">Senior Architect ✅</span>
+    <span class="persona-badge">Technical Coach ✅</span>
+    <span class="persona-badge">Engineer ✅</span>
+    <span class="dc-badge">DC-12 · Persona Routing</span>
+  </div>
+
+  <!-- DC-08 When to Use — VISIBLE, NOT in accordion -->
+  <section class="when-to-use" aria-label="DC-08 When to Use Avatar Workflow">
+    <h2><span class="dc-tag">DC-08</span> 🎯 When to Use — Avatar Creation</h2>
+    <div class="wtu-cols">
+      <div class="wtu-use">
+        <h3>✅ Use Avatar when:</h3>
+        <ul>
+          <li>✅ You want the AI to have <strong>deep context about your tech stack</strong> before running any workflow</li>
+          <li>✅ Your stack uses <strong>non-standard frameworks</strong> or AA-specific libraries</li>
+          <li>✅ You're about to run <strong>Legacy Rescue</strong> and want better characterisation</li>
+          <li>✅ The agent is making <strong>generic suggestions</strong> that don't fit your stack</li>
+        </ul>
+      </div>
+      <div class="wtu-dont">
+        <h3>❌ Do NOT run Avatar if:</h3>
+        <ul>
+          <li>❌ Constitution is <strong>not yet adopted</strong> — run Adoption first</li>
+          <li>❌ You haven't defined your <strong>bounded context</strong> — run Discovery first</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- DC-11 Non-Determinism — VISIBLE -->
+  <div class="nondeterminism-box" role="note" aria-label="DC-11 Non-Determinism Notice for Avatar">
+    <span class="dc-icon" aria-hidden="true">🎲</span>
+    <p>
+      <strong>DC-11 · Avatar output is highly context-dependent.</strong> The same codebase scanned twice may produce
+      slightly different avatar descriptions. What matters is that the RAG Validate phase (Phase 5) confirms
+      the avatar improves agent recall quality. If Phase 5 shows recall degraded, re-run Phase 3–4 with
+      more specific domain context.
+    </p>
+  </div>
+
+  <!-- Trigger Box -->
+  <div class="trigger-box" aria-label="Workflow trigger and chain">
+    <div class="trigger-label">⚡ Workflow chain</div>
+    <div class="trigger-meta">
+      <span><strong>Trigger:</strong> "I want to create a [X] avatar" / "Generate a [tech/product] avatar for [X]"</span>
+      <span><strong>Preceded by:</strong> Adoption (usually)</span>
+      <span><strong>Followed by:</strong> Any workflow — avatars improve all of them</span>
+    </div>
+  </div>
+
+  <!-- Workflow Overview -->
+  <div class="workflow-overview">
+    <h2>📐 Avatar Workflow — Phases 0–6</h2>
+    <div class="phase-flow" role="img" aria-label="Avatar workflow phases: Preflight, Identify, Scan, Discover, Build, RAG Validate, Commit">
+      <div class="flow-step">
+        <div class="flow-step-inner">
+          <div class="phase-num">Phase 0</div>
+          <div class="phase-title">Preflight</div>
+        </div>
+      </div>
+      <div class="flow-arrow" aria-hidden="true">→</div>
+      <div class="flow-step">
+        <div class="flow-step-inner">
+          <div class="phase-num">Phase 1</div>
+          <div class="phase-title">Identify</div>
+        </div>
+      </div>
+      <div class="flow-arrow" aria-hidden="true">→</div>
+      <div class="flow-step">
+        <div class="flow-step-inner">
+          <div class="phase-num">Phase 2</div>
+          <div class="phase-title">Scan</div>
+        </div>
+      </div>
+      <div class="flow-arrow" aria-hidden="true">→</div>
+      <div class="flow-step">
+        <div class="flow-step-inner">
+          <div class="phase-num">Phase 3</div>
+          <div class="phase-title">Discover</div>
+        </div>
+      </div>
+      <div class="flow-arrow" aria-hidden="true">→</div>
+      <div class="flow-step">
+        <div class="flow-step-inner">
+          <div class="phase-num">Phase 4</div>
+          <div class="phase-title">Build</div>
+        </div>
+      </div>
+      <div class="flow-arrow" aria-hidden="true">→</div>
+      <div class="flow-step">
+        <div class="flow-step-inner">
+          <div class="phase-num">Phase 5</div>
+          <div class="phase-title">RAG Validate</div>
+        </div>
+      </div>
+      <div class="flow-arrow" aria-hidden="true">→</div>
+      <div class="flow-step">
+        <div class="flow-step-inner">
+          <div class="phase-num">Phase 6</div>
+          <div class="phase-title">Commit</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Phase 0: Preflight ──────────────────────────────────── -->
+  <div class="phase-section" id="av-phase-0">
+    <div class="phase-header">
+      <button class="phase-toggle-btn"
+              aria-expanded="true"
+              aria-controls="av-phase-0-body"
+              onclick="togglePhase(this)">
+        <span class="phase-pill">Phase 0</span>
+        <span class="phase-name">Preflight</span>
+        <span class="phase-purpose">· Verify adoption complete, AGENTS.md exists</span>
+        <span class="toggle-icon" aria-hidden="true">▾</span>
+      </button>
+    </div>
+    <div class="phase-body" id="av-phase-0-body">
+      <p class="phase-intro-text">
+        Validate the author's intent before any files are created. Check adoption state, deduplication,
+        law boundary acknowledgement, and RAG query pattern agreement.
+      </p>
+
+      <!-- DC-09 Prompt Library -->
+      <div class="prompt-library" aria-label="DC-09 Prompt Library Phase 0">
+        <div class="prompt-library-title"><span class="dc-tag">DC-09</span> 📋 Prompt Library — Phase 0: Preflight</div>
+        <div class="prompt-cards">
+          <div class="prompt-card">
+            <div class="prompt-card-header">
+              <span class="prompt-type cli">🖥 CLI — gh copilot ask</span>
+              <button class="copy-btn"
+                      aria-label="Copy Phase 0 CLI prompt to clipboard"
+                      onclick="copyPrompt(this, 'gh copilot ask &quot;Run Avatar Phase 0 Preflight: verify adoption is complete. Check for AGENTS.md, hangar-ai-constitution/ adjacent directory, and hangar-ai-specs/. Confirm we are ready for avatar creation.&quot;')">📋 Copy</button>
+            </div>
+            <code class="prompt-text">gh copilot ask "Run Avatar Phase 0 Preflight: verify adoption is complete. Check for AGENTS.md, hangar-ai-constitution/ adjacent directory, and hangar-ai-specs/. Confirm we are ready for avatar creation."</code>
+          </div>
+          <div class="prompt-card">
+            <div class="prompt-card-header">
+              <span class="prompt-type ide">💬 IDE Chat</span>
+              <button class="copy-btn"
+                      aria-label="Copy Phase 0 IDE prompt to clipboard"
+                      onclick="copyPrompt(this, 'Run Avatar Phase 0 Preflight. Check AGENTS.md exists at repo root, hangar-ai-constitution/ is present, and hangar-ai-specs/ is initialised. Report ready or blocked.')">📋 Copy</button>
+            </div>
+            <code class="prompt-text ide-text">Run Avatar Phase 0 Preflight. Check AGENTS.md exists at repo root, hangar-ai-constitution/ is present, and hangar-ai-specs/ is initialised. Report ready or blocked.</code>
+          </div>
+        </div>
+      </div>
+
+      <!-- DC-10 Phase Gate Evidence -->
+      <div class="evidence-card" aria-label="DC-10 Phase Gate Evidence Phase 0">
+        <h4>🔒 <span class="dc-tag">DC-10</span> Phase Gate Evidence — Phase 0</h4>
+        <div class="evidence-grid">
+          <div class="evidence-item">
+            <label>Artifact</label>
+            <p><code>phase-0-preflight.html</code></p>
+          </div>
+          <div class="evidence-item">
+            <label>Read</label>
+            <p>Adoption checklist — AGENTS.md present, constitution dir present, hangar-ai-specs/ initialised</p>
+          </div>
+          <div class="evidence-item">
+            <label>Decision Gate</label>
+            <p>"Is adoption complete? Is the repo ready for avatar creation?"</p>
+          </div>
+          <div class="drift-signals">
+            <label>⚠️ Drift Signals</label>
+            <ul>
+              <li>AGENTS.md missing but adoption was marked complete
+                <span class="drift-action">→ Re-run Adoption workflow before proceeding</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Phase 1: Identify ───────────────────────────────────── -->
+  <div class="phase-section" id="av-phase-1">
+    <div class="phase-header">
+      <button class="phase-toggle-btn"
+              aria-expanded="true"
+              aria-controls="av-phase-1-body"
+              onclick="togglePhase(this)">
+        <span class="phase-pill">Phase 1</span>
+        <span class="phase-name">Identify</span>
+        <span class="phase-purpose">· Identify tech stack, frameworks, languages, key dependencies</span>
+        <span class="toggle-icon" aria-hidden="true">▾</span>
+      </button>
+    </div>
+    <div class="phase-body" id="av-phase-1-body">
+      <p class="phase-intro-text">
+        Confirm mode, avatar type, domain slug, and avatar path. Classify the mode (Generate / Assess / Validate / Enrich / PR Review) and run deduplication checks before any scan or build begins.
+      </p>
+
+      <div class="prompt-library" aria-label="DC-09 Prompt Library Phase 1">
+        <div class="prompt-library-title"><span class="dc-tag">DC-09</span> 📋 Prompt Library — Phase 1: Identify</div>
+        <div class="prompt-cards">
+          <div class="prompt-card">
+            <div class="prompt-card-header">
+              <span class="prompt-type cli">🖥 CLI — gh copilot ask</span>
+              <button class="copy-btn"
+                      aria-label="Copy Phase 1 CLI prompt to clipboard"
+                      onclick="copyPrompt(this, 'gh copilot ask &quot;Run Avatar Phase 1 Identify: scan this repo and identify the full tech stack — languages, frameworks, build tools, test frameworks, key dependencies. List version constraints and any AA-specific libraries.&quot;')">📋 Copy</button>
+            </div>
+            <code class="prompt-text">gh copilot ask "Run Avatar Phase 1 Identify: scan this repo and identify the full tech stack — languages, frameworks, build tools, test frameworks, key dependencies. List version constraints and any AA-specific libraries."</code>
+          </div>
+          <div class="prompt-card">
+            <div class="prompt-card-header">
+              <span class="prompt-type ide">💬 IDE Chat</span>
+              <button class="copy-btn"
+                      aria-label="Copy Phase 1 IDE prompt to clipboard"
+                      onclick="copyPrompt(this, 'Identify the full tech stack for this repo: languages, frameworks, build tools, test frameworks, and key dependencies. Note any AA-specific or non-standard libraries.')">📋 Copy</button>
+            </div>
+            <code class="prompt-text ide-text">Identify the full tech stack for this repo: languages, frameworks, build tools, test frameworks, and key dependencies. Note any AA-specific or non-standard libraries.</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="evidence-card" aria-label="DC-10 Phase Gate Evidence Phase 1">
+        <h4>🔒 <span class="dc-tag">DC-10</span> Phase Gate Evidence — Phase 1</h4>
+        <div class="evidence-grid">
+          <div class="evidence-item">
+            <label>Artifact</label>
+            <p><code>phase-1-identify.html</code></p>
+          </div>
+          <div class="evidence-item">
+            <label>Read</label>
+            <p>Tech stack table — languages, frameworks, versions, AA-specific libraries</p>
+          </div>
+          <div class="evidence-item">
+            <label>Decision Gate</label>
+            <p>"Is this an accurate picture of our stack?"</p>
+          </div>
+          <div class="drift-signals">
+            <label>⚠️ Drift Signals</label>
+            <ul>
+              <li>Major framework missing from the identified list
+                <span class="drift-action">→ Add to context manually and re-run Phase 1</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Phase 2: Scan ───────────────────────────────────────── -->
+  <div class="phase-section" id="av-phase-2">
+    <div class="phase-header">
+      <button class="phase-toggle-btn"
+              aria-expanded="true"
+              aria-controls="av-phase-2-body"
+              onclick="togglePhase(this)">
+        <span class="phase-pill">Phase 2</span>
+        <span class="phase-name">Scan</span>
+        <span class="phase-purpose">· Deep scan for domain-specific patterns, naming conventions, architectural decisions</span>
+        <span class="toggle-icon" aria-hidden="true">▾</span>
+      </button>
+    </div>
+    <div class="phase-body" id="av-phase-2-body">
+      <p class="phase-intro-text">
+        Produce a complete gap report against the Avatar Model Schema. Checks schema completeness,
+        manifest unknown blocks guard, law boundary, activates.skills existence, shadow governance detection,
+        and blast radius trigger.
+      </p>
+
+      <div class="prompt-library" aria-label="DC-09 Prompt Library Phase 2">
+        <div class="prompt-library-title"><span class="dc-tag">DC-09</span> 📋 Prompt Library — Phase 2: Scan</div>
+        <div class="prompt-cards">
+          <div class="prompt-card">
+            <div class="prompt-card-header">
+              <span class="prompt-type cli">🖥 CLI — gh copilot ask</span>
+              <button class="copy-btn"
+                      aria-label="Copy Phase 2 CLI prompt to clipboard"
+                      onclick="copyPrompt(this, 'gh copilot ask &quot;Run Avatar Phase 2 Scan: perform a deep scan of [repo/package — e.g. loyalty-service/src/main]. Identify domain-specific patterns, naming conventions, architectural decisions, and any deviations from standard patterns.&quot;')">📋 Copy</button>
+            </div>
+            <code class="prompt-text">gh copilot ask "Run Avatar Phase 2 Scan: perform a deep scan of [repo/package — e.g. loyalty-service/src/main]. Identify domain-specific patterns, naming conventions, architectural decisions, and any deviations from standard patterns."</code>
+          </div>
+          <div class="prompt-card">
+            <div class="prompt-card-header">
+              <span class="prompt-type ide">💬 IDE Chat</span>
+              <button class="copy-btn"
+                      aria-label="Copy Phase 2 IDE prompt to clipboard"
+                      onclick="copyPrompt(this, 'Deep scan this codebase. Identify domain-specific patterns, naming conventions, architectural decisions, and deviations from standard patterns. Produce a gap report.')">📋 Copy</button>
+            </div>
+            <code class="prompt-text ide-text">Deep scan this codebase. Identify domain-specific patterns, naming conventions, architectural decisions, and deviations from standard patterns. Produce a gap report.</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="evidence-card" aria-label="DC-10 Phase Gate Evidence Phase 2">
+        <h4>🔒 <span class="dc-tag">DC-10</span> Phase Gate Evidence — Phase 2</h4>
+        <div class="evidence-grid">
+          <div class="evidence-item">
+            <label>Artifact</label>
+            <p><code>phase-2-scan.html</code></p>
+          </div>
+          <div class="evidence-item">
+            <label>Read</label>
+            <p>Patterns discovered — naming conventions, architectural decisions, deviations noted</p>
+          </div>
+          <div class="evidence-item">
+            <label>Decision Gate</label>
+            <p>"Do these patterns match what our team actually knows about this codebase?"</p>
+          </div>
+          <div class="drift-signals">
+            <label>⚠️ Drift Signals</label>
+            <ul>
+              <li>Patterns described are generic (e.g. "standard Java") rather than your actual patterns
+                <span class="drift-action">→ Re-run Phase 2 with a more specific scope or path</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Phase 3: Discover ───────────────────────────────────── -->
+  <div class="phase-section" id="av-phase-3">
+    <div class="phase-header">
+      <button class="phase-toggle-btn"
+              aria-expanded="true"
+              aria-controls="av-phase-3-body"
+              onclick="togglePhase(this)">
+        <span class="phase-pill">Phase 3</span>
+        <span class="phase-name">Discover</span>
+        <span class="phase-purpose">· Discover product domains, bounded contexts, team terminology</span>
+        <span class="toggle-icon" aria-hidden="true">▾</span>
+      </button>
+    </div>
+    <div class="phase-body" id="av-phase-3-body">
+      <p class="phase-intro-text">
+        Map law discovery by avatar type. Define 5 canonical RAG query patterns that the avatar must answer.
+        These query patterns become the Phase 5 test cases.
+      </p>
+
+      <div class="prompt-library" aria-label="DC-09 Prompt Library Phase 3">
+        <div class="prompt-library-title"><span class="dc-tag">DC-09</span> 📋 Prompt Library — Phase 3: Discover</div>
+        <div class="prompt-cards">
+          <div class="prompt-card">
+            <div class="prompt-card-header">
+              <span class="prompt-type cli">🖥 CLI — gh copilot ask</span>
+              <button class="copy-btn"
+                      aria-label="Copy Phase 3 CLI prompt to clipboard"
+                      onclick="copyPrompt(this, 'gh copilot ask &quot;Run Avatar Phase 3 Discover: identify the product domains present in this codebase. Map them to bounded contexts. Note team-specific terminology and ubiquitous language.&quot;')">📋 Copy</button>
+            </div>
+            <code class="prompt-text">gh copilot ask "Run Avatar Phase 3 Discover: identify the product domains present in this codebase. Map them to bounded contexts. Note team-specific terminology and ubiquitous language."</code>
+          </div>
+          <div class="prompt-card">
+            <div class="prompt-card-header">
+              <span class="prompt-type ide">💬 IDE Chat</span>
+              <button class="copy-btn"
+                      aria-label="Copy Phase 3 IDE prompt to clipboard"
+                      onclick="copyPrompt(this, 'Identify the product domains in this codebase. Map them to bounded contexts and note team-specific terminology and ubiquitous language.')">📋 Copy</button>
+            </div>
+            <code class="prompt-text ide-text">Identify the product domains in this codebase. Map them to bounded contexts and note team-specific terminology and ubiquitous language.</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="evidence-card" aria-label="DC-10 Phase Gate Evidence Phase 3">
+        <h4>🔒 <span class="dc-tag">DC-10</span> Phase Gate Evidence — Phase 3</h4>
+        <div class="evidence-grid">
+          <div class="evidence-item">
+            <label>Artifact</label>
+            <p><code>phase-3-discover.html</code></p>
+          </div>
+          <div class="evidence-item">
+            <label>Read</label>
+            <p>Domain map — bounded contexts, team terminology, ubiquitous language glossary</p>
+          </div>
+          <div class="evidence-item">
+            <label>Decision Gate</label>
+            <p>"Are these the right bounded contexts for our product?"</p>
+          </div>
+          <div class="drift-signals">
+            <label>⚠️ Drift Signals</label>
+            <ul>
+              <li>Domain map is too broad — covers all services when only one is in scope
+                <span class="drift-action">→ Scope Phase 3 to a single subdomain and re-run</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Phase 4: Build ──────────────────────────────────────── -->
+  <div class="phase-section" id="av-phase-4">
+    <div class="phase-header">
+      <button class="phase-toggle-btn"
+              aria-expanded="true"
+              aria-controls="av-phase-4-body"
+              onclick="togglePhase(this)">
+        <span class="phase-pill">Phase 4</span>
+        <span class="phase-name">Build</span>
+        <span class="phase-purpose">· Construct the avatar YAML/MD file with full context</span>
+        <span class="toggle-icon" aria-hidden="true">▾</span>
+      </button>
+    </div>
+    <div class="phase-body" id="av-phase-4-body">
+      <p class="phase-intro-text">
+        Generate scaffold (Generate mode); resolve gaps and route content (Assess mode); extract from codebase (Enrich mode).
+        All schema-required files must be present and token budgets within limits before gating.
+      </p>
+
+      <div class="prompt-library" aria-label="DC-09 Prompt Library Phase 4">
+        <div class="prompt-library-title"><span class="dc-tag">DC-09</span> 📋 Prompt Library — Phase 4: Build</div>
+        <div class="prompt-cards">
+          <div class="prompt-card">
+            <div class="prompt-card-header">
+              <span class="prompt-type cli">🖥 CLI — gh copilot ask</span>
+              <button class="copy-btn"
+                      aria-label="Copy Phase 4 CLI prompt to clipboard"
+                      onclick="copyPrompt(this, 'gh copilot ask &quot;Run Avatar Phase 4 Build: construct the avatar context file for this repo. Include tech stack, domain model, key patterns, and constitutional binding references. Follow the avatar-workflow.md template.&quot;')">📋 Copy</button>
+            </div>
+            <code class="prompt-text">gh copilot ask "Run Avatar Phase 4 Build: construct the avatar context file for this repo. Include tech stack, domain model, key patterns, and constitutional binding references. Follow the avatar-workflow.md template."</code>
+          </div>
+          <div class="prompt-card">
+            <div class="prompt-card-header">
+              <span class="prompt-type ide">💬 IDE Chat</span>
+              <button class="copy-btn"
+                      aria-label="Copy Phase 4 IDE prompt to clipboard"
+                      onclick="copyPrompt(this, 'Construct the avatar context file for this repo. Include tech stack, domain model, key patterns, and constitutional binding references following the avatar-workflow.md template.')">📋 Copy</button>
+            </div>
+            <code class="prompt-text ide-text">Construct the avatar context file for this repo. Include tech stack, domain model, key patterns, and constitutional binding references following the avatar-workflow.md template.</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="evidence-card" aria-label="DC-10 Phase Gate Evidence Phase 4">
+        <h4>🔒 <span class="dc-tag">DC-10</span> Phase Gate Evidence — Phase 4</h4>
+        <div class="evidence-grid">
+          <div class="evidence-item">
+            <label>Artifact</label>
+            <p><code>phase-4-build.html</code></p>
+          </div>
+          <div class="evidence-item">
+            <label>Read</label>
+            <p>Avatar YAML/MD content — manifest, guidance.md, examples/ directory</p>
+          </div>
+          <div class="evidence-item">
+            <label>Decision Gate</label>
+            <p>"Does this avatar accurately represent our domain?"</p>
+          </div>
+          <div class="drift-signals">
+            <label>⚠️ Drift Signals</label>
+            <ul>
+              <li>Avatar references frameworks we don't use
+                <span class="drift-action">→ Phase 2 scan was incomplete — re-run Phase 2 with correct scope</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Phase 5: RAG Validate ───────────────────────────────── -->
+  <div class="phase-section" id="av-phase-5">
+    <div class="phase-header">
+      <button class="phase-toggle-btn"
+              aria-expanded="true"
+              aria-controls="av-phase-5-body"
+              onclick="togglePhase(this)">
+        <span class="phase-pill">Phase 5</span>
+        <span class="phase-name">RAG Validate</span>
+        <span class="phase-purpose">· Validate avatar in RAG context, test recall quality</span>
+        <span class="toggle-icon" aria-hidden="true">▾</span>
+      </button>
+    </div>
+    <div class="phase-body" id="av-phase-5-body">
+      <p class="phase-intro-text">
+        Simulate 5 canonical RAG queries defined in Phase 3. Enforce token budget (max query load ≤3,500 tokens).
+        Gate: Recall ≥95% (5/5 queries), 0 BLOCKING violations.
+        <strong>Validate mode</strong> is read-only — no files modified.
+      </p>
+
+      <div class="prompt-library" aria-label="DC-09 Prompt Library Phase 5">
+        <div class="prompt-library-title"><span class="dc-tag">DC-09</span> 📋 Prompt Library — Phase 5: RAG Validate</div>
+        <div class="prompt-cards">
+          <div class="prompt-card">
+            <div class="prompt-card-header">
+              <span class="prompt-type cli">🖥 CLI — gh copilot ask</span>
+              <button class="copy-btn"
+                      aria-label="Copy Phase 5 CLI prompt to clipboard"
+                      onclick="copyPrompt(this, 'gh copilot ask &quot;Run Avatar Phase 5 RAG Validate: test the avatar in RAG context. Ask 3 domain-specific questions and verify the agent answers correctly using the avatar context. Report recall quality score.&quot;')">📋 Copy</button>
+            </div>
+            <code class="prompt-text">gh copilot ask "Run Avatar Phase 5 RAG Validate: test the avatar in RAG context. Ask 3 domain-specific questions and verify the agent answers correctly using the avatar context. Report recall quality score."</code>
+          </div>
+          <div class="prompt-card">
+            <div class="prompt-card-header">
+              <span class="prompt-type ide">💬 IDE Chat</span>
+              <button class="copy-btn"
+                      aria-label="Copy Phase 5 IDE prompt to clipboard"
+                      onclick="copyPrompt(this, 'Test this avatar in RAG context. Run 5 domain-specific queries and verify the agent answers correctly using the avatar. Report recall quality: pass/fail per query and overall score.')">📋 Copy</button>
+            </div>
+            <code class="prompt-text ide-text">Test this avatar in RAG context. Run 5 domain-specific queries and verify the agent answers correctly using the avatar. Report recall quality: pass/fail per query and overall score.</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="evidence-card" aria-label="DC-10 Phase Gate Evidence Phase 5">
+        <h4>🔒 <span class="dc-tag">DC-10</span> Phase Gate Evidence — Phase 5</h4>
+        <div class="evidence-grid">
+          <div class="evidence-item">
+            <label>Artifact</label>
+            <p><code>phase-5-validate.html</code></p>
+          </div>
+          <div class="evidence-item">
+            <label>Read</label>
+            <p>Recall quality report — 5 canonical query results, score ≥95%, token budget check</p>
+          </div>
+          <div class="evidence-item">
+            <label>Decision Gate</label>
+            <p>"Does the avatar improve agent responses compared to no avatar?"</p>
+          </div>
+          <div class="drift-signals">
+            <label>⚠️ Drift Signals</label>
+            <ul>
+              <li>Recall score is worse than baseline (avatar adds noise)
+                <span class="drift-action">→ Rebuild Phase 4 — reduce scope or improve domain specificity</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Phase 6: Commit ─────────────────────────────────────── -->
+  <div class="phase-section" id="av-phase-6">
+    <div class="phase-header">
+      <button class="phase-toggle-btn"
+              aria-expanded="true"
+              aria-controls="av-phase-6-body"
+              onclick="togglePhase(this)">
+        <span class="phase-pill">Phase 6</span>
+        <span class="phase-name">Commit</span>
+        <span class="phase-purpose">· Commit avatar to hangar-ai-specs/avatars/, update AGENTS.md reference</span>
+        <span class="toggle-icon" aria-hidden="true">▾</span>
+      </button>
+    </div>
+    <div class="phase-body" id="av-phase-6-body">
+      <p class="phase-intro-text">
+        Update registry (<code>index.yaml</code> + <code>AVATAR-RAG-INDEX.yaml</code>), apply semver versioning,
+        commit evidence, and deprecate prior version if applicable.
+        Gate: both registry files updated, evidence committed.
+      </p>
+
+      <div class="prompt-library" aria-label="DC-09 Prompt Library Phase 6">
+        <div class="prompt-library-title"><span class="dc-tag">DC-09</span> 📋 Prompt Library — Phase 6: Commit</div>
+        <div class="prompt-cards">
+          <div class="prompt-card">
+            <div class="prompt-card-header">
+              <span class="prompt-type cli">🖥 CLI — gh copilot ask</span>
+              <button class="copy-btn"
+                      aria-label="Copy Phase 6 CLI prompt to clipboard"
+                      onclick="copyPrompt(this, 'gh copilot ask &quot;Run Avatar Phase 6 Commit: commit the validated avatar to hangar-ai-specs/avatars/. Update AGENTS.md to reference the new avatar. Produce the final phase artifact.&quot;')">📋 Copy</button>
+            </div>
+            <code class="prompt-text">gh copilot ask "Run Avatar Phase 6 Commit: commit the validated avatar to hangar-ai-specs/avatars/. Update AGENTS.md to reference the new avatar. Produce the final phase artifact."</code>
+          </div>
+          <div class="prompt-card">
+            <div class="prompt-card-header">
+              <span class="prompt-type ide">💬 IDE Chat</span>
+              <button class="copy-btn"
+                      aria-label="Copy Phase 6 IDE prompt to clipboard"
+                      onclick="copyPrompt(this, 'Commit the validated avatar to hangar-ai-specs/avatars/. Update AGENTS.md to reference it. Update index.yaml and AVATAR-RAG-INDEX.yaml. Produce the final phase artifact.')">📋 Copy</button>
+            </div>
+            <code class="prompt-text ide-text">Commit the validated avatar to hangar-ai-specs/avatars/. Update AGENTS.md to reference it. Update index.yaml and AVATAR-RAG-INDEX.yaml. Produce the final phase artifact.</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="evidence-card" aria-label="DC-10 Phase Gate Evidence Phase 6">
+        <h4>🔒 <span class="dc-tag">DC-10</span> Phase Gate Evidence — Phase 6</h4>
+        <div class="evidence-grid">
+          <div class="evidence-item">
+            <label>Artifact</label>
+            <p><code>phase-6-commit.html</code></p>
+          </div>
+          <div class="evidence-item">
+            <label>Read</label>
+            <p>Commit confirmation + AGENTS.md update + registry entries in <code>index.yaml</code> and <code>AVATAR-RAG-INDEX.yaml</code></p>
+          </div>
+          <div class="evidence-item">
+            <label>Decision Gate</label>
+            <p>"Is the avatar committed and AGENTS.md updated to reference it?"</p>
+          </div>
+          <div class="drift-signals">
+            <label>⚠️ Drift Signals</label>
+            <ul>
+              <li>Avatar committed but AGENTS.md not updated
+                <span class="drift-action">→ The agent won't use it — update AGENTS.md manually and re-verify</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section><!-- /avatar section -->
+
+
+<!-- ════════════════════════════════════════════════════════════════
+     VISUAL DIVIDER
+     ════════════════════════════════════════════════════════════════ -->
+<div class="workflow-divider" aria-hidden="true">
+  <hr>
+  <span class="divider-accent">— Product Discovery Workflow —</span>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════════════
+     PART 2 — PRODUCT DISCOVERY WORKFLOW (AGENTIC)
+     ════════════════════════════════════════════════════════════════ -->
+<section id="discovery" aria-label="Product Discovery Workflow">
+
+  <div class="section-intro">
+    <h2>
+      <span class="workflow-id-tag">product-discovery-stage-a-f · v2.1.0</span>
+      🔍 Part 2 — Product Discovery Workflow (Agentic)
+    </h2>
+    <p>
+      Stage A–F structured discovery using the PROPOSE → evidence → jury model. The agent structures the inquiry;
+      you provide domain knowledge at every gate. Governed by <strong>PRD-2.1</strong>, <strong>PRD-2.5</strong>,
+      <strong>BUS-7.1</strong> (all NON-NEGOTIABLE), <strong>ENG-11.1</strong>, <strong>ENG-13.1</strong>.
+    </p>
+  </div>
+
+  <!-- DC-12 Persona Row -->
+  <div class="persona-row" role="region" aria-label="DC-12 persona routing for Discovery workflow">
+    <span class="label">👥 Who uses this:</span>
+    <span class="persona-badge">Product Owner ✅</span>
+    <span class="persona-badge">Discovery Sponsor ✅</span>
+    <span class="persona-badge">Technical Coach ✅</span>
+    <span class="persona-badge">Senior Architect ✅</span>
+    <span class="dc-badge">DC-12 · Persona Routing</span>
+  </div>
+
+  <!-- DC-08 When to Use — VISIBLE, NOT in accordion -->
+  <section class="when-to-use" aria-label="DC-08 When to Use Product Discovery Workflow">
+    <h2><span class="dc-tag">DC-08</span> 🎯 When to Use — Product Discovery</h2>
+    <div class="wtu-cols">
+      <div class="wtu-use">
+        <h3>✅ Use Product Discovery when:</h3>
+        <ul>
+          <li>✅ You have a <strong>product hypothesis that needs validation</strong> before building</li>
+          <li>✅ Leadership needs <strong>evidence before committing engineering resources</strong></li>
+          <li>✅ The <strong>problem definition is unclear or disputed</strong> among stakeholders</li>
+        </ul>
+      </div>
+      <div class="wtu-dont">
+        <h3>❌ Do NOT use if:</h3>
+        <ul>
+          <li>❌ You already have <strong>validated requirements</strong> — go straight to Greenfield</li>
+          <li>❌ You're trying to <strong>justify a decision already made</strong> — Discovery is not a rubber stamp</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- DC-11 Non-Determinism — VISIBLE -->
+  <div class="nondeterminism-box" role="note" aria-label="DC-11 Non-Determinism Notice for Discovery">
+    <span class="dc-icon" aria-hidden="true">🎲</span>
+    <p>
+      <strong>DC-11 · Discovery is the most human-intensive workflow.</strong> The agent structures the inquiry;
+      you provide the domain knowledge at every gate. <strong>Stage B (Field Study) requires real interviews</strong>
+      — the agent cannot conduct them. Stage D (Validation) requires your judgment on what "enough evidence"
+      means for your context. The <strong>PROPOSE → evidence → jury model</strong> is essential here.
+    </p>
+  </div>
+
+  <!-- Trigger Box -->
+  <div class="trigger-box" aria-label="Discovery workflow trigger and chain">
+    <div class="trigger-label">⚡ Workflow chain</div>
+    <div class="trigger-meta">
+      <span><strong>Trigger:</strong> "Run Product Discovery Stage A for [product idea — e.g. loyalty miles calculator]"</span>
+      <span><strong>Preceded by:</strong> None required — can run standalone</span>
+      <span><strong>Followed by:</strong> Greenfield Development (if discovery validates the hypothesis)</span>
+    </div>
+  </div>
+
+  <!-- Stage Table -->
+  <div class="workflow-overview">
+    <h2>📐 Discovery Stages A–F</h2>
+    <div class="phase-flow" role="img" aria-label="Discovery stages: A Initialize, B Field Study, C Code Evidence, D Validation, E Metrics, F Roadmap">
+      <div class="flow-step">
+        <div class="flow-step-inner">
+          <div class="phase-num" style="background:#0066cc;">Stage A</div>
+          <div class="phase-title">Initialize</div>
+        </div>
+      </div>
+      <div class="flow-arrow" aria-hidden="true">→</div>
+      <div class="flow-step">
+        <div class="flow-step-inner">
+          <div class="phase-num" style="background:#0066cc;">Stage B</div>
+          <div class="phase-title">Field Study</div>
+        </div>
+      </div>
+      <div class="flow-arrow" aria-hidden="true">→</div>
+      <div class="flow-step">
+        <div class="flow-step-inner">
+          <div class="phase-num" style="background:#0066cc;">Stage C</div>
+          <div class="phase-title">Evidence</div>
+        </div>
+      </div>
+      <div class="flow-arrow" aria-hidden="true">→</div>
+      <div class="flow-step">
+        <div class="flow-step-inner">
+          <div class="phase-num" style="background:#0066cc;">Stage D</div>
+          <div class="phase-title">Validation</div>
+        </div>
+      </div>
+      <div class="flow-arrow" aria-hidden="true">→</div>
+      <div class="flow-step">
+        <div class="flow-step-inner">
+          <div class="phase-num" style="background:#0066cc;">Stage E</div>
+          <div class="phase-title">Metrics</div>
+        </div>
+      </div>
+      <div class="flow-arrow" aria-hidden="true">→</div>
+      <div class="flow-step">
+        <div class="flow-step-inner">
+          <div class="phase-num" style="background:#0066cc;">Stage F</div>
+          <div class="phase-title">Roadmap</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Stage A: Problem / Initialize ──────────────────────── -->
+  <div class="phase-section" id="disc-stage-a">
+    <div class="phase-header">
+      <button class="phase-toggle-btn"
+              aria-expanded="true"
+              aria-controls="disc-stage-a-body"
+              onclick="togglePhase(this)">
+        <span class="phase-pill stage">Stage A</span>
+        <span class="phase-name">Problem — Initialize</span>
+        <span class="phase-purpose">· Problem statement, hypothesis, user pain points</span>
+        <span class="toggle-icon" aria-hidden="true">▾</span>
+      </button>
+    </div>
+    <div class="phase-body" id="disc-stage-a-body">
+      <p class="phase-intro-text">
+        Assign Discovery ID (<code>disc-YYYY-NNN</code>). Activate Product + Business avatars with confirmation record.
+        Define problem statement (PRD-2.1, all 4 dimensions). Obtain named stakeholder approval.
+        Declare mode (Exploratory/Accelerated) and tier (Tier 1/Tier 2). Render + human browser review.
+      </p>
+
+      <div class="prompt-library" aria-label="DC-09 Prompt Library Stage A">
+        <div class="prompt-library-title"><span class="dc-tag">DC-09</span> 📋 Prompt Library — Stage A: Problem</div>
+        <div class="prompt-cards">
+          <div class="prompt-card">
+            <div class="prompt-card-header">
+              <span class="prompt-type cli">🖥 CLI — gh copilot ask</span>
+              <button class="copy-btn"
+                      aria-label="Copy Stage A CLI prompt to clipboard"
+                      onclick="copyPrompt(this, 'gh copilot ask &quot;Run Product Discovery Stage A Problem: help me articulate the problem statement and hypothesis for [product idea — e.g. loyalty miles calculator]. Follow the product-discovery-stage-a-f.md workflow. Produce a Stage A evidence document.&quot;')">📋 Copy</button>
+            </div>
+            <code class="prompt-text">gh copilot ask "Run Product Discovery Stage A Problem: help me articulate the problem statement and hypothesis for [product idea — e.g. loyalty miles calculator]. Follow the product-discovery-stage-a-f.md workflow. Produce a Stage A evidence document."</code>
+          </div>
+          <div class="prompt-card">
+            <div class="prompt-card-header">
+              <span class="prompt-type ide">💬 IDE Chat</span>
+              <button class="copy-btn"
+                      aria-label="Copy Stage A IDE prompt to clipboard"
+                      onclick="copyPrompt(this, 'Help me define the problem statement and hypothesis for [product idea — e.g. loyalty miles calculator]. Structure it for constitutional discovery.')">📋 Copy</button>
+            </div>
+            <code class="prompt-text ide-text">Help me define the problem statement and hypothesis for [product idea — e.g. loyalty miles calculator]. Structure it for constitutional discovery.</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="evidence-card" aria-label="DC-10 Phase Gate Evidence Stage A">
+        <h4>🔒 <span class="dc-tag">DC-10</span> Stage Gate Evidence — Stage A</h4>
+        <div class="evidence-grid">
+          <div class="evidence-item">
+            <label>Artifact</label>
+            <p><code>stage-a-problem.html</code></p>
+          </div>
+          <div class="evidence-item">
+            <label>Read</label>
+            <p>Problem statement + hypothesis clarity, mode/tier declared, stakeholder approval recorded</p>
+          </div>
+          <div class="evidence-item">
+            <label>Decision Gate</label>
+            <p>"Is the hypothesis testable and falsifiable?"</p>
+          </div>
+          <div class="drift-signals">
+            <label>⚠️ Drift Signals</label>
+            <ul>
+              <li>Hypothesis is phrased as a solution, not a problem
+                <span class="drift-action">→ Reframe: "Users struggle to X" not "We should build Y"</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Stage B: Field Study ────────────────────────────────── -->
+  <div class="phase-section" id="disc-stage-b">
+    <div class="phase-header">
+      <button class="phase-toggle-btn"
+              aria-expanded="true"
+              aria-controls="disc-stage-b-body"
+              onclick="togglePhase(this)">
+        <span class="phase-pill stage">Stage B</span>
+        <span class="phase-name">Field Study</span>
+        <span class="phase-purpose">· Interviews, observations, qualitative research</span>
+        <span class="toggle-icon" aria-hidden="true">▾</span>
+      </button>
+    </div>
+    <div class="phase-body" id="disc-stage-b-body">
+      <p class="phase-intro-text">
+        Market research, competitive analysis (PRD-2.4), user interviews (PRD-3.1), JTBD framing (PRD-2.3).
+        <strong>⚠️ Real interviews required — the agent structures the guide and synthesises results, but cannot conduct interviews.</strong>
+        Gate: ≥3 validated user insights; competitive landscape documented.
+      </p>
+
+      <div class="prompt-library" aria-label="DC-09 Prompt Library Stage B">
+        <div class="prompt-library-title"><span class="dc-tag">DC-09</span> 📋 Prompt Library — Stage B: Field Study</div>
+        <div class="prompt-cards">
+          <div class="prompt-card">
+            <div class="prompt-card-header">
+              <span class="prompt-type cli">🖥 CLI — gh copilot ask</span>
+              <button class="copy-btn"
+                      aria-label="Copy Stage B CLI prompt to clipboard"
+                      onclick="copyPrompt(this, 'gh copilot ask &quot;Run Product Discovery Stage B Field Study: design an interview guide for [problem statement]. Suggest 5 interview questions that test the hypothesis. Remind me: I must conduct real interviews — the agent will structure the analysis.&quot;')">📋 Copy</button>
+            </div>
+            <code class="prompt-text">gh copilot ask "Run Product Discovery Stage B Field Study: design an interview guide for [problem statement]. Suggest 5 interview questions that test the hypothesis. Remind me: I must conduct real interviews — the agent will structure the analysis."</code>
+          </div>
+          <div class="prompt-card">
+            <div class="prompt-card-header">
+              <span class="prompt-type ide">💬 IDE Chat</span>
+              <button class="copy-btn"
+                      aria-label="Copy Stage B IDE prompt to clipboard"
+                      onclick="copyPrompt(this, 'Design an interview guide that tests this hypothesis. Structure the field study for Stage B.')">📋 Copy</button>
+            </div>
+            <code class="prompt-text ide-text">Design an interview guide that tests this hypothesis. Structure the field study for Stage B.</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="evidence-card" aria-label="DC-10 Phase Gate Evidence Stage B">
+        <h4>🔒 <span class="dc-tag">DC-10</span> Stage Gate Evidence — Stage B</h4>
+        <div class="evidence-grid">
+          <div class="evidence-item">
+            <label>Artifact</label>
+            <p><code>stage-b-field-study.html</code></p>
+          </div>
+          <div class="evidence-item">
+            <label>Read</label>
+            <p>Interview guide + synthesis template; ≥3 validated user insights; competitive landscape summary</p>
+          </div>
+          <div class="evidence-item">
+            <label>Decision Gate</label>
+            <p>"Did real interviews happen? Is the synthesis honest and unbiased?"</p>
+          </div>
+          <div class="drift-signals">
+            <label>⚠️ Drift Signals</label>
+            <ul>
+              <li>Interviews conducted or synthesised entirely by the agent — not valid evidence
+                <span class="drift-action">→ Conduct real interviews; return raw notes for agent synthesis</span>
+              </li>
+              <li>All interviewees agree 100% — possible confirmation bias in participant selection
+                <span class="drift-action">→ Seek disconfirming participants; revisit recruitment criteria</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Stage C: Evidence ───────────────────────────────────── -->
+  <div class="phase-section" id="disc-stage-c">
+    <div class="phase-header">
+      <button class="phase-toggle-btn"
+              aria-expanded="true"
+              aria-controls="disc-stage-c-body"
+              onclick="togglePhase(this)">
+        <span class="phase-pill stage">Stage C</span>
+        <span class="phase-name">Evidence</span>
+        <span class="phase-purpose">· Quantitative evidence, data analysis, metrics baseline</span>
+        <span class="toggle-icon" aria-hidden="true">▾</span>
+      </button>
+    </div>
+    <div class="phase-body" id="disc-stage-c-body">
+      <p class="phase-intro-text">
+        Repository ingestion, codebase assessment, domain model extraction, tech debt inventory (ENG-3.1).
+        Analyse the Stage B field study data — produce supporting and contradicting evidence table.
+        Gate: evidence report in <code>hangar-ai-specs/</code>; no unreviewed critical findings.
+      </p>
+
+      <div class="prompt-library" aria-label="DC-09 Prompt Library Stage C">
+        <div class="prompt-library-title"><span class="dc-tag">DC-09</span> 📋 Prompt Library — Stage C: Evidence</div>
+        <div class="prompt-cards">
+          <div class="prompt-card">
+            <div class="prompt-card-header">
+              <span class="prompt-type cli">🖥 CLI — gh copilot ask</span>
+              <button class="copy-btn"
+                      aria-label="Copy Stage C CLI prompt to clipboard"
+                      onclick="copyPrompt(this, 'gh copilot ask &quot;Run Product Discovery Stage C Evidence: analyse the field study data from Stage B. Identify supporting and contradicting evidence. Produce a quantitative evidence summary.&quot;')">📋 Copy</button>
+            </div>
+            <code class="prompt-text">gh copilot ask "Run Product Discovery Stage C Evidence: analyse the field study data from Stage B. Identify supporting and contradicting evidence. Produce a quantitative evidence summary."</code>
+          </div>
+          <div class="prompt-card">
+            <div class="prompt-card-header">
+              <span class="prompt-type ide">💬 IDE Chat</span>
+              <button class="copy-btn"
+                      aria-label="Copy Stage C IDE prompt to clipboard"
+                      onclick="copyPrompt(this, 'Analyse the Stage B interview data. Identify supporting and contradicting evidence for the hypothesis.')">📋 Copy</button>
+            </div>
+            <code class="prompt-text ide-text">Analyse the Stage B interview data. Identify supporting and contradicting evidence for the hypothesis.</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="evidence-card" aria-label="DC-10 Phase Gate Evidence Stage C">
+        <h4>🔒 <span class="dc-tag">DC-10</span> Stage Gate Evidence — Stage C</h4>
+        <div class="evidence-grid">
+          <div class="evidence-item">
+            <label>Artifact</label>
+            <p><code>stage-c-evidence.html</code></p>
+          </div>
+          <div class="evidence-item">
+            <label>Read</label>
+            <p>Evidence table: supporting vs contradicting, quantitative summary, critical findings</p>
+          </div>
+          <div class="evidence-item">
+            <label>Decision Gate</label>
+            <p>"Is there enough evidence to proceed to validation?"</p>
+          </div>
+          <div class="drift-signals">
+            <label>⚠️ Drift Signals</label>
+            <ul>
+              <li>Only supporting evidence listed — no contradicting evidence column
+                <span class="drift-action">→ Confirm disconfirming evidence was actively sought; add it</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Stage D: Validation ─────────────────────────────────── -->
+  <div class="phase-section" id="disc-stage-d">
+    <div class="phase-header">
+      <button class="phase-toggle-btn"
+              aria-expanded="true"
+              aria-controls="disc-stage-d-body"
+              onclick="togglePhase(this)">
+        <span class="phase-pill stage">Stage D</span>
+        <span class="phase-name">Validation</span>
+        <span class="phase-purpose">· Validate hypothesis against evidence — MVT (minimum viable test)</span>
+        <span class="toggle-icon" aria-hidden="true">▾</span>
+      </button>
+    </div>
+    <div class="phase-body" id="disc-stage-d-body">
+      <p class="phase-intro-text">
+        Stakeholder review, assumption mapping (PRD-2.2), problem validation (PRD-2.1), blocker resolution.
+        Design a minimum viable test (MVT) with explicit Go/No-Go criteria.
+        Gate: all blockers resolved; DVFT matrix complete.
+      </p>
+
+      <div class="prompt-library" aria-label="DC-09 Prompt Library Stage D">
+        <div class="prompt-library-title"><span class="dc-tag">DC-09</span> 📋 Prompt Library — Stage D: Validation</div>
+        <div class="prompt-cards">
+          <div class="prompt-card">
+            <div class="prompt-card-header">
+              <span class="prompt-type cli">🖥 CLI — gh copilot ask</span>
+              <button class="copy-btn"
+                      aria-label="Copy Stage D CLI prompt to clipboard"
+                      onclick="copyPrompt(this, 'gh copilot ask &quot;Run Product Discovery Stage D Validation: design a minimum viable test (MVT) to validate the hypothesis using the Stage C evidence. Define Go/No-Go criteria.&quot;')">📋 Copy</button>
+            </div>
+            <code class="prompt-text">gh copilot ask "Run Product Discovery Stage D Validation: design a minimum viable test (MVT) to validate the hypothesis using the Stage C evidence. Define Go/No-Go criteria."</code>
+          </div>
+          <div class="prompt-card">
+            <div class="prompt-card-header">
+              <span class="prompt-type ide">💬 IDE Chat</span>
+              <button class="copy-btn"
+                      aria-label="Copy Stage D IDE prompt to clipboard"
+                      onclick="copyPrompt(this, 'Design a minimum viable test for this hypothesis. Define Go/No-Go criteria from the Stage C evidence.')">📋 Copy</button>
+            </div>
+            <code class="prompt-text ide-text">Design a minimum viable test for this hypothesis. Define Go/No-Go criteria from the Stage C evidence.</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="evidence-card" aria-label="DC-10 Phase Gate Evidence Stage D">
+        <h4>🔒 <span class="dc-tag">DC-10</span> Stage Gate Evidence — Stage D</h4>
+        <div class="evidence-grid">
+          <div class="evidence-item">
+            <label>Artifact</label>
+            <p><code>stage-d-validation.html</code></p>
+          </div>
+          <div class="evidence-item">
+            <label>Read</label>
+            <p>MVT design + Go/No-Go criteria + DVFT matrix; all blockers resolved</p>
+          </div>
+          <div class="evidence-item">
+            <label>Decision Gate</label>
+            <p>"Are the Go/No-Go criteria measurable and agreed by stakeholders?"</p>
+          </div>
+          <div class="drift-signals">
+            <label>⚠️ Drift Signals</label>
+            <ul>
+              <li>Go criteria are vague — e.g. "users like it"
+                <span class="drift-action">→ Demand specific, measurable metrics: "≥70% task completion in ≤2 attempts"</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Stage E: Metrics ────────────────────────────────────── -->
+  <div class="phase-section" id="disc-stage-e">
+    <div class="phase-header">
+      <button class="phase-toggle-btn"
+              aria-expanded="true"
+              aria-controls="disc-stage-e-body"
+              onclick="togglePhase(this)">
+        <span class="phase-pill stage">Stage E</span>
+        <span class="phase-name">Metrics</span>
+        <span class="phase-purpose">· Define success metrics, GoTo criteria</span>
+        <span class="toggle-icon" aria-hidden="true">▾</span>
+      </button>
+    </div>
+    <div class="phase-body" id="disc-stage-e-body">
+      <p class="phase-intro-text">
+        Define success metrics, baselines, and PMF targets (PRD-6.1). Align to constitutional PRD laws.
+        Confirm measurability. Render + human browser review.
+        Gate: metrics spec in <code>hangar-ai-specs/specs/</code>.
+      </p>
+
+      <div class="prompt-library" aria-label="DC-09 Prompt Library Stage E">
+        <div class="prompt-library-title"><span class="dc-tag">DC-09</span> 📋 Prompt Library — Stage E: Metrics</div>
+        <div class="prompt-cards">
+          <div class="prompt-card">
+            <div class="prompt-card-header">
+              <span class="prompt-type cli">🖥 CLI — gh copilot ask</span>
+              <button class="copy-btn"
+                      aria-label="Copy Stage E CLI prompt to clipboard"
+                      onclick="copyPrompt(this, 'gh copilot ask &quot;Run Product Discovery Stage E Metrics: define success metrics for [product] based on the validated hypothesis. Align to constitutional PRD laws (PRD-1.x). Produce a metrics baseline document.&quot;')">📋 Copy</button>
+            </div>
+            <code class="prompt-text">gh copilot ask "Run Product Discovery Stage E Metrics: define success metrics for [product] based on the validated hypothesis. Align to constitutional PRD laws (PRD-1.x). Produce a metrics baseline document."</code>
+          </div>
+          <div class="prompt-card">
+            <div class="prompt-card-header">
+              <span class="prompt-type ide">💬 IDE Chat</span>
+              <button class="copy-btn"
+                      aria-label="Copy Stage E IDE prompt to clipboard"
+                      onclick="copyPrompt(this, 'Define success metrics from the validated discovery. Align to PRD laws.')">📋 Copy</button>
+            </div>
+            <code class="prompt-text ide-text">Define success metrics from the validated discovery. Align to PRD laws.</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="evidence-card" aria-label="DC-10 Phase Gate Evidence Stage E">
+        <h4>🔒 <span class="dc-tag">DC-10</span> Stage Gate Evidence — Stage E</h4>
+        <div class="evidence-grid">
+          <div class="evidence-item">
+            <label>Artifact</label>
+            <p><code>stage-e-metrics.html</code></p>
+          </div>
+          <div class="evidence-item">
+            <label>Read</label>
+            <p>Metrics table + PRD law citations + measurability confirmation + PMF targets</p>
+          </div>
+          <div class="evidence-item">
+            <label>Decision Gate</label>
+            <p>"Are these metrics measurable and aligned to the problem we discovered?"</p>
+          </div>
+          <div class="drift-signals">
+            <label>⚠️ Drift Signals</label>
+            <ul>
+              <li>Only vanity metrics listed — e.g. page views, DAU without outcome framing
+                <span class="drift-action">→ Demand outcome metrics: retention, task success rate, NPS delta</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Stage F: Roadmap ────────────────────────────────────── -->
+  <div class="phase-section" id="disc-stage-f">
+    <div class="phase-header">
+      <button class="phase-toggle-btn"
+              aria-expanded="true"
+              aria-controls="disc-stage-f-body"
+              onclick="togglePhase(this)">
+        <span class="phase-pill stage">Stage F</span>
+        <span class="phase-name">Roadmap</span>
+        <span class="phase-purpose">· Prioritised roadmap from validated discovery</span>
+        <span class="toggle-icon" aria-hidden="true">▾</span>
+      </button>
+    </div>
+    <div class="phase-body" id="disc-stage-f-body">
+      <p class="phase-intro-text">
+        Now/Next/Later roadmap (PRD-4.2). Outcome framing (PRD-4.1). Vertical slices defined.
+        Each roadmap item must reference the problem statement and be scoped to a constitutional Greenfield proposal.
+        Gate: roadmap approved; implementation <code>hangar-ai-specs/changes/[impl-id]/</code> scaffolded; PDF generated (ENG-13.3).
+      </p>
+
+      <div class="prompt-library" aria-label="DC-09 Prompt Library Stage F">
+        <div class="prompt-library-title"><span class="dc-tag">DC-09</span> 📋 Prompt Library — Stage F: Roadmap</div>
+        <div class="prompt-cards">
+          <div class="prompt-card">
+            <div class="prompt-card-header">
+              <span class="prompt-type cli">🖥 CLI — gh copilot ask</span>
+              <button class="copy-btn"
+                      aria-label="Copy Stage F CLI prompt to clipboard"
+                      onclick="copyPrompt(this, 'gh copilot ask &quot;Run Product Discovery Stage F Roadmap: produce a prioritised roadmap from the Stage E metrics. Each roadmap item should reference the problem statement and be scoped to a constitutional Greenfield proposal.&quot;')">📋 Copy</button>
+            </div>
+            <code class="prompt-text">gh copilot ask "Run Product Discovery Stage F Roadmap: produce a prioritised roadmap from the Stage E metrics. Each roadmap item should reference the problem statement and be scoped to a constitutional Greenfield proposal."</code>
+          </div>
+          <div class="prompt-card">
+            <div class="prompt-card-header">
+              <span class="prompt-type ide">💬 IDE Chat</span>
+              <button class="copy-btn"
+                      aria-label="Copy Stage F IDE prompt to clipboard"
+                      onclick="copyPrompt(this, 'Produce a prioritised roadmap from the discovery findings. Scope each item to a Greenfield proposal.')">📋 Copy</button>
+            </div>
+            <code class="prompt-text ide-text">Produce a prioritised roadmap from the discovery findings. Scope each item to a Greenfield proposal.</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="evidence-card" aria-label="DC-10 Phase Gate Evidence Stage F">
+        <h4>🔒 <span class="dc-tag">DC-10</span> Stage Gate Evidence — Stage F</h4>
+        <div class="evidence-grid">
+          <div class="evidence-item">
+            <label>Artifact</label>
+            <p><code>stage-f-roadmap.html</code></p>
+          </div>
+          <div class="evidence-item">
+            <label>Read</label>
+            <p>Roadmap + Greenfield linkage + PDF rendered (ENG-13.3); implementation scaffold confirmed</p>
+          </div>
+          <div class="evidence-item">
+            <label>Decision Gate</label>
+            <p>"Does this roadmap represent the discovery outcomes honestly, without scope creep?"</p>
+          </div>
+          <div class="drift-signals">
+            <label>⚠️ Drift Signals</label>
+            <ul>
+              <li>Roadmap includes features not discovered in Stages A–E
+                <span class="drift-action">→ Remove scope-creep items; they belong in a separate discovery</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section><!-- /discovery section -->
+
+
+<!-- ── Footer Navigation ──────────────────────────────────── -->
+<footer class="site-footer" role="contentinfo">
+  <nav class="footer-nav-left" aria-label="Footer navigation">
+    <a href="index.html">← Workflows Hub</a>
+    <a href="../p1-landing.html">← Adoption Guide</a>
+  </nav>
+  <div class="footer-nav-right">
+    <a href="greenfield.html">Continue to Greenfield →</a>
+  </div>
+  <div class="footer-meta">
+    P9-av · Registry v2.0.0 · 2026-05-07T18:00:00Z<br>
+    ENG-13.1 ⛔ · DC-08 · DC-09 · DC-10 · DC-11 · DC-12 · G8
+  </div>
+</footer>
+
+</main><!-- /page-wrap -->
+
+<script>
+function copyPrompt(btn, text) {
+  // Decode HTML entities that may be in onclick attribute
+  const decoded = text
+    .replace(/&quot;/g, '"')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>');
+  navigator.clipboard.writeText(decoded).then(() => {
+    const orig = btn.innerHTML;
+    btn.innerHTML = '&#x2705; Copied!';
+    setTimeout(() => { btn.innerHTML = orig; }, 2000);
+  }).catch(() => {
+    btn.innerHTML = '&#x26A0; Copy manually';
+    setTimeout(() => { btn.innerHTML = '&#x1F4CB; Copy'; }, 3000);
+  });
+}
+
+function togglePhase(btn) {
+  const card = btn.closest('.phase-section');
+  card.classList.toggle('collapsed');
+  btn.setAttribute('aria-expanded', !card.classList.contains('collapsed'));
+}
+</script>
+</body>
+</html>

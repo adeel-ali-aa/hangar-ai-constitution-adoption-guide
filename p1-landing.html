@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en"
+  data-page-id="P1"
+  data-registry-version="2.0.0"
+  data-render-timestamp="2026-05-06T20:22:00Z">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hangar AI Constitution — Adoption Guide</title>
+<style>
+  :root {
+    --aa-navy: #003366;
+    --aa-red: #cc0000;
+    --aa-silver: #d0d6de;
+    --aa-blue: #0066cc;
+    --aa-light: #f0f4f8;
+    --eng: #1a6b3a;
+    --prd: #7b3f8c;
+    --bus: #b85c00;
+    --card-shadow: 0 2px 10px rgba(0,0,0,0.10);
+    --radius: 10px;
+    --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font); background: #f5f7fa; color: #1a2332; font-size: 14px; line-height: 1.6; }
+
+  /* ── HEADER ── */
+  header {
+    background: linear-gradient(135deg, var(--aa-navy) 0%, #001a40 100%);
+    color: #fff; padding: 28px 48px 24px;
+    border-bottom: 3px solid var(--aa-red);
+  }
+  .header-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+  header h1 { font-size: 26px; font-weight: 700; letter-spacing: -0.4px; margin-bottom: 4px; }
+  header h1 span { color: #6aabdd; font-weight: 400; }
+  .header-sub { font-size: 13px; color: #8aabcc; margin-bottom: 10px; }
+  .badge-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .badge { background: rgba(255,255,255,0.10); border: 1px solid rgba(255,255,255,0.18); border-radius: 12px; padding: 2px 10px; font-size: 11px; color: #c8d8ea; }
+  .badge.nn { background: rgba(204,0,0,0.28); border-color: rgba(204,0,0,0.45); color: #ffaaaa; }
+  .header-meta { text-align: right; font-size: 11px; color: #6a8aaa; line-height: 1.9; white-space: nowrap; }
+  .header-meta strong { color: #cdf; }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1100px; margin: 0 auto; padding: 36px 24px 64px; }
+
+  /* ── SECTION TITLES ── */
+  .section-title {
+    font-size: 11px; font-weight: 700; letter-spacing: 1.3px; text-transform: uppercase;
+    color: #666; margin: 40px 0 16px; padding-bottom: 8px;
+    border-bottom: 1px solid #dde3ea;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .section-title::before { content: ''; width: 3px; height: 14px; border-radius: 2px; background: var(--aa-blue); display: inline-block; }
+
+  /* ── WHAT IS THIS ── */
+  .intro-card {
+    background: #fff; border-radius: var(--radius); box-shadow: var(--card-shadow);
+    border: 1px solid #e4eaf2; border-left: 4px solid var(--aa-blue);
+    padding: 24px 28px; margin-bottom: 8px;
+  }
+  .intro-card p { font-size: 15px; color: #2a3a50; line-height: 1.75; }
+  .intro-card p + p { margin-top: 10px; }
+
+  /* ── PERSONA CARDS ── */
+  .persona-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  @media (max-width: 760px) { .persona-grid { grid-template-columns: 1fr; } }
+
+  .persona-card {
+    background: #fff; border-radius: var(--radius); box-shadow: var(--card-shadow);
+    border: 1px solid #e4eaf2; padding: 28px 24px 24px;
+    display: flex; flex-direction: column; gap: 12px;
+    transition: box-shadow 0.18s, transform 0.18s;
+  }
+  .persona-card:hover { box-shadow: 0 4px 18px rgba(0,0,0,0.13); transform: translateY(-2px); }
+  .persona-card.active { border-top: 4px solid var(--aa-blue); }
+  .persona-card.coming-next { border-top: 4px solid var(--aa-silver); opacity: 0.88; }
+
+  .persona-icon { font-size: 32px; }
+  .persona-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #666; }
+  .persona-title { font-size: 19px; font-weight: 700; color: var(--aa-navy); }
+  .persona-desc { font-size: 13px; color: #4a5a70; line-height: 1.65; flex: 1; }
+  .persona-outcome {
+    background: var(--aa-light); border-radius: 6px; padding: 10px 14px;
+    font-size: 12px; color: #2a3a50; border-left: 3px solid var(--aa-blue);
+  }
+  .persona-outcome strong { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--aa-blue); margin-bottom: 2px; }
+
+  /* Active CTA */
+  .btn-start {
+    display: block; text-align: center; padding: 12px 20px;
+    background: var(--aa-blue); color: #fff; border-radius: 6px;
+    text-decoration: none; font-weight: 700; font-size: 14px;
+    transition: background 0.15s;
+  }
+  .btn-start:hover { background: #0055aa; }
+
+  /* Coming Next treatment */
+  .coming-next-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #f0f4f8; border: 1px solid #c8d4e0; border-radius: 6px;
+    padding: 10px 16px; color: #556; font-size: 13px; font-weight: 600;
+    cursor: pointer; transition: background 0.15s; position: relative;
+    width: 100%; justify-content: center;
+  }
+  .coming-next-badge:hover { background: #e4eaf4; }
+  .coming-next-tooltip {
+    display: none; position: absolute; bottom: calc(100% + 8px); left: 50%;
+    transform: translateX(-50%); background: #1a2332; color: #fff;
+    font-size: 12px; font-weight: 400; padding: 8px 14px; border-radius: 6px;
+    width: 230px; text-align: center; z-index: 10; pointer-events: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+  .coming-next-tooltip::after {
+    content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+    border: 6px solid transparent; border-top-color: #1a2332;
+  }
+  .coming-next-badge.open .coming-next-tooltip { display: block; }
+
+  /* ── P2 LINK CARD ── */
+  .viz-card {
+    background: linear-gradient(135deg, #001a40 0%, var(--aa-navy) 100%);
+    border-radius: var(--radius); box-shadow: var(--card-shadow);
+    border: 1px solid #1a3a5e; padding: 24px 28px;
+    display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+  }
+  .viz-card-text { flex: 1; min-width: 200px; }
+  .viz-card-text h3 { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+  .viz-card-text p { font-size: 13px; color: #8aabcc; line-height: 1.6; }
+  .btn-viz {
+    display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
+    background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25);
+    color: #fff; border-radius: 6px; padding: 10px 20px;
+    text-decoration: none; font-size: 13px; font-weight: 600;
+    transition: background 0.15s;
+  }
+  .btn-viz:hover { background: rgba(255,255,255,0.22); }
+
+  /* ── LAW PILLARS MINI ── */
+  .pillars-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
+  .pillar-chip {
+    display: inline-flex; align-items: center; gap: 5px;
+    border-radius: 10px; padding: 3px 10px; font-size: 11px; font-weight: 600;
+  }
+  .pillar-chip.eng { background: #e8f5ec; color: var(--eng); }
+  .pillar-chip.prd { background: #f2e8f7; color: var(--prd); }
+  .pillar-chip.bus { background: #fdf0e0; color: var(--bus); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--aa-navy); color: #8aabcc; font-size: 11px;
+    padding: 20px 48px; text-align: center; line-height: 2;
+    border-top: 2px solid #1a3a5e;
+  }
+  footer a { color: #6aabdd; text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+  .footer-inner { max-width: 1100px; margin: 0 auto; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div>
+      <h1>⚖️ Hangar AI Constitution <span>— Adoption Guide</span></h1>
+      <div class="header-sub">American Airlines · Governance Framework v2.0.0 · Your path to constitutional AI governance</div>
+      <div class="badge-row">
+        <span class="badge">168 Laws</span>
+        <span class="badge">3 Pillars</span>
+        <span class="badge">29+ Skills</span>
+        <span class="badge">34+ Tech Avatars</span>
+        <span class="badge nn">⛔ 13 Non-Negotiable</span>
+      </div>
+    </div>
+    <div class="header-meta">
+      <div><strong>Page:</strong> P1 — Landing Hub</div>
+      <div><strong>Registry:</strong> laws/index.yaml v2.0.0</div>
+      <div><strong>Rendered:</strong> 2026-05-06</div>
+    </div>
+  </div>
+</header>
+
+<div class="page">
+
+  <!-- ── WHAT IS THIS ── -->
+  <div class="section-title">What is the Hangar AI Constitution?</div>
+  <div class="intro-card">
+    <p>The Hangar AI Constitution is a set of <strong>168 laws</strong> that govern how AI agents write, review, and evolve code at American Airlines. When your team adopts it, every pull request is reviewed by a constitutionally-governed agent — consistently, every time — against the same engineering, product, and business rules.</p>
+    <p>This guide gives you one URL and one path: from <em>"what is this?"</em> to your team's first constitutionally-governed pull request. Pick your role below to get started.</p>
+  </div>
+
+  <!-- ── PERSONA SELECTOR ── -->
+  <div class="section-title">Choose your path</div>
+  <div class="persona-grid">
+
+    <!-- Technical Coach — ACTIVE -->
+    <div class="persona-card active">
+      <div class="persona-icon">🧑‍🏫</div>
+      <div class="persona-label">Technical Coach</div>
+      <div class="persona-title">Onboard a team</div>
+      <div class="persona-desc">
+        Guide a new team through their first constitutional session — with a single URL, a ready-to-paste Teams prompt, and clear answers to every question they'll ask.
+      </div>
+      <div class="persona-outcome">
+        <strong>You will accomplish</strong>
+        Run a complete first session in under 60 minutes, from "here's the constitution" to the team's first governed task.
+      </div>
+      <a href="p3-coach-quick-start.html" class="btn-start">Start Coach path →</a>
+    </div>
+
+    <!-- Senior Architect — ACTIVE -->
+    <div class="persona-card active">
+      <div class="persona-icon">🏗️</div>
+      <div class="persona-label">Senior Architect</div>
+      <div class="persona-title">Evaluate alignment</div>
+      <div class="persona-desc">
+        Map constitutional laws to your system architecture, identify gaps before they become debt, and build a governance baseline for your bounded context.
+      </div>
+      <div class="persona-outcome">
+        <strong>You will accomplish</strong>
+        Evaluate law-to-DDD alignment across your architecture and produce a prioritised compliance gap list.
+      </div>
+      <a href="p3-architect-quick-start.html" class="btn-start">Start Architect path →</a>
+    </div>
+
+    <!-- Engineer — ACTIVE -->
+    <div class="persona-card active">
+      <div class="persona-icon">⚙️</div>
+      <div class="persona-label">Engineer</div>
+      <div class="persona-title">Ship a governed PR</div>
+      <div class="persona-desc">
+        Write your first constitutionally-governed pull request — with characterisation tests, a clean SonarQube baseline, and a proposal the agent generated for you.
+      </div>
+      <div class="persona-outcome">
+        <strong>You will accomplish</strong>
+        Submit a PR with a passing constitutional gate, clean sonar delta, and a proposal artifact on file.
+      </div>
+      <a href="p3-engineer-quick-start.html" class="btn-start">Start Engineer path →</a>
+    </div>
+
+  </div><!-- /persona-grid -->
+
+  <!-- ── CONSTITUTIONAL AI MODEL LINK ── -->
+  <div class="section-title">Explore the model</div>
+  <div class="viz-card">
+    <div class="viz-card-text">
+      <h3>⚖️ Constitutional AI Model Visualization</h3>
+      <p>A visual reference showing all 168 laws organised by pillar, all 29+ skills, 34+ tech avatars, and 23 product domains — built from the actual RAG model, not documentation prose. For Technical Coaches and Senior Architects.</p>
+      <div class="pillars-row">
+        <span class="pillar-chip eng">ENG · 67 laws</span>
+        <span class="pillar-chip prd">PRD · 49 laws</span>
+        <span class="pillar-chip bus">BUS · 55 laws</span>
+      </div>
+    </div>
+    <a href="p2-constitutional-ai-model.html" class="btn-viz">Explore the Model →</a>
+  </div>
+
+</div><!-- /page -->
+
+<footer>
+  <div class="footer-inner">
+    American Airlines · Hangar AI Constitution Adoption Guide · Page P1 — Landing Hub<br>
+    Registry: laws/index.yaml v2.0.0 · Rendered: 2026-05-06 · ENG-13.1 ⛔ self-contained
+  </div>
+</footer>
+
+</body>
+</html>

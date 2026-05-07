@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" data-page-id="P3-DC05-prompt-templates" data-registry-version="2.0.0">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teams Prompt Templates — Hangar AI Constitution</title>
+<style>
+  :root {
+    --aa-navy: #003366; --aa-red: #cc0000; --aa-blue: #0066cc;
+    --prd: #7b3f8c; --eng: #1a6b3a; --bus: #b85c00;
+    --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    --radius: 8px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font); background: #f5f7fa; color: #1a2332; font-size: 14px; line-height: 1.6; }
+  header { background: linear-gradient(135deg, var(--aa-navy) 0%, #001a40 100%); color: #fff; padding: 24px 40px 20px; border-bottom: 3px solid var(--aa-red); }
+  .header-inner { max-width: 900px; margin: 0 auto; }
+  .back-link { display: inline-flex; align-items: center; gap: 5px; color: #6aabdd; font-size: 12px; text-decoration: none; margin-bottom: 8px; }
+  header h1 { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+  header .sub { font-size: 13px; color: #8aabcc; }
+  .page { max-width: 900px; margin: 0 auto; padding: 32px 24px 72px; }
+  .phase-card { background: #fff; border-radius: var(--radius); box-shadow: 0 2px 8px rgba(0,0,0,0.09); border: 1px solid #e4eaf2; margin-bottom: 28px; overflow: hidden; }
+  .phase-header { padding: 18px 24px 14px; border-bottom: 1px solid #e4eaf2; display: flex; align-items: center; gap: 14px; }
+  .phase-num { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 700; color: #fff; flex-shrink: 0; }
+  .phase-num.p1 { background: var(--aa-blue); }
+  .phase-num.p2 { background: var(--eng); }
+  .phase-num.p3 { background: var(--prd); }
+  .phase-title { font-size: 16px; font-weight: 700; color: var(--aa-navy); }
+  .phase-when { font-size: 12px; color: #667; margin-top: 2px; }
+  .phase-body { padding: 20px 24px; }
+  .phase-context { font-size: 13px; color: #4a5a70; margin-bottom: 16px; line-height: 1.65; }
+  .prompt-box {
+    background: #1a2332; color: #c8daf0; border-radius: 6px;
+    padding: 16px 18px; font-family: monospace; font-size: 12px;
+    line-height: 1.75; white-space: pre-wrap; margin-bottom: 10px;
+    border: 1px solid #2a3a50; position: relative;
+  }
+  .copy-btn {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: var(--aa-blue); color: #fff; border: none; border-radius: 5px;
+    padding: 8px 16px; font-size: 12px; font-weight: 600; cursor: pointer;
+    transition: background 0.15s; font-family: var(--font);
+  }
+  .copy-btn:hover { background: #0055aa; }
+  .copy-btn.copied { background: var(--eng); }
+  .tip { background: #f0f4f8; border-left: 3px solid var(--aa-blue); border-radius: 4px; padding: 10px 14px; font-size: 12px; color: #2a3a50; margin-top: 12px; }
+  .tip strong { color: var(--aa-navy); }
+  footer { background: var(--aa-navy); color: #8aabcc; font-size: 11px; padding: 18px 40px; text-align: center; line-height: 2; border-top: 2px solid #1a3a5e; }
+  footer a { color: #6aabdd; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="../p3-coach-quick-start.html" class="back-link">← Technical Coach Quick Start</a>
+    <h1>📋 Teams Prompt Template Library</h1>
+    <div class="sub">Ready-to-paste prompts for every adoption phase · Copy → paste into Teams or Copilot chat</div>
+  </div>
+</header>
+
+<div class="page">
+
+  <!-- Phase 1 -->
+  <div class="phase-card">
+    <div class="phase-header">
+      <div class="phase-num p1">1</div>
+      <div>
+        <div class="phase-title">Phase 1 — Initial Adoption</div>
+        <div class="phase-when">Use when: first session with a new team, repo not yet adopted</div>
+      </div>
+    </div>
+    <div class="phase-body">
+      <div class="phase-context">Clones the constitution into the parent directory (if not already there), reads the adoption workflow, and runs the full adoption process — producing a PROPOSAL for your review before making any changes.</div>
+      <div class="prompt-box" id="p1-prompt">Clone the hangar-ai-constitution from github.com/AAInternal/hangar-ai-constitution.git to the parent directory of this project (i.e., ./../). If the folder already exists, pull latest from the server.
+
+Read hangar-ai-constitution/workflows/adoption-workflow and follow the guidance to fully adopt the AI constitution into this repo. Once complete, commit.</div>
+      <button class="copy-btn" onclick="copyPrompt(this,'p1-prompt')">📋 Copy for Teams / Copilot</button>
+      <div class="tip"><strong>Scoping tip:</strong> If the full adoption is too large for one session, add to the prompt: <em>"Scope this adoption to setup and AGENTS.md only — defer SonarQube provisioning and product avatar creation to a later session."</em></div>
+    </div>
+  </div>
+
+  <!-- Phase 2 -->
+  <div class="phase-card">
+    <div class="phase-header">
+      <div class="phase-num p2">2</div>
+      <div>
+        <div class="phase-title">Phase 2 — First Governed Task</div>
+        <div class="phase-when">Use when: team has adopted, ready for their first constitutionally-governed feature or refactor</div>
+      </div>
+    </div>
+    <div class="phase-body">
+      <div class="phase-context">Reads the constitution (already in the parent directory) and governs a specific task — producing a PROPOSAL for the named ticket or story before any code changes are made.</div>
+      <div class="prompt-box" id="p2-prompt">The hangar-ai-constitution is already cloned at ./../hangar-ai-constitution/. Read it now, then strictly follow the constitution and create a new proposal for the following task:
+
+[DESCRIBE THE TASK HERE — e.g., "Refactor the MileageService class to reduce complexity and improve testability"]
+
+The proposal should include: problem statement, proposed changes, law citations, acceptance criteria, and an APPROVE / OBJECT gate. Do not make any changes until I approve the proposal.</div>
+      <button class="copy-btn" onclick="copyPrompt(this,'p2-prompt')">📋 Copy for Teams / Copilot</button>
+      <div class="tip"><strong>Bounded context tip:</strong> If the codebase is large, specify the bounded context: <em>"Scope this proposal to the <code>com.aa.[package]</code> package only."</em> This prevents the agent from proposing changes across the entire codebase in one session.</div>
+    </div>
+  </div>
+
+  <!-- Phase 3 -->
+  <div class="phase-card">
+    <div class="phase-header">
+      <div class="phase-num p3">3</div>
+      <div>
+        <div class="phase-title">Phase 3 — Follow-up Coaching Session</div>
+        <div class="phase-when">Use when: team has completed their first task, coaching on what comes next</div>
+      </div>
+    </div>
+    <div class="phase-body">
+      <div class="phase-context">Asks the agent to review the team's most recent constitutionally-governed PR, identify what went well and what could be improved, and propose the next highest-value constitutionally-governed task for the team to tackle.</div>
+      <div class="prompt-box" id="p3-prompt">The hangar-ai-constitution is already cloned at ./../hangar-ai-constitution/. Read it now.
+
+Review the most recent proposal in this repo's proposal archive and the corresponding PR. Assess: (1) were the law citations correct and complete? (2) did the implementation match the proposal? (3) did the SonarQube gate pass?
+
+Then propose the next highest-value constitutionally-governed task for this team based on the current state of the codebase. Explain why this task is the right next step and which laws it will exercise.</div>
+      <button class="copy-btn" onclick="copyPrompt(this,'p3-prompt')">📋 Copy for Teams / Copilot</button>
+      <div class="tip"><strong>Coaching tip:</strong> Run this prompt WITH the team and use the agent's assessment to open a discussion. The agent's "what went well / what to improve" output is a direct conversation starter — don't pre-read it yourself before the session.</div>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<footer>
+  Teams Prompt Template Library · DC-05 · Page P3 supplemental artifact<br>
+  <a href="../p3-coach-quick-start.html">← Technical Coach Quick Start</a> ·
+  <a href="../p1-landing.html">← Adoption Guide</a> ·
+  Registry v2.0.0 · ENG-13.1 ⛔ self-contained
+</footer>
+
+<script>
+function copyPrompt(btn, sourceId) {
+  const text = document.getElementById(sourceId).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = btn.innerHTML;
+    btn.innerHTML = '✅ Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000);
+  }).catch(() => {
+    btn.innerHTML = '⚠️ Select + copy manually';
+    setTimeout(() => { btn.innerHTML = '📋 Copy for Teams / Copilot'; }, 3000);
+  });
+}
+</script>
+</body>
+</html>

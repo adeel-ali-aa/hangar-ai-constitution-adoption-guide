@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en"
+  data-page-id="P7"
+  data-registry-version="2.0.0"
+  data-render-timestamp="2026-05-07T16:30:00Z">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Workflows Hub — Hangar AI Constitution Adoption Guide</title>
+<style>
+  :root {
+    --aa-navy:   #003366;
+    --aa-red:    #cc0000;
+    --aa-silver: #d0d6de;
+    --aa-blue:   #0066cc;
+    --aa-light:  #f4f6f9;
+    --eng:       #1a6b3a;
+    --card-shadow: 0 2px 8px rgba(0,0,0,.08);
+    --radius: 10px;
+    --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  }
+
+  /* ── RESET ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--font);
+    background: var(--aa-light);
+    color: #1a2332;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: linear-gradient(135deg, var(--aa-navy) 0%, #001a40 100%);
+    color: #fff;
+    padding: 28px 48px 24px;
+    border-bottom: 3px solid var(--aa-red);
+  }
+  .header-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: #6aabdd;
+    font-size: 12px;
+    text-decoration: none;
+    margin-bottom: 10px;
+    transition: color .15s;
+  }
+  .back-link:hover, .back-link:focus { color: #8ac4ee; outline: 2px solid #6aabdd; outline-offset: 3px; border-radius: 3px; }
+  .header-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: #6aabdd;
+    margin-bottom: 6px;
+  }
+  header h1 { font-size: 26px; font-weight: 700; letter-spacing: -.3px; }
+  .header-sub { font-size: 13px; color: #8aabcc; margin-top: 5px; }
+  .header-meta {
+    text-align: right;
+    font-size: 11px;
+    color: #6a8aaa;
+    line-height: 2;
+    white-space: nowrap;
+  }
+  .header-meta strong { color: #cdf; }
+
+  /* ── PERSONA PILLS ── */
+  .persona-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+  .persona-pill {
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.25);
+    border-radius: 20px;
+    padding: 3px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #cdf;
+  }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1000px; margin: 0 auto; padding: 36px 24px 80px; }
+
+  /* ── INTRO ── */
+  .intro {
+    font-size: 15px;
+    color: #2a3a50;
+    margin-bottom: 28px;
+    max-width: 760px;
+    line-height: 1.7;
+  }
+
+  /* ── SECTION TITLES ── */
+  .section-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.3px;
+    text-transform: uppercase;
+    color: #666;
+    margin: 36px 0 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #dde3ea;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title::before {
+    content: '';
+    width: 3px;
+    height: 14px;
+    border-radius: 2px;
+    background: var(--aa-blue);
+    display: inline-block;
+  }
+  .section-title.green::before { background: var(--eng); }
+  .section-title.navy::before { background: var(--aa-navy); }
+
+  /* ── DC-11 / DC-07 NON-DETERMINISM CALLOUT ── */
+  .nondeterminism-box {
+    background: #f0faf4;
+    border-left: 4px solid var(--eng);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    margin-bottom: 28px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .nondeterminism-icon { font-size: 24px; flex-shrink: 0; margin-top: 2px; }
+  .nondeterminism-body {}
+  .nondeterminism-body .dc-tags {
+    display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px;
+  }
+  .dc-tag {
+    font-size: 10px;
+    font-weight: 700;
+    background: var(--eng);
+    color: #fff;
+    border-radius: 4px;
+    padding: 2px 7px;
+    letter-spacing: .4px;
+  }
+  .dc-tag.blue { background: var(--aa-blue); }
+  .nondeterminism-body h2 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #0a4020;
+    margin-bottom: 8px;
+  }
+  .nondeterminism-body p {
+    font-size: 13px;
+    color: #1a4028;
+    line-height: 1.65;
+    margin-bottom: 6px;
+  }
+  .nondeterminism-body p:last-child { margin-bottom: 0; }
+  .nondeterminism-body strong { color: #0a3820; }
+
+  /* ── DECISION TREE (DC-08) ── */
+  .decision-tree {
+    background: #fff;
+    border: 1px solid #e4eaf2;
+    border-radius: var(--radius);
+    box-shadow: var(--card-shadow);
+    padding: 24px 28px 28px;
+    margin-bottom: 8px;
+  }
+  .decision-tree h2 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--aa-navy);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .decision-tree .dt-subtitle {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 20px;
+  }
+  .dt-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .dt-row {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    position: relative;
+  }
+  .dt-question-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    max-width: 360px;
+  }
+  .dt-question {
+    background: #eef4ff;
+    border: 2px solid var(--aa-blue);
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #001a60;
+    width: 100%;
+    position: relative;
+  }
+  .dt-question .q-num {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--aa-blue);
+    text-transform: uppercase;
+    letter-spacing: .8px;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .dt-arrow-down {
+    width: 2px;
+    background: #b0c4de;
+    height: 18px;
+    position: relative;
+    align-self: stretch;
+  }
+  .dt-arrow-down::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 8px solid #b0c4de;
+  }
+  .dt-branch {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 6px 0 6px 28px;
+    width: 100%;
+  }
+  .dt-branch-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: .6px;
+    white-space: nowrap;
+  }
+  .dt-branch-line {
+    width: 24px;
+    height: 2px;
+    background: #b0c4de;
+    flex-shrink: 0;
+  }
+  .dt-outcome {
+    background: #f0faf4;
+    border: 1px solid var(--eng);
+    border-radius: 6px;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #0a4020;
+    white-space: nowrap;
+  }
+  .dt-note {
+    background: #fffbea;
+    border: 1px solid #e6b800;
+    border-radius: 6px;
+    padding: 10px 16px;
+    font-size: 12px;
+    color: #665500;
+    margin-top: 18px;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  .dt-note .icon { font-size: 16px; flex-shrink: 0; }
+
+  /* ── WORKFLOW GRID ── */
+  .workflow-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-bottom: 28px;
+  }
+  @media (max-width: 800px) {
+    .workflow-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 520px) {
+    .workflow-grid { grid-template-columns: 1fr; }
+  }
+
+  .wf-card {
+    background: #fff;
+    border: 1px solid #e4eaf2;
+    border-radius: var(--radius);
+    box-shadow: var(--card-shadow);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: box-shadow .15s, transform .12s;
+  }
+  .wf-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,.12); transform: translateY(-2px); }
+
+  .wf-card-header { display: flex; align-items: flex-start; gap: 8px; }
+  .wf-emoji { font-size: 22px; line-height: 1; flex-shrink: 0; margin-top: 2px; }
+  .wf-title { font-size: 15px; font-weight: 700; color: var(--aa-navy); line-height: 1.3; }
+
+  .wf-personas {
+    font-size: 11px;
+    font-weight: 600;
+    color: #444;
+    background: #f4f6f9;
+    border-radius: 6px;
+    padding: 5px 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .wf-personas .persona-label { color: #666; margin-right: 2px; }
+
+  .wf-when {
+    font-size: 12px;
+    color: #3a4a60;
+    line-height: 1.55;
+  }
+  .wf-when strong { color: #1a2332; }
+
+  .wf-phases {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--aa-blue);
+    background: #eef4ff;
+    border-radius: 4px;
+    padding: 4px 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .wf-meta {
+    font-size: 11px;
+    color: #667;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .wf-meta .meta-row { display: flex; gap: 6px; }
+  .wf-meta .meta-key { font-weight: 700; color: #555; white-space: nowrap; }
+
+  .wf-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: var(--aa-blue);
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    padding: 9px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    font-family: var(--font);
+    transition: background .15s;
+    margin-top: auto;
+  }
+  .wf-btn:hover, .wf-btn:focus { background: #0055aa; outline: 2px solid #003366; outline-offset: 2px; }
+
+  /* ── PHASE GATE CARD ── */
+  .phase-gate-card {
+    background: linear-gradient(135deg, var(--aa-navy) 0%, #001a40 100%);
+    color: #fff;
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,51,102,.35);
+  }
+  .phase-gate-card::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.05);
+    pointer-events: none;
+  }
+  .phase-gate-body {}
+  .phase-gate-body h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .phase-gate-body p {
+    font-size: 13px;
+    color: #8aabcc;
+    max-width: 480px;
+    line-height: 1.6;
+  }
+  .phase-gate-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: #fff;
+    color: var(--aa-navy);
+    border: none;
+    border-radius: 8px;
+    padding: 12px 22px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    font-family: var(--font);
+    white-space: nowrap;
+    transition: background .15s, color .15s;
+    flex-shrink: 0;
+  }
+  .phase-gate-btn:hover, .phase-gate-btn:focus {
+    background: #cdf;
+    outline: 2px solid #fff;
+    outline-offset: 3px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--aa-navy);
+    color: #6a8aaa;
+    font-size: 11px;
+    padding: 20px 48px;
+    border-top: 3px solid var(--aa-red);
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-inner { max-width: 1000px; margin: 0 auto; width: 100%; display: flex; gap: 18px; flex-wrap: wrap; justify-content: space-between; align-items: center; }
+  footer .dc-list { display: flex; gap: 6px; flex-wrap: wrap; }
+  footer .eng-badge {
+    background: var(--eng);
+    color: #fff;
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: .4px;
+  }
+
+  /* ── RESPONSIVE HEADER ── */
+  @media (max-width: 640px) {
+    header { padding: 20px 20px 18px; }
+    .header-meta { display: none; }
+    .page { padding: 24px 16px 60px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     HEADER
+══════════════════════════════════════════ -->
+<header>
+  <div class="header-inner">
+    <div>
+      <a href="../p1-landing.html" class="back-link" aria-label="Back to Adoption Guide landing page">← Adoption Guide</a>
+      <div class="header-eyebrow">Hangar AI Constitution · Adoption Guide · P7</div>
+      <h1>🔀 Workflows Hub</h1>
+      <p class="header-sub">Phase-gated, AI-assisted workflows. You review at every gate.</p>
+      <div class="persona-row" aria-label="Persona routing: who uses this page">
+        <span class="persona-pill">Who uses this:</span>
+        <span class="persona-pill">Coach ✅</span>
+        <span class="persona-pill">Architect ✅</span>
+        <span class="persona-pill">Engineer ✅</span>
+      </div>
+    </div>
+    <div class="header-meta" aria-hidden="true">
+      <div><strong>Page</strong> P7</div>
+      <div><strong>Registry</strong> v2.0.0</div>
+      <div><strong>DC</strong> 07 · 08 · 11 · 12</div>
+      <div><strong>ENG-13.1 ⛔</strong> Zero external deps</div>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════════
+     MAIN CONTENT
+══════════════════════════════════════════ -->
+<main class="page">
+
+  <!-- INTRO -->
+  <p class="intro">
+    Workflows are the primary interface to the Hangar AI Constitution.
+    Each workflow is a <strong>phase-gated, AI-assisted process</strong>.
+    You are in charge at every gate.
+  </p>
+
+  <!-- DC-07 / DC-11 NON-DETERMINISM CALLOUT (visible by default) -->
+  <div class="nondeterminism-box" role="note" aria-label="Non-determinism and human agency callout">
+    <div class="nondeterminism-icon" aria-hidden="true">🧭</div>
+    <div class="nondeterminism-body">
+      <div class="dc-tags">
+        <span class="dc-tag">DC-07 Human Agency</span>
+        <span class="dc-tag">DC-11 Non-Determinism</span>
+      </div>
+      <h2>These workflows are NOT deterministic scripts.</h2>
+      <p>
+        <strong>Same prompt ≠ same output.</strong>
+        The same prompt run twice will produce different proposals. That is by design.
+      </p>
+      <p>
+        You review at every gate. You control scope and batch size.
+        Scope control is yours at every <strong>APPROVE / OBJECT</strong> step.
+      </p>
+    </div>
+  </div>
+
+  <!-- DC-08 DECISION TREE: Which workflow do I need? -->
+  <div class="section-title green" id="decision-tree">DC-08 · Decision Tree</div>
+
+  <div class="decision-tree" aria-label="Which workflow do I need — decision guide">
+    <h2>
+      <span aria-hidden="true">🗺️</span>
+      Which workflow do I need?
+      <span class="dc-tag blue" style="font-size:10px;">DC-08</span>
+    </h2>
+    <p class="dt-subtitle">Follow each question top-to-bottom. Stop at the first "Yes".</p>
+
+    <div class="dt-flow">
+
+      <!-- Q1 -->
+      <div class="dt-question-wrap">
+        <div class="dt-question">
+          <span class="q-num">Q1</span>
+          Is the repo constitutionally adopted?
+        </div>
+      </div>
+      <div class="dt-branch" aria-label="If No: proceed to Adoption first">
+        <span class="dt-branch-label">No →</span>
+        <div class="dt-branch-line" aria-hidden="true"></div>
+        <span class="dt-outcome">🏛️ Adoption first (always)</span>
+      </div>
+      <div style="width:2px;height:12px;background:#b0c4de;margin-left:28px;" aria-hidden="true"></div>
+
+      <!-- Q2 -->
+      <div class="dt-question-wrap">
+        <div class="dt-question">
+          <span class="q-num">Q2</span>
+          Starting a brand new project or service?
+        </div>
+      </div>
+      <div class="dt-branch" aria-label="If Yes: Greenfield Development">
+        <span class="dt-branch-label">Yes →</span>
+        <div class="dt-branch-line" aria-hidden="true"></div>
+        <span class="dt-outcome">🌱 Greenfield Development</span>
+      </div>
+      <div style="width:2px;height:12px;background:#b0c4de;margin-left:28px;" aria-hidden="true"></div>
+
+      <!-- Q3 -->
+      <div class="dt-question-wrap">
+        <div class="dt-question">
+          <span class="q-num">Q3</span>
+          Improving existing legacy code?
+        </div>
+      </div>
+      <div class="dt-branch" aria-label="If Yes: Legacy Rescue">
+        <span class="dt-branch-label">Yes →</span>
+        <div class="dt-branch-line" aria-hidden="true"></div>
+        <span class="dt-outcome">🔧 Legacy Rescue</span>
+      </div>
+      <div style="width:2px;height:12px;background:#b0c4de;margin-left:28px;" aria-hidden="true"></div>
+
+      <!-- Q4 -->
+      <div class="dt-question-wrap">
+        <div class="dt-question">
+          <span class="q-num">Q4</span>
+          Defining what to build — product or feature discovery?
+        </div>
+      </div>
+      <div class="dt-branch" aria-label="If Yes: Product Discovery">
+        <span class="dt-branch-label">Yes →</span>
+        <div class="dt-branch-line" aria-hidden="true"></div>
+        <span class="dt-outcome">🔍 Product Discovery</span>
+      </div>
+      <div style="width:2px;height:12px;background:#b0c4de;margin-left:28px;" aria-hidden="true"></div>
+
+      <!-- Q5 -->
+      <div class="dt-question-wrap">
+        <div class="dt-question">
+          <span class="q-num">Q5</span>
+          Need to set AI context for your tech stack?
+        </div>
+      </div>
+      <div class="dt-branch" aria-label="If Yes: Avatar Creation">
+        <span class="dt-branch-label">Yes →</span>
+        <div class="dt-branch-line" aria-hidden="true"></div>
+        <span class="dt-outcome">🤖 Avatar Creation</span>
+      </div>
+
+    </div>
+
+    <div class="dt-note" role="note">
+      <span class="icon" aria-hidden="true">⚠️</span>
+      <span>
+        <strong>Adoption runs first before ANY other workflow.</strong>
+        It is the constitutional prerequisite. All other workflows assume the repo
+        is already constitutionally adopted.
+      </span>
+    </div>
+  </div>
+
+  <!-- WORKFLOW CARDS -->
+  <div class="section-title navy" id="workflows">Workflow Catalogue</div>
+
+  <div class="workflow-grid" role="list" aria-label="Available workflows">
+
+    <!-- CARD A: Adoption -->
+    <article class="wf-card" role="listitem" aria-label="Adoption Workflow card">
+      <div class="wf-card-header">
+        <span class="wf-emoji" aria-hidden="true">🏛️</span>
+        <div class="wf-title">Adoption Workflow</div>
+      </div>
+      <div class="wf-personas" aria-label="Personas: Coach, Architect, Engineer">
+        <span class="persona-label">Who uses this:</span>
+        <span>Coach ✅</span>
+        <span>Architect ✅</span>
+        <span>Engineer ✅</span>
+      </div>
+      <p class="wf-when"><strong>When to use:</strong> First step for any new or existing repo. Run before any other workflow.</p>
+      <div class="wf-phases" aria-label="3 phases">⬡ 3 phases · Check → Adopt → Verify</div>
+      <div class="wf-meta">
+        <div class="meta-row"><span class="meta-key">Preceded by:</span><span>None — this is always first</span></div>
+        <div class="meta-row"><span class="meta-key">Followed by:</span><span>Legacy Rescue, Greenfield, Product Discovery</span></div>
+      </div>
+      <a href="adoption.html" class="wf-btn" aria-label="Open Adoption Workflow guide ">Open Workflow →</a>
+    </article>
+
+    <!-- CARD B: Legacy Rescue -->
+    <article class="wf-card" role="listitem" aria-label="Legacy Rescue Workflow card">
+      <div class="wf-card-header">
+        <span class="wf-emoji" aria-hidden="true">🔧</span>
+        <div class="wf-title">Legacy Rescue</div>
+      </div>
+      <div class="wf-personas" aria-label="Personas: Coach, Architect, Engineer">
+        <span class="persona-label">Who uses this:</span>
+        <span>Coach ✅</span>
+        <span>Architect ✅</span>
+        <span>Engineer ✅</span>
+      </div>
+      <p class="wf-when"><strong>When to use:</strong> Existing code with high complexity, low test coverage, or many violations.</p>
+      <div class="wf-phases" aria-label="7 phases">⬡ 7 phases · Assess → Govern → Characterize → Remediate → Refactor → Certify → Harden</div>
+      <div class="wf-meta">
+        <div class="meta-row"><span class="meta-key">Preceded by:</span><span>Adoption</span></div>
+        <div class="meta-row"><span class="meta-key">Followed by:</span><span>Greenfield (optionally)</span></div>
+      </div>
+      <a href="legacy-rescue.html" class="wf-btn" aria-label="Open Legacy Rescue Workflow guide ">Open Workflow →</a>
+    </article>
+
+    <!-- CARD C: Greenfield -->
+    <article class="wf-card" role="listitem" aria-label="Greenfield Development Workflow card">
+      <div class="wf-card-header">
+        <span class="wf-emoji" aria-hidden="true">🌱</span>
+        <div class="wf-title">Greenfield Development</div>
+      </div>
+      <div class="wf-personas" aria-label="Personas: Coach, Architect, Engineer">
+        <span class="persona-label">Who uses this:</span>
+        <span>Coach ✅</span>
+        <span>Architect ✅</span>
+        <span>Engineer ✅</span>
+      </div>
+      <p class="wf-when"><strong>When to use:</strong> Net-new service, API, or module built from scratch.</p>
+      <div class="wf-phases" aria-label="8 phases">⬡ 8 phases · Domain → Spec → Slice → TDD → API → Security → Mutation → Ship</div>
+      <div class="wf-meta">
+        <div class="meta-row"><span class="meta-key">Preceded by:</span><span>Adoption</span></div>
+        <div class="meta-row"><span class="meta-key">Followed by:</span><span>Nothing — it's the delivery</span></div>
+      </div>
+      <a href="greenfield.html" class="wf-btn" aria-label="Open Greenfield Development Workflow guide ">Open Workflow →</a>
+    </article>
+
+    <!-- CARD D: Avatar Creation -->
+    <article class="wf-card" role="listitem" aria-label="Avatar Creation Workflow card">
+      <div class="wf-card-header">
+        <span class="wf-emoji" aria-hidden="true">🤖</span>
+        <div class="wf-title">Avatar Creation</div>
+      </div>
+      <div class="wf-personas" aria-label="Personas: Coach, Architect, Engineer">
+        <span class="persona-label">Who uses this:</span>
+        <span>Coach ✅</span>
+        <span>Architect ✅</span>
+        <span>Engineer ✅</span>
+      </div>
+      <p class="wf-when"><strong>When to use:</strong> Set AI domain context for your tech stack. Run at adoption or when stack changes.</p>
+      <div class="wf-phases" aria-label="6 phases">⬡ 6 phases · Identify → Scan → Discover → Build → Validate → Commit</div>
+      <div class="wf-meta">
+        <div class="meta-row"><span class="meta-key">Preceded by:</span><span>Adoption (often)</span></div>
+        <div class="meta-row"><span class="meta-key">Followed by:</span><span>Any workflow (avatars improve all of them)</span></div>
+      </div>
+      <a href="avatar-discovery.html" class="wf-btn" aria-label="Open Avatar Creation Workflow guide ">Open Workflow →</a>
+    </article>
+
+    <!-- CARD E: Product Discovery -->
+    <article class="wf-card" role="listitem" aria-label="Product Discovery Workflow card">
+      <div class="wf-card-header">
+        <span class="wf-emoji" aria-hidden="true">🔍</span>
+        <div class="wf-title">Product Discovery <small style="font-size:11px;font-weight:400;color:#888;">(Agentic)</small></div>
+      </div>
+      <div class="wf-personas" aria-label="Personas: Coach, Architect, Engineer">
+        <span class="persona-label">Who uses this:</span>
+        <span>Coach ✅</span>
+        <span>Architect ✅</span>
+        <span>Engineer ✅</span>
+      </div>
+      <p class="wf-when"><strong>When to use:</strong> Validate a product hypothesis before building. Stage A–F gate-driven discovery.</p>
+      <div class="wf-phases" aria-label="6 stages">⬡ 6 stages · A: Problem → B: Field Study → C: Evidence → D: Validation → E: Metrics → F: Roadmap</div>
+      <div class="wf-meta">
+        <div class="meta-row"><span class="meta-key">Preceded by:</span><span>None required — can run standalone</span></div>
+        <div class="meta-row"><span class="meta-key">Followed by:</span><span>Greenfield Development (if discovery validates)</span></div>
+      </div>
+      <a href="avatar-discovery.html#discovery" class="wf-btn" aria-label="Open Product Discovery Workflow guide ">Open Workflow →</a>
+    </article>
+
+  </div>
+
+  <!-- PHASE GATE EVIDENCE CARD -->
+  <div class="section-title navy" id="phase-gate">Phase Gate Evidence</div>
+
+  <div class="phase-gate-card" role="complementary" aria-label="Phase Gate Evidence Guide card">
+    <div class="phase-gate-body">
+      <h2>
+        <span aria-hidden="true">📊</span>
+        Phase Gate Evidence Guide
+      </h2>
+      <p>
+        At every phase gate, the agent produces an evidence artifact.
+        Learn how to read them, make decisions, and detect drift.
+      </p>
+    </div>
+    <a href="../phase-gate-guide.html" class="phase-gate-btn" aria-label="Open Phase Gate Evidence Guide">
+      Open Phase Gate Evidence Guide →
+    </a>
+  </div>
+
+</main>
+
+<!-- ══════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <strong style="color:#8aabcc;">Hangar AI Constitution</strong> · Adoption Guide · P7 Workflows Hub
+      <br>Registry v2.0.0 · Rendered 2026-05-07T16:30:00Z
+    </div>
+    <div class="dc-list" aria-label="Design constraint tags implemented">
+      <span class="dc-tag">DC-07</span>
+      <span class="dc-tag">DC-08</span>
+      <span class="dc-tag">DC-11</span>
+      <span class="dc-tag">DC-12</span>
+      <span class="eng-badge">ENG-13.1 ⛔ Zero external deps</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

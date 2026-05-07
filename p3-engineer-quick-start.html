@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en"
+  data-page-id="P3-ENG"
+  data-registry-version="2.0.0"
+  data-render-timestamp="2026-05-07T16:30:00Z">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P3 — Engineer Quick Start — Hangar AI Constitution</title>
+<style>
+  :root {
+    --aa-navy: #003366;
+    --aa-red: #cc0000;
+    --aa-silver: #d0d6de;
+    --aa-blue: #0066cc;
+    --aa-light: #f0f4f8;
+    --eng: #1a6b3a;
+    --sprint-bg: #fffbea;
+    --sprint-border: #e6b800;
+    --agent-bg: #eef4ff;
+    --agent-border: #0066cc;
+    --agency-bg: #f0f7f0;
+    --agency-border: #1a6b3a;
+    --card-shadow: 0 2px 10px rgba(0,0,0,0.09);
+    --radius: 10px;
+    --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font); background: #f5f7fa; color: #1a2332; font-size: 14px; line-height: 1.6; }
+
+  /* ── HEADER ── */
+  header {
+    background: linear-gradient(135deg, var(--aa-navy) 0%, #001a40 100%);
+    color: #fff; padding: 28px 48px 24px;
+    border-bottom: 3px solid var(--aa-red);
+  }
+  .header-inner { max-width: 960px; margin: 0 auto; display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+  header h1 { font-size: 24px; font-weight: 700; letter-spacing: -0.3px; margin-bottom: 4px; }
+  .header-eyebrow { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: #6aabdd; margin-bottom: 6px; }
+  .header-sub { font-size: 13px; color: #8aabcc; margin-top: 4px; }
+  .header-meta { text-align: right; font-size: 11px; color: #6a8aaa; line-height: 2; white-space: nowrap; }
+  .header-meta strong { color: #cdf; }
+  .back-link {
+    display: inline-flex; align-items: center; gap: 5px;
+    color: #6aabdd; font-size: 12px; text-decoration: none;
+    margin-bottom: 10px; transition: color 0.15s;
+  }
+  .back-link:hover { color: #8ac4ee; }
+  .role-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--aa-blue); color: #fff;
+    border-radius: 20px; padding: 5px 14px;
+    font-size: 13px; font-weight: 700; margin-top: 8px;
+  }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 960px; margin: 0 auto; padding: 32px 24px 72px; }
+
+  /* ── ACCOMPLISH BAR ── */
+  .accomplish-bar {
+    background: #fffbea; border: 2px solid var(--sprint-border);
+    border-radius: var(--radius); padding: 16px 24px; margin-bottom: 28px;
+    display: flex; gap: 24px; flex-wrap: wrap; align-items: flex-start;
+  }
+  .accomplish-bar .label {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1px; color: #7a5500; white-space: nowrap; padding-top: 2px;
+  }
+  .accomplish-items { display: flex; gap: 18px; flex-wrap: wrap; }
+  .accomplish-item { display: flex; align-items: flex-start; gap: 7px; font-size: 13px; color: #4a3000; }
+  .accomplish-item .check { color: var(--aa-blue); font-size: 15px; flex-shrink: 0; padding-top: 1px; }
+
+  /* ── SECTION TITLES ── */
+  .section-title {
+    font-size: 11px; font-weight: 700; letter-spacing: 1.3px; text-transform: uppercase;
+    color: #666; margin: 36px 0 14px; padding-bottom: 8px;
+    border-bottom: 1px solid #dde3ea;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .section-title::before { content: ''; width: 3px; height: 14px; border-radius: 2px; background: var(--aa-blue); display: inline-block; }
+  .section-title.sprint::before { background: var(--sprint-border); }
+  .section-title.agent::before { background: var(--agent-border); }
+  .section-title.agency::before { background: var(--agency-border); }
+  .section-title.steps::before { background: var(--aa-red); }
+  .section-title.links::before { background: var(--aa-navy); }
+  .section-title.coaching::before { background: #888; }
+
+  /* ── ⚡ FIRST GOVERNED TASK (DC-04) ── */
+  .sprint-band {
+    background: var(--sprint-bg); border: 2px solid var(--sprint-border);
+    border-radius: var(--radius); padding: 24px 28px; margin-bottom: 8px;
+  }
+  .sprint-header { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+  .sprint-header h2 { font-size: 17px; font-weight: 700; color: #7a5500; }
+  .sprint-badge {
+    background: var(--sprint-border); color: #fff; border-radius: 12px;
+    padding: 2px 10px; font-size: 11px; font-weight: 700;
+  }
+  .sprint-steps { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  @media (max-width: 640px) { .sprint-steps { grid-template-columns: 1fr; } }
+  .sprint-step {
+    background: #fff; border-radius: 8px; border: 1px solid #f0d060;
+    padding: 18px; display: flex; flex-direction: column; gap: 8px;
+  }
+  .sprint-step-num { font-size: 11px; font-weight: 700; color: #aa8800; text-transform: uppercase; letter-spacing: 0.8px; }
+  .sprint-step-title { font-size: 14px; font-weight: 700; color: #4a3000; }
+  .sprint-step-desc { font-size: 12px; color: #665500; line-height: 1.6; }
+  .prompt-block {
+    background: #f7f3e8; border: 1px solid #ddd0a0; border-radius: 6px;
+    padding: 10px 12px; font-family: 'Courier New', Courier, monospace;
+    font-size: 11px; color: #3a2c00; line-height: 1.6; margin-top: 4px;
+    word-break: break-word;
+  }
+  .copy-btn {
+    display: inline-flex; align-items: center; gap: 5px; margin-top: 6px;
+    background: var(--aa-blue); color: #fff; border: none; border-radius: 5px;
+    padding: 7px 14px; font-size: 12px; font-weight: 600; cursor: pointer;
+    transition: background 0.15s; font-family: var(--font); align-self: flex-start;
+  }
+  .copy-btn:hover { background: #0055aa; }
+  .copy-btn.copied { background: var(--eng); }
+  .sprint-step a { color: var(--aa-blue); font-weight: 600; font-size: 13px; text-decoration: none; }
+  .sprint-step a:hover { text-decoration: underline; }
+
+  /* ── 🤖 AGENT ROLE EXPLAINER (DC-03) ── */
+  .agent-section {
+    background: var(--agent-bg); border: 1px solid #b8d0f0;
+    border-radius: var(--radius); padding: 24px 28px; margin-bottom: 8px;
+  }
+  .agent-section h2 { font-size: 16px; font-weight: 700; color: #003080; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .agent-section .dc-tag { font-size: 10px; font-weight: 600; background: #003366; color: #fff; border-radius: 4px; padding: 2px 7px; }
+  .agent-section .sub { font-size: 13px; color: #2244aa; margin-bottom: 18px; }
+  .agent-flow { display: flex; flex-direction: column; gap: 0; }
+  .agent-step {
+    display: grid; grid-template-columns: 36px 1fr;
+    gap: 14px; align-items: start; padding: 14px 0;
+    border-bottom: 1px solid #ccd8f0;
+  }
+  .agent-step:last-child { border-bottom: none; }
+  .agent-step-icon { font-size: 22px; padding-top: 1px; text-align: center; }
+  .agent-step-content {}
+  .agent-step-label {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.9px; color: #0050aa; margin-bottom: 3px;
+  }
+  .agent-step-label.you { color: var(--eng); }
+  .agent-step-label.archive { color: #6a3f00; }
+  .agent-step-desc { font-size: 13px; color: #1a2a4a; line-height: 1.65; }
+  .agent-step-desc code { background: #dde8f8; border-radius: 3px; padding: 1px 5px; font-size: 11px; color: #003366; }
+
+  /* ── 🧭 HUMAN AGENCY (DC-07 — VISIBLE) ── */
+  .agency-section {
+    background: var(--agency-bg); border: 1px solid #a8d0b0;
+    border-radius: var(--radius); padding: 24px 28px; margin-bottom: 8px;
+  }
+  .agency-section h2 { font-size: 16px; font-weight: 700; color: #0f4d26; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .agency-section .dc-tag { font-size: 10px; font-weight: 600; background: var(--eng); color: #fff; border-radius: 4px; padding: 2px 7px; }
+  .agency-section .sub { font-size: 13px; color: #1a5a30; margin-bottom: 18px; }
+  .agency-items { display: flex; flex-direction: column; gap: 0; }
+  .agency-item {
+    display: grid; grid-template-columns: 28px 1fr;
+    gap: 14px; align-items: start; padding: 14px 0;
+    border-bottom: 1px solid #b8d8c0;
+  }
+  .agency-item:last-child { border-bottom: none; }
+  .agency-num {
+    width: 26px; height: 26px; border-radius: 50%;
+    background: var(--eng); color: #fff;
+    font-size: 12px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 1px;
+  }
+  .agency-content {}
+  .agency-title { font-size: 14px; font-weight: 700; color: #0f4d26; margin-bottom: 3px; }
+  .agency-title .law-tag {
+    font-size: 10px; font-weight: 700; background: rgba(204,0,0,0.12);
+    color: var(--aa-red); border-radius: 4px; padding: 1px 6px; margin-left: 6px;
+  }
+  .agency-desc { font-size: 13px; color: #1a4028; line-height: 1.65; }
+
+  /* ── 📋 WORKFLOW STEPS (DC-01) ── */
+  .step-cards { display: flex; flex-direction: column; gap: 8px; }
+  .step-card {
+    background: #fff; border-radius: 8px; border: 1px solid #e4eaf2;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06); overflow: hidden;
+  }
+  .step-card-header {
+    display: grid; grid-template-columns: 36px 1fr auto;
+    gap: 12px; align-items: center; padding: 14px 16px;
+    cursor: pointer; background: #fff; border: none;
+    width: 100%; text-align: left; font-family: var(--font);
+    transition: background 0.12s;
+  }
+  .step-card-header:hover { background: #f7f9fc; }
+  .step-card.open .step-card-header { background: #f0f4fa; border-bottom: 1px solid #dde3ea; }
+  .step-num {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--aa-navy); color: #fff;
+    font-size: 13px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .step-title-wrap {}
+  .step-title { font-size: 14px; font-weight: 700; color: #1a2332; }
+  .step-subtitle { font-size: 11px; color: #888; margin-top: 1px; }
+  .step-chevron {
+    font-size: 16px; color: #aaa; transition: transform 0.2s; display: inline-block;
+  }
+  .step-card.open .step-chevron { transform: rotate(180deg); }
+  .step-card-body {
+    display: none; padding: 16px 18px 18px 66px;
+  }
+  .step-card.open .step-card-body { display: block; }
+  .step-card-body p { font-size: 13px; color: #2a3a50; line-height: 1.7; }
+  .step-card-body p + p { margin-top: 8px; }
+  .step-card-body a { color: var(--aa-blue); font-weight: 600; text-decoration: none; }
+  .step-card-body a:hover { text-decoration: underline; }
+  .step-card-body .law-inline {
+    display: inline-block; background: rgba(204,0,0,0.10);
+    color: var(--aa-red); border-radius: 4px; padding: 1px 7px;
+    font-size: 11px; font-weight: 700; margin-left: 4px;
+  }
+  .step-card-body ul { margin: 8px 0 0 0; padding-left: 18px; }
+  .step-card-body ul li { font-size: 13px; color: #2a3a50; line-height: 1.7; margin-bottom: 3px; }
+  .metric-chip {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: #e8f5ee; border: 1px solid #90c8a4;
+    border-radius: 12px; padding: 2px 10px;
+    font-size: 11px; font-weight: 700; color: var(--eng); margin-top: 6px;
+  }
+
+  /* ── 🔗 WORKFLOW LINKS ── */
+  .links-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  @media (max-width: 540px) { .links-grid { grid-template-columns: 1fr; } }
+  .link-card {
+    background: #fff; border-radius: 8px; border: 1px solid #e4eaf2;
+    box-shadow: var(--card-shadow); padding: 18px 20px;
+    display: flex; flex-direction: column; gap: 6px;
+    text-decoration: none; transition: box-shadow 0.15s, transform 0.15s;
+  }
+  .link-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.12); transform: translateY(-1px); }
+  .link-card-icon { font-size: 22px; }
+  .link-card-title { font-size: 14px; font-weight: 700; color: var(--aa-navy); }
+  .link-card-sub { font-size: 12px; color: #667; }
+  .link-card-arrow { font-size: 11px; color: var(--aa-blue); margin-top: 2px; }
+
+  /* ── ▼ COACHING NOTES (DC-06 collapsed) ── */
+  .coaching-details {
+    background: #f8f9fa; border: 1px solid #dde3ea;
+    border-radius: var(--radius); overflow: hidden;
+  }
+  .coaching-details summary {
+    padding: 14px 20px; font-size: 14px; font-weight: 700; color: #444;
+    cursor: pointer; list-style: none; display: flex; align-items: center; gap: 8px;
+    user-select: none;
+  }
+  .coaching-details summary::-webkit-details-marker { display: none; }
+  .coaching-details summary::before {
+    content: '▶'; font-size: 10px; color: #888; transition: transform 0.2s; display: inline-block;
+  }
+  .coaching-details[open] summary::before { transform: rotate(90deg); }
+  .coaching-details summary:hover { background: #f0f2f5; }
+  .coaching-body { padding: 0 20px 20px; }
+  .coaching-prompt {
+    background: #fff; border-radius: 8px; border: 1px solid #e0e5eb;
+    border-left: 3px solid #888; padding: 14px 16px; margin-top: 12px;
+  }
+  .coaching-prompt-num { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #888; margin-bottom: 5px; }
+  .coaching-prompt-text { font-size: 13px; color: #2a3a50; line-height: 1.7; font-style: italic; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--aa-navy); color: #8aabcc; padding: 28px 48px;
+    border-top: 3px solid var(--aa-red);
+  }
+  .footer-inner { max-width: 960px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+  .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+  .footer-links a { color: #6aabdd; text-decoration: none; font-size: 13px; font-weight: 600; transition: color 0.15s; }
+  .footer-links a:hover { color: #8ac4ee; }
+  .footer-registry { font-size: 11px; color: #556a7a; text-align: right; line-height: 1.8; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════
+     HEADER
+═══════════════════════════════════════════════════════ -->
+<header>
+  <div class="header-inner">
+    <div>
+      <a href="p1-landing.html" class="back-link">← Adoption Guide</a>
+      <div class="header-eyebrow">Hangar AI Constitution · Adoption Guide</div>
+      <h1>P3 — Engineer Quick Start</h1>
+      <div class="header-sub">Your first constitutionally-governed coding session.</div>
+      <div class="role-badge">⚙️ Engineer</div>
+    </div>
+    <div class="header-meta">
+      <strong>Page ID:</strong> P3-ENG<br>
+      <strong>Registry:</strong> v2.0.0<br>
+      <strong>DC:</strong> 01–12 binding<br>
+      <strong>Rendered:</strong> 2026-05-07
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════
+     MAIN
+═══════════════════════════════════════════════════════ -->
+<main class="page">
+
+  <!-- ACCOMPLISH BAR -->
+  <div class="accomplish-bar" role="note" aria-label="Session goals">
+    <div class="label">By the end of this session:</div>
+    <div class="accomplish-items">
+      <div class="accomplish-item"><span class="check">①</span> Run your first PROPOSE → IMPLEMENT → ARCHIVE cycle</div>
+      <div class="accomplish-item"><span class="check">②</span> Pass the TDD and SonarQube gates</div>
+      <div class="accomplish-item"><span class="check">③</span> Submit a constitutionally-governed PR</div>
+    </div>
+  </div>
+
+  <!-- ⚡ FIRST GOVERNED TASK (DC-04) -->
+  <div class="section-title sprint">⚡ First Governed Task <span style="font-size:10px;color:#aa8800;letter-spacing:.5px;">(DC-04)</span></div>
+  <div class="sprint-band" role="region" aria-label="First governed task — DC-04">
+    <div class="sprint-header">
+      <h2>⚡ Run Your First Governed Task</h2>
+      <span class="sprint-badge">DC-04</span>
+    </div>
+    <div class="sprint-steps">
+
+      <!-- Step 1 -->
+      <div class="sprint-step">
+        <div class="sprint-step-num">Step 1</div>
+        <div class="sprint-step-title">Adopt the constitution</div>
+        <div class="sprint-step-desc">
+          The constitution must be in your repo before any governed task. Use the adoption workflow, then paste the prompt into your AI agent.
+        </div>
+        <a href="workflows/adoption.html">→ Adoption Workflow</a>
+        <div class="prompt-block" id="prompt-adopt">Adopt the Hangar AI Constitution into this repo. Clone from github.com/AAInternal/hangar-ai-constitution.git to ./../ and follow the adoption workflow.</div>
+        <button class="copy-btn" aria-label="Copy adoption prompt" onclick="copyPrompt(this, 'prompt-adopt')">📋 Copy Prompt</button>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="sprint-step">
+        <div class="sprint-step-num">Step 2</div>
+        <div class="sprint-step-title">Start your first proposal</div>
+        <div class="sprint-step-desc">
+          Paste the prompt below into your AI agent. Describe your ticket in one sentence and scope it to one class, endpoint, or service.
+        </div>
+        <div class="prompt-block" id="prompt-proposal">Read the Hangar AI Constitution. I want to work on [describe your ticket/feature in 1 sentence]. Create a constitutional proposal for this change. Scope it to [one class/endpoint/service] only. Include the applicable law IDs.</div>
+        <button class="copy-btn" aria-label="Copy first task proposal prompt" onclick="copyPrompt(this, 'prompt-proposal')">📋 Copy Prompt</button>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="sprint-step">
+        <div class="sprint-step-num">Step 3</div>
+        <div class="sprint-step-title">Review the proposal</div>
+        <div class="sprint-step-desc">
+          Read it carefully before typing APPROVE. Check:
+        </div>
+        <ul style="margin-top:6px;padding-left:18px;font-size:12px;color:#665500;line-height:1.7;">
+          <li>Does the scope match your ticket?</li>
+          <li>Are the test requirements clear?</li>
+          <li>Is the batch size right — could it be smaller?</li>
+        </ul>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="sprint-step">
+        <div class="sprint-step-num">Step 4</div>
+        <div class="sprint-step-title">Approve, implement, and archive</div>
+        <div class="sprint-step-desc">
+          Type <strong>APPROVE</strong> to let the agent run IMPLEMENT. Review the changes — do they follow the proposal? Are there side effects outside scope? Then type <strong>ARCHIVE</strong> to close the loop and create your governance trail.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 🤖 AGENT ROLE EXPLAINER (DC-03) -->
+  <div class="section-title agent">🤖 What is the Agent Doing? <span style="font-size:10px;color:#0066cc;letter-spacing:.5px;">(DC-03)</span></div>
+  <div class="agent-section" role="region" aria-label="Agent role explainer — DC-03">
+    <h2>🤖 What is the Agent Doing? <span class="dc-tag">DC-03</span></h2>
+    <p class="sub">The agent works in governed phases. You stay in control at every gate.</p>
+    <div class="agent-flow" role="list">
+
+      <div class="agent-step" role="listitem">
+        <div class="agent-step-icon">📋</div>
+        <div class="agent-step-content">
+          <div class="agent-step-label">1 · PROPOSE</div>
+          <div class="agent-step-desc">Agent reads your ticket description and the constitution. It proposes what to change, which tests to write, which laws apply. This is a governance document — not code yet. No files are modified at this stage.</div>
+        </div>
+      </div>
+
+      <div class="agent-step" role="listitem">
+        <div class="agent-step-icon">🧑‍💻</div>
+        <div class="agent-step-content">
+          <div class="agent-step-label you">Your turn</div>
+          <div class="agent-step-desc">You read the proposal. Check scope. Reduce if needed: <em>"Scope this to one class only."</em> When you are satisfied, type <code>APPROVE</code>. The agent will not proceed without your explicit approval.</div>
+        </div>
+      </div>
+
+      <div class="agent-step" role="listitem">
+        <div class="agent-step-icon">⚙️</div>
+        <div class="agent-step-content">
+          <div class="agent-step-label">2 · IMPLEMENT</div>
+          <div class="agent-step-desc">Agent writes the code + tests (TDD: failing tests first, then implementation). Runs the SonarQube gate. Commits with a reference to the proposal ID. You review: does the code match the proposal? Any unexpected side effects?</div>
+        </div>
+      </div>
+
+      <div class="agent-step" role="listitem">
+        <div class="agent-step-icon">🗂️</div>
+        <div class="agent-step-content">
+          <div class="agent-step-label archive">3 · ARCHIVE</div>
+          <div class="agent-step-desc">Proposal moves to <code>hangar-ai-specs/archive/</code>. Your PR now has a governed history. This is the constitutional trail — every decision traceable to a law citation. Reviewers and auditors can follow the full reasoning chain.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 🎲 NON-DETERMINISM CALLOUT (DC-11 — VISIBLE BY DEFAULT) -->
+  <div style="background:#f0f7f0;border:2px solid #1a6b3a;border-radius:10px;padding:20px 24px;margin-bottom:24px;" role="region" aria-label="Non-determinism callout — DC-11 — visible by default">
+    <div style="font-size:13px;font-weight:700;color:#1a6b3a;text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px;">🎲 DC-11 · Non-Deterministic Workflows</div>
+    <p style="margin:0 0 10px;font-size:14px;color:#0f4d26;font-weight:600;">The agent's output varies between runs. This is by design — not a bug.</p>
+    <ul style="margin:0;padding-left:18px;font-size:13px;color:#1a4028;line-height:1.75;">
+      <li>Two identical prompts may produce different proposals. Both can be constitutionally valid.</li>
+      <li>Your APPROVE decision is the gate. It is <strong>never automatic</strong>.</li>
+      <li>If the output isn't right, scope it down and re-propose — the constitution supports iteration.</li>
+      <li>Use the phase gate evidence to verify the agent stayed within your approved scope.</li>
+    </ul>
+  </div>
+
+  <!-- 🧭 HUMAN AGENCY & ADAPTIVE SCOPE (DC-07 — VISIBLE) -->
+  <div class="section-title agency">🧭 Human Agency &amp; Adaptive Scope <span style="font-size:10px;color:#1a6b3a;letter-spacing:.5px;">(DC-07)</span></div>
+  <div class="agency-section" role="region" aria-label="Human agency — DC-07 — visible by default">
+    <h2>🧭 Human Agency &amp; Adaptive Scope <span class="dc-tag">DC-07</span></h2>
+    <p class="sub">You own the scope. You own the approval. You own the architecture.</p>
+    <div class="agency-items" role="list">
+
+      <div class="agency-item" role="listitem">
+        <div class="agency-num">1</div>
+        <div class="agency-content">
+          <div class="agency-title">Your ticket, your scope</div>
+          <div class="agency-desc">The agent will propose the full scope it can see. You are <strong>NOT</strong> required to accept it all. Scope it to one class, one endpoint, one service. Small changes done well beat large ones done poorly.</div>
+        </div>
+      </div>
+
+      <div class="agency-item" role="listitem">
+        <div class="agency-num">2</div>
+        <div class="agency-content">
+          <div class="agency-title">Tests come before code <span class="law-tag">ENG-4.1 ⛔</span></div>
+          <div class="agency-desc">The constitution requires TDD. The agent should write failing tests first, then make them pass. If it writes implementation first, <strong>OBJECT</strong>. You have the authority — and the obligation — to enforce this.</div>
+        </div>
+      </div>
+
+      <div class="agency-item" role="listitem">
+        <div class="agency-num">3</div>
+        <div class="agency-content">
+          <div class="agency-title">The SonarQube gate only checks NEW code</div>
+          <div class="agency-desc">Don't worry about pre-existing issues in the codebase. The gate only requires that <em>your</em> new code doesn't add new violations. You are not responsible for the entire repo's historical debt in one PR.</div>
+        </div>
+      </div>
+
+      <div class="agency-item" role="listitem">
+        <div class="agency-num">4</div>
+        <div class="agency-content">
+          <div class="agency-title">You control iteration</div>
+          <div class="agency-desc">Didn't get everything in one session? That's fine. Close the proposal, commit what you have, open a new proposal for the next piece. The constitution is designed for iteration — not big-bang delivery.</div>
+        </div>
+      </div>
+
+      <div class="agency-item" role="listitem">
+        <div class="agency-num">5</div>
+        <div class="agency-content">
+          <div class="agency-title">ARCHIVE closes the loop</div>
+          <div class="agency-desc">Don't skip the archive step. It creates the auditable governance trail your team can review during code review and audits. Without it, the PR has code but no constitutional history.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 📋 FULL ENGINEER WORKFLOW (DC-01) -->
+  <div class="section-title steps">📋 Full Engineer Workflow <span style="font-size:10px;color:#cc0000;letter-spacing:.5px;">(DC-01)</span></div>
+  <div class="step-cards" role="list" aria-label="Full engineer workflow steps">
+
+    <!-- Step 1 -->
+    <div class="step-card" role="listitem">
+      <button class="step-card-header" onclick="toggleStep(this)" aria-expanded="false" aria-controls="step-body-1">
+        <div class="step-num">1</div>
+        <div class="step-title-wrap">
+          <div class="step-title">Adopt the constitution first</div>
+          <div class="step-subtitle">Pre-requisite — constitution must be in your repo</div>
+        </div>
+        <span class="step-chevron" aria-hidden="true">▼</span>
+      </button>
+      <div class="step-card-body" id="step-body-1">
+        <p>The Hangar AI Constitution must be adopted into your repository before any governed task can begin. Without it, the agent has no laws to reference, no workflows to follow, and no archive location to write to.</p>
+        <p><a href="workflows/adoption.html">→ Go to Adoption Workflow</a></p>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="step-card" role="listitem">
+      <button class="step-card-header" onclick="toggleStep(this)" aria-expanded="false" aria-controls="step-body-2">
+        <div class="step-num">2</div>
+        <div class="step-title-wrap">
+          <div class="step-title">Pick your workflow</div>
+          <div class="step-subtitle">Legacy Rescue · Greenfield · Avatar</div>
+        </div>
+        <span class="step-chevron" aria-hidden="true">▼</span>
+      </button>
+      <div class="step-card-body" id="step-body-2">
+        <p>Choose the workflow that matches your task:</p>
+        <ul>
+          <li><strong>Legacy Rescue</strong> — Modifying or refactoring existing code with a debt burden</li>
+          <li><strong>Greenfield</strong> — Building a net-new feature from scratch</li>
+          <li><strong>Avatar</strong> — Complex or cross-cutting work where the agent needs deep context about your system</li>
+        </ul>
+        <p style="margin-top:10px;"><a href="workflows/index.html">→ Workflows Hub</a></p>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="step-card" role="listitem">
+      <button class="step-card-header" onclick="toggleStep(this)" aria-expanded="false" aria-controls="step-body-3">
+        <div class="step-num">3</div>
+        <div class="step-title-wrap">
+          <div class="step-title">Create a proposal</div>
+          <div class="step-subtitle">Describe your change · Agent proposes scope + law IDs</div>
+        </div>
+        <span class="step-chevron" aria-hidden="true">▼</span>
+      </button>
+      <div class="step-card-body" id="step-body-3">
+        <p>Describe in one sentence what you are changing. The agent creates a constitutional proposal including the specific laws that apply, the test requirements, and the proposed scope.</p>
+        <p>Review: does the scope match your ticket? Is it appropriately sized? Are the applicable law IDs correct? Reduce the scope if it feels too large — you can always open a follow-up proposal.</p>
+      </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="step-card" role="listitem">
+      <button class="step-card-header" onclick="toggleStep(this)" aria-expanded="false" aria-controls="step-body-4">
+        <div class="step-num">4</div>
+        <div class="step-title-wrap">
+          <div class="step-title">Write tests first (TDD gate)</div>
+          <div class="step-subtitle">ENG-4.1 ⛔ — failing tests before implementation</div>
+        </div>
+        <span class="step-chevron" aria-hidden="true">▼</span>
+      </button>
+      <div class="step-card-body" id="step-body-4">
+        <p>The agent must write failing tests <em>before</em> writing any implementation. <span class="law-inline">ENG-4.1 ⛔</span> is a hard gate — no exceptions.</p>
+        <p>Verify: tests exist and are failing before implementation begins. Cover the change fully. The target metric for your changeset:</p>
+        <div class="metric-chip">new_coverage ≥ 90% on changeset</div>
+        <p style="margin-top:10px;">If the agent writes implementation first, stop it and require the TDD sequence. You have the authority to enforce this gate.</p>
+      </div>
+    </div>
+
+    <!-- Step 5 -->
+    <div class="step-card" role="listitem">
+      <button class="step-card-header" onclick="toggleStep(this)" aria-expanded="false" aria-controls="step-body-5">
+        <div class="step-num">5</div>
+        <div class="step-title-wrap">
+          <div class="step-title">Run the implementation</div>
+          <div class="step-subtitle">Agent writes code to pass the tests</div>
+        </div>
+        <span class="step-chevron" aria-hidden="true">▼</span>
+      </button>
+      <div class="step-card-body" id="step-body-5">
+        <p>Once tests are written and failing, the agent writes implementation to make them pass. Review the result:</p>
+        <ul>
+          <li>Does it follow the proposal exactly?</li>
+          <li>Are there side effects outside the agreed scope?</li>
+          <li>Does it introduce new dependencies not in the proposal?</li>
+        </ul>
+        <p style="margin-top:8px;">If you see scope creep, raise it before archiving. You can re-scope and re-implement without losing the constitutional trail.</p>
+      </div>
+    </div>
+
+    <!-- Step 6 -->
+    <div class="step-card" role="listitem">
+      <button class="step-card-header" onclick="toggleStep(this)" aria-expanded="false" aria-controls="step-body-6">
+        <div class="step-num">6</div>
+        <div class="step-title-wrap">
+          <div class="step-title">Pass the SonarQube gate</div>
+          <div class="step-subtitle">No new bugs · No new vulnerabilities · new_coverage ≥ threshold</div>
+        </div>
+        <span class="step-chevron" aria-hidden="true">▼</span>
+      </button>
+      <div class="step-card-body" id="step-body-6">
+        <p>The agent runs the constitutional SonarQube gate. Read <code>sonarqube-delta.md</code> to understand the results. The gate checks:</p>
+        <ul>
+          <li>No new bugs introduced by your changeset</li>
+          <li>No new vulnerabilities introduced by your changeset</li>
+          <li>New coverage on your changeset meets the threshold</li>
+        </ul>
+        <p style="margin-top:8px;">Remember: the gate only evaluates <em>new</em> code. Pre-existing issues in the codebase do not block your PR.</p>
+        <p style="margin-top:8px;"><a href="phase-gate-guide.html">→ Read Phase Gate Evidence Guide</a></p>
+      </div>
+    </div>
+
+    <!-- Step 7 -->
+    <div class="step-card" role="listitem">
+      <button class="step-card-header" onclick="toggleStep(this)" aria-expanded="false" aria-controls="step-body-7">
+        <div class="step-num">7</div>
+        <div class="step-title-wrap">
+          <div class="step-title">Archive and submit PR</div>
+          <div class="step-subtitle">Proposal archived · PR references proposal ID · governance trail complete</div>
+        </div>
+        <span class="step-chevron" aria-hidden="true">▼</span>
+      </button>
+      <div class="step-card-body" id="step-body-7">
+        <p>The agent archives the proposal to <code>hangar-ai-specs/archive/</code>. Your PR description references the proposal ID. Every decision in the code is traceable to a specific law citation in the constitutional trail.</p>
+        <p style="margin-top:8px;">Code reviewers and auditors can follow the full reasoning chain from ticket description → proposal → implementation → archived evidence. This is what makes the PR constitutionally governed.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 🔗 WORKFLOW LINKS -->
+  <div class="section-title links">🔗 Workflow Links</div>
+  <div class="links-grid" role="list" aria-label="Quick navigation links">
+
+    <a href="workflows/index.html" class="link-card" role="listitem">
+      <div class="link-card-icon">🔀</div>
+      <div class="link-card-title">Choose Your Workflow</div>
+      <div class="link-card-sub">Legacy Rescue · Greenfield · Avatar — pick the right path for your task</div>
+      <div class="link-card-arrow">→ workflows/index.html</div>
+    </a>
+
+    <a href="phase-gate-guide.html" class="link-card" role="listitem">
+      <div class="link-card-icon">📊</div>
+      <div class="link-card-title">Read Phase Gate Evidence</div>
+      <div class="link-card-sub">Understand SonarQube delta reports and coverage evidence</div>
+      <div class="link-card-arrow">→ phase-gate-guide.html</div>
+    </a>
+
+  </div>
+
+  <!-- ▼ COACHING NOTES (DC-06 — collapsed) -->
+  <div class="section-title coaching" style="margin-top:40px;">▼ Coaching Notes for Engineers <span style="font-size:10px;color:#888;letter-spacing:.5px;">(DC-06 · Socratic)</span></div>
+  <details class="coaching-details" aria-label="Coaching notes — Socratic prompts — collapsed by default">
+    <summary>▼ Coaching Notes for Engineers <span style="font-size:11px;font-weight:400;color:#888;margin-left:6px;">(expand for Socratic prompts)</span></summary>
+    <div class="coaching-body">
+
+      <div class="coaching-prompt">
+        <div class="coaching-prompt-num">Prompt 1 — Scope &amp; Risk</div>
+        <div class="coaching-prompt-text">"Before you type APPROVE — what would happen if you approved this full proposal and it took 3x longer than expected? What scope change would make it feel safe?"</div>
+      </div>
+
+      <div class="coaching-prompt">
+        <div class="coaching-prompt-num">Prompt 2 — TDD Gate (ENG-4.1 ⛔)</div>
+        <div class="coaching-prompt-text">"The agent wrote implementation before tests. What does ENG-4.1 say about that? What would you do?"</div>
+      </div>
+
+      <div class="coaching-prompt">
+        <div class="coaching-prompt-num">Prompt 3 — Mutation Score</div>
+        <div class="coaching-prompt-text">"Your mutation score came back at 45%. What does that mean about your tests? What would a surviving mutant look like in your code?"</div>
+      </div>
+
+      <div class="coaching-prompt">
+        <div class="coaching-prompt-num">Prompt 4 — Architecture Communication</div>
+        <div class="coaching-prompt-text">"How would you explain to a senior architect why you scoped the proposal to one package instead of three?"</div>
+      </div>
+
+    </div>
+  </details>
+
+</main>
+
+<!-- ═══════════════════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-links">
+      <a href="p1-landing.html">← Back to Adoption Guide</a>
+      <a href="workflows/index.html">🔀 Workflows Hub</a>
+    </div>
+    <div class="footer-registry">
+      Registry: laws/index.yaml v2.0.0 · DC-01 through DC-12 binding<br>
+      Rendered: 2026-05-07 · Page ID: P3-ENG
+    </div>
+  </div>
+</footer>
+
+<script>
+function copyPrompt(btn, sourceId) {
+  const text = document.getElementById(sourceId).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = btn.innerHTML;
+    btn.innerHTML = '&#x2705; Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000);
+  }).catch(() => {
+    btn.innerHTML = '&#x26A0;&#xFE0F; Select + copy manually';
+    setTimeout(() => { btn.innerHTML = '&#x1F4CB; Copy Prompt'; }, 3000);
+  });
+}
+
+function toggleStep(header) {
+  const card = header.parentElement;
+  card.classList.toggle('open');
+  header.setAttribute('aria-expanded', card.classList.contains('open'));
+}
+</script>
+
+</body>
+</html>
