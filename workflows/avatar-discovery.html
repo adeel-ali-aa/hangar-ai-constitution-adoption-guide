@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
-  data-page-id="P9-av"
+  data-page-id="P9-AV"
   data-registry-version="2.0.0"
   data-render-timestamp="2026-05-07T18:00:00Z">
 <head>
@@ -8,96 +8,415 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>P9-av · Avatar Creation + Product Discovery — Hangar AI Constitution</title>
 <style>
-/* ── Reset & Base ──────────────────────────────────────────────────────── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* ═══════════════════════════════════════════════════════════════════
+   ADOPTION GUIDE DESIGN SYSTEM v2 — ENG-13.1 ⛔ COMPLIANT
+   Zero external deps. System fonts only. Inner pages.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── RESET & TOKENS ──────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 body {
+  margin: 0;
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-  background: #f4f6f9;
-  color: #1a1a2e;
+  font-size: 1rem;
   line-height: 1.6;
-  font-size: 15px;
+  color: #132033;
+  background:
+    radial-gradient(circle at top right, rgba(199,155,44,0.12), transparent 30%),
+    radial-gradient(circle at left 20%, rgba(0,51,102,0.06), transparent 25%),
+    linear-gradient(180deg, #fdfcf8 0%, #f2f5fa 50%, #f8f2ea 100%);
+  min-height: 100vh;
 }
-a { color: #0066cc; text-decoration: none; }
-a:hover { text-decoration: underline; }
-code, pre {
-  font-family: 'Cascadia Code', 'Consolas', 'Menlo', 'Monaco', monospace;
-  font-size: 0.875em;
+a { color: inherit; }
+h1,h2,h3,h4 {
+  margin: 0;
+  font-family: Georgia, "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  font-weight: 700;
+  line-height: 1.08;
 }
-
-/* ── Layout ───────────────────────────────────────────────────────────── */
-.page-wrap { max-width: 980px; margin: 0 auto; padding: 0 16px 48px; }
-
-/* ── Header ───────────────────────────────────────────────────────────── */
-.site-header {
-  background: linear-gradient(135deg, #003366 0%, #00264d 100%);
-  padding: 18px 24px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
-  border-bottom: 3px solid #cc0000;
-}
-.site-header .back-link {
-  color: #d0d6de;
-  font-size: 0.875rem;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  white-space: nowrap;
-  text-decoration: none;
-  border: 1px solid rgba(208,214,222,0.3);
-  padding: 5px 12px;
+p { margin: 0 0 1rem; }
+ul, ol { margin: 0 0 1rem; padding-left: 1.4rem; }
+li { margin-bottom: 0.4rem; }
+code {
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 0.88em;
+  background: rgba(0,51,102,0.07);
+  padding: 2px 6px;
   border-radius: 4px;
-  transition: background 0.15s;
+}
+pre {
+  background: #0f1f3d;
+  color: #e8f0f8;
+  padding: 20px;
+  border-radius: 12px;
+  overflow-x: auto;
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 0.88rem;
+  line-height: 1.7;
+  margin: 12px 0;
+}
+
+/* ── LAYOUT ──────────────────────────────────────────────────────── */
+.shell { width: min(1180px, calc(100% - 32px)); margin: 0 auto; }
+main { padding-bottom: 72px; }
+section { margin-top: 56px; }
+.section-head { margin-bottom: 28px; }
+.section-label {
+  display: inline-block;
+  margin-bottom: 8px;
+  color: #cc0000;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+.section-head h2 {
+  font-size: clamp(1.7rem, 3.5vw, 2.5rem);
+  letter-spacing: -0.03em;
+  color: #132033;
+}
+.section-head p {
+  margin: 12px 0 0;
+  max-width: 680px;
+  color: #566579;
+  font-size: 1rem;
+}
+
+/* ── STICKY NAV ──────────────────────────────────────────────────── */
+.site-nav {
+  background: #001a40;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding: 0 16px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.nav-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 54px;
+  gap: 16px;
+}
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.88);
+  text-decoration: none;
+}
+.nav-brand-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #fff, #f7ca66);
   flex-shrink: 0;
 }
-.site-header .back-link:hover { background: rgba(255,255,255,0.12); }
-.header-titles { flex: 1; }
-.site-header h1 {
-  color: #fff;
-  font-size: 1.35rem;
-  font-weight: 700;
-}
-.site-header .header-sub {
-  color: #d0d6de;
-  font-size: 0.82rem;
-  margin-top: 3px;
-}
-.header-badge {
-  background: rgba(255,255,255,0.12);
-  border: 1px solid rgba(255,255,255,0.25);
-  border-radius: 4px;
-  padding: 4px 10px;
-  font-size: 0.75rem;
-  color: #d0d6de;
-  white-space: nowrap;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-}
-
-/* ── Page-level nav ──────────────────────────────────────────────────── */
-.page-nav {
-  background: #003366;
-  display: flex;
-  gap: 0;
-  border-bottom: 2px solid #cc0000;
-}
-.page-nav a {
-  color: #d0d6de;
+.nav-links { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.nav-link {
+  color: rgba(255,255,255,0.68);
   text-decoration: none;
-  padding: 8px 20px;
-  font-size: 0.85rem;
+  font-size: 0.83rem;
   font-weight: 600;
-  border-right: 1px solid rgba(255,255,255,0.1);
+  transition: color 0.15s;
+}
+.nav-link:hover { color: #fff; }
+.btn-nav-home {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.16);
+  color: #fff;
+  font-size: 0.80rem;
+  font-weight: 700;
+  text-decoration: none;
   transition: background 0.15s;
 }
-.page-nav a:hover { background: rgba(255,255,255,0.1); color: #fff; }
-.page-nav a.active { background: rgba(255,255,255,0.15); color: #fff; }
+.btn-nav-home:hover { background: rgba(255,255,255,0.18); }
 
-/* ── Persona Badge Row — DC-12 ──────────────────────────────────────── */
+/* ── PAGE HERO ───────────────────────────────────────────────────── */
+.page-hero-wrap { padding: 36px 0 28px; }
+.page-hero {
+  padding: 44px 44px 40px;
+  border-radius: 30px;
+  background: linear-gradient(140deg, #001a40 0%, #003366 58%, #0d4080 100%);
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 20px 60px rgba(0,26,64,0.22);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.page-hero::before {
+  content: "";
+  position: absolute;
+  inset: auto -8% -40% 55%;
+  height: 280px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.03);
+  transform: rotate(-8deg);
+}
+.page-hero::after {
+  content: "";
+  position: absolute;
+  right: -50px; top: -50px;
+  width: 280px; height: 280px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.07);
+  pointer-events: none;
+}
+.eyebrow {
+  display: inline-block;
+  color: #ffd880;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 800;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+.page-hero h1 {
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  letter-spacing: -0.03em;
+  color: #fff;
+  margin-top: 14px;
+  text-shadow: 0 2px 20px rgba(0,26,64,0.30);
+}
+.page-hero .subtitle {
+  margin: 16px 0 0;
+  max-width: 680px;
+  color: rgba(255,255,255,0.80);
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+.persona-routing { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+.routing-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.18);
+  color: rgba(255,255,255,0.92);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+/* ── CONTENT CARDS ───────────────────────────────────────────────── */
+.card {
+  padding: 28px 26px;
+  border-radius: 22px;
+  background: rgba(255,255,255,0.96);
+  border: 1px solid rgba(0,51,102,0.09);
+  box-shadow: 0 14px 36px rgba(0,26,64,0.09);
+  margin-bottom: 16px;
+  transition: transform 0.18s, box-shadow 0.18s;
+}
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 48px rgba(0,26,64,0.14);
+}
+.card h3 {
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+  color: #132033;
+  margin-bottom: 10px;
+}
+
+/* ── CALLOUTS ────────────────────────────────────────────────────── */
+.callout-warning, .callout-amber {
+  padding: 16px 20px; border-radius: 14px;
+  background: rgba(255,215,0,0.08); border-left: 4px solid #c79b2c;
+  margin: 12px 0;
+}
+.callout-danger, .callout-red {
+  padding: 16px 20px; border-radius: 14px;
+  background: rgba(204,0,0,0.06); border-left: 4px solid #cc0000;
+  margin: 12px 0;
+}
+.callout-info, .callout-blue {
+  padding: 16px 20px; border-radius: 14px;
+  background: #eaf0f7; border-left: 4px solid #0066cc;
+  margin: 12px 0;
+}
+.callout-success, .callout-green {
+  padding: 16px 20px; border-radius: 14px;
+  background: rgba(0,153,76,0.07); border-left: 4px solid #009934;
+  margin: 12px 0;
+}
+
+/* ── BUTTONS ─────────────────────────────────────────────────────── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  min-height: 46px;
+  padding: 0 22px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  background: #003366;
+  color: #fff;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s, transform 0.15s;
+}
+.btn-primary:hover { background: #001a40; transform: translateY(-1px); }
+
+.btn-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 8px;
+  background: rgba(0,51,102,0.08);
+  border: 1px solid rgba(0,51,102,0.14);
+  color: #003366;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s;
+}
+.btn-copy:hover { background: rgba(0,51,102,0.14); }
+.btn-copy.copied { background: rgba(0,153,76,0.12); border-color: rgba(0,153,76,0.20); color: #007a2e; }
+
+/* ── ACCORDIONS ──────────────────────────────────────────────────── */
+details {
+  border-radius: 14px;
+  background: rgba(255,255,255,0.96);
+  border: 1px solid rgba(0,51,102,0.09);
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+details[open] { box-shadow: 0 8px 24px rgba(0,26,64,0.09); }
+summary {
+  padding: 18px 20px;
+  cursor: pointer;
+  font-weight: 700;
+  color: #132033;
+  font-family: Georgia, "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+  gap: 12px;
+}
+summary::-webkit-details-marker { display: none; }
+summary::after {
+  content: "▾";
+  color: #566579;
+  font-size: 0.9rem;
+  transition: transform 0.2s;
+  font-family: sans-serif;
+  flex-shrink: 0;
+}
+details[open] summary::after { transform: rotate(180deg); }
+.details-body { padding: 4px 20px 20px; }
+
+/* ── TABLES ──────────────────────────────────────────────────────── */
+table { width: 100%; border-collapse: collapse; margin: 8px 0; }
+th {
+  background: #003366;
+  color: #fff;
+  padding: 12px 14px;
+  font-size: 0.83rem;
+  text-align: left;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+td {
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(0,51,102,0.09);
+  vertical-align: top;
+  font-size: 0.92rem;
+  color: #132033;
+}
+tr:last-child td { border-bottom: none; }
+tr:nth-child(even) td { background: rgba(0,51,102,0.03); }
+
+/* ── TAGS / PILLS ────────────────────────────────────────────────── */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: #eaf0f7;
+  color: #003366;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.tag-gold { background: rgba(199,155,44,0.15); color: #7a5800; }
+.tag-red { background: rgba(204,0,0,0.08); color: #cc0000; }
+.tag-green { background: rgba(0,153,76,0.10); color: #007a2e; }
+.tag-navy { background: rgba(0,51,102,0.12); color: #003366; }
+
+/* ── PHASE STEPS (workflow pages) ────────────────────────────────── */
+.phase-step {
+  padding: 28px;
+  border-radius: 22px;
+  background: rgba(255,255,255,0.96);
+  border: 1px solid rgba(0,51,102,0.09);
+  box-shadow: 0 14px 36px rgba(0,26,64,0.08);
+  margin-bottom: 20px;
+}
+
+/* ── GRID HELPERS ────────────────────────────────────────────────── */
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+@media (max-width: 820px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+
+/* ── FOOTER ──────────────────────────────────────────────────────── */
+footer {
+  background: #003366;
+  color: rgba(255,255,255,0.55);
+  font-size: 0.82rem;
+  padding: 36px 24px;
+  text-align: center;
+  line-height: 2;
+  border-top: 2px solid #001a40;
+}
+.footer-inner { max-width: 1180px; margin: 0 auto; }
+.footer-title {
+  color: rgba(255,255,255,0.82);
+  font-weight: 700;
+  font-size: 0.92rem;
+  margin-bottom: 4px;
+}
+footer a { color: rgba(106,171,221,0.90); text-decoration: none; font-weight: 600; }
+footer a:hover { text-decoration: underline; color: #fff; }
+.footer-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px 20px;
+  margin-top: 12px;
+}
+.footer-sep { color: rgba(255,255,255,0.20); }
+
+/* ═══════════════════════════════════════════════════════════════════
+   PAGE-SPECIFIC STYLES — avatar-discovery.html
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── Layout wrapper ─────────────────────────────────────────────── */
+.page-wrap { width: min(1180px, calc(100% - 32px)); margin: 0 auto; padding: 0 0 48px; }
+
+/* ── Persona Badge Row — DC-12 ──────────────────────────────────── */
 .persona-row {
-  background: #fff;
-  border: 1px solid #d0d6de;
+  background: rgba(255,255,255,0.96);
+  border: 1px solid rgba(0,51,102,0.09);
   border-top: 3px solid #003366;
   padding: 12px 20px;
   display: flex;
@@ -106,13 +425,14 @@ code, pre {
   flex-wrap: wrap;
   font-size: 0.9rem;
   margin-top: 20px;
-  border-radius: 0 0 6px 6px;
+  border-radius: 0 0 12px 12px;
+  box-shadow: 0 4px 12px rgba(0,26,64,0.06);
 }
 .persona-row .label { font-weight: 600; color: #003366; }
 .persona-badge {
-  background: #e8f4e8;
-  border: 1px solid #4caf50;
-  color: #1b5e20;
+  background: rgba(0,153,76,0.10);
+  border: 1px solid rgba(0,153,76,0.25);
+  color: #007a2e;
   border-radius: 20px;
   padding: 3px 12px;
   font-size: 0.82rem;
@@ -121,21 +441,22 @@ code, pre {
 .dc-badge {
   margin-left: auto;
   font-size: 0.75rem;
-  color: #666;
+  color: #566579;
   font-style: italic;
 }
 
-/* ── DC-08 When to Use ──────────────────────────────────────────────── */
+/* ── DC-08 When to Use ──────────────────────────────────────────── */
 .when-to-use {
-  background: #e8f0ff;
+  background: #eaf0f7;
   border-left: 5px solid #0066cc;
-  border-radius: 0 8px 8px 0;
+  border-radius: 0 14px 14px 0;
   padding: 20px 24px;
   margin: 20px 0;
 }
 .when-to-use h2 {
   color: #003366;
   font-size: 1.05rem;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
   margin-bottom: 14px;
   display: flex;
   align-items: center;
@@ -144,15 +465,15 @@ code, pre {
 .wtu-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 @media (max-width: 640px) { .wtu-cols { grid-template-columns: 1fr; } }
 .wtu-use, .wtu-dont {
-  background: #fff;
-  border-radius: 6px;
+  background: rgba(255,255,255,0.96);
+  border-radius: 10px;
   padding: 14px 16px;
 }
-.wtu-use h3 { color: #1b5e20; font-size: 0.9rem; margin-bottom: 10px; }
-.wtu-dont h3 { color: #b71c1c; font-size: 0.9rem; margin-bottom: 10px; }
-.wtu-use ul, .wtu-dont ul { list-style: none; padding: 0; }
-.wtu-use li { color: #2e7d32; padding: 4px 0; font-size: 0.88rem; }
-.wtu-dont li { color: #c62828; padding: 4px 0; font-size: 0.88rem; }
+.wtu-use h3 { color: #007a2e; font-size: 0.9rem; margin-bottom: 10px; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+.wtu-dont h3 { color: #cc0000; font-size: 0.9rem; margin-bottom: 10px; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+.wtu-use ul, .wtu-dont ul { list-style: none; padding: 0; margin: 0; }
+.wtu-use li { color: #007a2e; padding: 4px 0; font-size: 0.88rem; margin-bottom: 0; }
+.wtu-dont li { color: #cc0000; padding: 4px 0; font-size: 0.88rem; margin-bottom: 0; }
 .dc-tag {
   font-size: 0.7rem;
   background: #003366;
@@ -162,13 +483,14 @@ code, pre {
   margin-right: 4px;
   font-weight: 700;
   letter-spacing: 0.5px;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
 }
 
-/* ── DC-11 Non-Determinism ──────────────────────────────────────────── */
+/* ── DC-11 Non-Determinism ──────────────────────────────────────── */
 .nondeterminism-box {
-  background: #e8f5e9;
-  border: 2px solid #4caf50;
-  border-radius: 8px;
+  background: rgba(0,153,76,0.07);
+  border: 2px solid rgba(0,153,76,0.30);
+  border-radius: 14px;
   padding: 16px 20px;
   margin: 18px 0;
   display: flex;
@@ -176,27 +498,54 @@ code, pre {
   align-items: flex-start;
 }
 .nondeterminism-box .dc-icon { font-size: 1.5rem; flex-shrink: 0; }
-.nondeterminism-box p { font-size: 0.9rem; color: #1b5e20; line-height: 1.55; }
+.nondeterminism-box p { font-size: 0.9rem; color: #1b5e20; line-height: 1.55; margin: 0; }
 .nondeterminism-box strong { color: #145214; }
 
-/* ── Workflow Overview bar ───────────────────────────────────────────── */
+/* ── Trigger box ────────────────────────────────────────────────── */
+.trigger-box {
+  background: rgba(255,255,255,0.96);
+  border: 1px solid rgba(0,51,102,0.09);
+  border-top: 3px solid #003366;
+  border-radius: 0 0 12px 12px;
+  padding: 16px 20px;
+  margin: 20px 0;
+  font-size: 0.88rem;
+  box-shadow: 0 4px 12px rgba(0,26,64,0.06);
+}
+.trigger-box .trigger-label {
+  font-size: 0.8rem;
+  color: #566579;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.trigger-meta { display: flex; gap: 32px; flex-wrap: wrap; color: #132033; }
+.trigger-meta span strong { color: #003366; }
+
+/* ── Workflow Overview bar ──────────────────────────────────────── */
 .workflow-overview { margin: 20px 0; }
-.workflow-overview h2 { color: #003366; font-size: 0.98rem; margin-bottom: 12px; font-weight: 600; }
+.workflow-overview h2 {
+  color: #003366;
+  font-size: 0.98rem;
+  margin-bottom: 12px;
+  font-weight: 600;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
 .phase-flow {
   display: flex;
   align-items: flex-start;
   gap: 0;
   flex-wrap: wrap;
-  background: #fff;
-  border: 1px solid #d0d6de;
-  border-radius: 8px;
+  background: rgba(255,255,255,0.96);
+  border: 1px solid rgba(0,51,102,0.09);
+  border-radius: 14px;
   padding: 18px 16px;
+  box-shadow: 0 4px 12px rgba(0,26,64,0.06);
 }
 .flow-step { flex: 1; min-width: 110px; text-align: center; position: relative; }
 .flow-step-inner {
   background: #003366;
   color: #fff;
-  border-radius: 8px;
+  border-radius: 10px;
   padding: 10px 8px;
   margin: 0 4px;
 }
@@ -209,6 +558,9 @@ code, pre {
   border-radius: 12px;
   padding: 2px 8px;
   margin-bottom: 5px;
+  width: auto;
+  height: auto;
+  box-shadow: none;
 }
 .flow-step-inner .phase-title { font-size: 0.82rem; font-weight: 600; }
 .flow-arrow {
@@ -221,34 +573,17 @@ code, pre {
   flex-shrink: 0;
 }
 
-/* ── Trigger box ─────────────────────────────────────────────────────── */
-.trigger-box {
-  background: #fff;
-  border: 1px solid #d0d6de;
-  border-top: 3px solid #003366;
-  border-radius: 0 0 8px 8px;
-  padding: 16px 20px;
-  margin: 20px 0;
-  font-size: 0.88rem;
-}
-.trigger-box .trigger-label {
-  font-size: 0.8rem;
-  color: #555;
-  font-weight: 700;
-  margin-bottom: 8px;
-}
-.trigger-meta { display: flex; gap: 32px; flex-wrap: wrap; color: #444; }
-.trigger-meta span strong { color: #003366; }
-
-/* ── Phase accordion cards ───────────────────────────────────────────── */
-.phase-section { margin: 18px 0; border-radius: 8px; overflow: visible; }
+/* ── Phase accordion cards ──────────────────────────────────────── */
+.phase-section { margin: 18px 0; border-radius: 12px; overflow: visible; }
 .phase-header {
   background: #003366;
   color: #fff;
   padding: 0;
-  border-radius: 8px 8px 0 0;
+  border-radius: 12px 12px 0 0;
   display: flex;
   align-items: center;
+  margin-bottom: 0;
+  gap: 0;
 }
 .phase-toggle-btn {
   flex: 1;
@@ -279,21 +614,22 @@ code, pre {
 }
 .phase-pill.stage { background: #0066cc; }
 .phase-name { flex: 1; }
-.phase-purpose { font-size: 0.8rem; color: #d0d6de; font-weight: 400; margin-left: 6px; }
+.phase-purpose { font-size: 0.8rem; color: rgba(255,255,255,0.72); font-weight: 400; margin-left: 6px; }
 .toggle-icon { font-size: 1rem; transition: transform 0.2s; flex-shrink: 0; }
 .phase-section.collapsed .toggle-icon { transform: rotate(-90deg); }
 
 .phase-body {
-  background: #fff;
-  border: 1px solid #d0d6de;
+  background: rgba(255,255,255,0.97);
+  border: 1px solid rgba(0,51,102,0.09);
   border-top: none;
-  border-radius: 0 0 8px 8px;
+  border-radius: 0 0 12px 12px;
   padding: 20px;
   display: block;
+  box-shadow: 0 8px 24px rgba(0,26,64,0.07);
 }
 .phase-section.collapsed .phase-body { display: none; }
 
-/* ── Prompt Library — DC-09 ──────────────────────────────────────────── */
+/* ── Prompt Library — DC-09 ─────────────────────────────────────── */
 .prompt-library { margin: 14px 0; }
 .prompt-library-title {
   font-size: 0.85rem;
@@ -306,9 +642,9 @@ code, pre {
 }
 .prompt-cards { display: grid; grid-template-columns: 1fr; gap: 10px; }
 .prompt-card {
-  background: #f4f6f9;
-  border: 1px solid #d0d6de;
-  border-radius: 6px;
+  background: rgba(0,51,102,0.03);
+  border: 1px solid rgba(0,51,102,0.09);
+  border-radius: 10px;
   padding: 12px 14px;
 }
 .prompt-card-header {
@@ -328,24 +664,25 @@ code, pre {
 .prompt-type.cli { color: #6a0dad; }
 .prompt-type.ide { color: #0066cc; }
 .prompt-text {
-  background: #1a1a2e;
+  background: #0f1f3d;
   color: #e2e8f0;
   padding: 10px 13px;
-  border-radius: 5px;
+  border-radius: 8px;
   font-size: 0.82rem;
   line-height: 1.55;
   white-space: pre-wrap;
   word-break: break-word;
   display: block;
+  font-family: 'Consolas', 'Courier New', monospace;
 }
 .prompt-text.ide-text { color: #a8d8ff; }
 
-/* ── Copy Button ─────────────────────────────────────────────────────── */
+/* ── Copy Button ────────────────────────────────────────────────── */
 .copy-btn {
-  background: #0066cc;
+  background: #003366;
   color: #fff;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   padding: 6px 13px;
   font-size: 0.78rem;
   cursor: pointer;
@@ -354,21 +691,22 @@ code, pre {
   transition: background 0.15s;
   flex-shrink: 0;
 }
-.copy-btn:hover { background: #0052a3; }
-.copy-btn:focus-visible { outline: 2px solid #0066cc; outline-offset: 2px; }
+.copy-btn:hover { background: #001a40; }
+.copy-btn:focus-visible { outline: 2px solid #003366; outline-offset: 2px; }
 
-/* ── Phase Gate Evidence — DC-10 ─────────────────────────────────────── */
+/* ── Phase Gate Evidence — DC-10 ────────────────────────────────── */
 .evidence-card {
-  background: #fffbf0;
-  border: 1px solid #e8d5a3;
-  border-left: 5px solid #cc8800;
-  border-radius: 0 8px 8px 0;
+  background: rgba(199,155,44,0.06);
+  border: 1px solid rgba(199,155,44,0.30);
+  border-left: 5px solid #c79b2c;
+  border-radius: 0 14px 14px 0;
   padding: 16px 20px;
   margin: 14px 0;
 }
 .evidence-card h4 {
   color: #664400;
   font-size: 0.9rem;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
   margin-bottom: 12px;
   display: flex;
   align-items: center;
@@ -393,33 +731,35 @@ code, pre {
   font-size: 0.85rem;
   color: #3d2b00;
   line-height: 1.45;
+  margin: 0;
 }
 .evidence-item code {
-  background: #fff3cd;
-  border: 1px solid #e8d5a3;
+  background: rgba(199,155,44,0.15);
+  border: 1px solid rgba(199,155,44,0.30);
   padding: 2px 6px;
-  border-radius: 3px;
+  border-radius: 4px;
   color: #5c3b00;
 }
 .drift-signals { grid-column: 1 / -1; }
-.drift-signals ul { list-style: none; padding: 0; }
+.drift-signals ul { list-style: none; padding: 0; margin: 0; }
 .drift-signals li {
   padding: 6px 10px;
   margin: 4px 0;
-  background: #fff0f0;
+  background: rgba(204,0,0,0.05);
   border-left: 3px solid #cc0000;
-  border-radius: 0 4px 4px 0;
+  border-radius: 0 6px 6px 0;
   font-size: 0.83rem;
   color: #7a0000;
+  margin-bottom: 0;
 }
 .drift-signals li .drift-action {
   display: block;
-  color: #b71c1c;
+  color: #cc0000;
   font-weight: 600;
   margin-top: 2px;
 }
 
-/* ── Section divider ─────────────────────────────────────────────────── */
+/* ── Section divider ────────────────────────────────────────────── */
 .workflow-divider {
   margin: 48px 0 36px;
   position: relative;
@@ -427,28 +767,15 @@ code, pre {
 }
 .workflow-divider hr {
   border: none;
-  border-top: 2px solid #d0d6de;
+  border-top: 2px solid rgba(0,51,102,0.12);
   margin: 0;
-}
-.workflow-divider .divider-label {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #f4f6f9;
-  padding: 0 20px;
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: #003366;
-  letter-spacing: 0.5px;
-  white-space: nowrap;
 }
 .workflow-divider .divider-accent {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: #f4f6f9;
+  background: #f2f5fa;
   padding: 4px 24px;
   font-size: 0.92rem;
   font-weight: 700;
@@ -457,27 +784,30 @@ code, pre {
   border: 2px solid #0066cc;
   border-radius: 20px;
   line-height: 1.5;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
 }
 
-/* ── Section intro card ─────────────────────────────────────────────── */
+/* ── Section intro card ─────────────────────────────────────────── */
 .section-intro {
-  background: #fff;
-  border: 1px solid #d0d6de;
+  background: rgba(255,255,255,0.96);
+  border: 1px solid rgba(0,51,102,0.09);
   border-top: 4px solid #cc0000;
-  border-radius: 0 0 8px 8px;
+  border-radius: 0 0 14px 14px;
   padding: 18px 22px;
   margin: 20px 0;
+  box-shadow: 0 4px 12px rgba(0,26,64,0.06);
 }
 .section-intro h2 {
   color: #003366;
   font-size: 1.2rem;
   font-weight: 700;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
   margin-bottom: 6px;
   display: flex;
   align-items: center;
   gap: 10px;
 }
-.section-intro p { color: #444; font-size: 0.9rem; }
+.section-intro p { color: #566579; font-size: 0.9rem; margin: 0; }
 .workflow-id-tag {
   background: #003366;
   color: #fff;
@@ -486,34 +816,10 @@ code, pre {
   border-radius: 4px;
   padding: 3px 8px;
   letter-spacing: 0.5px;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
 }
 
-/* ── Footer nav ─────────────────────────────────────────────────────── */
-.site-footer {
-  margin-top: 32px;
-  padding: 16px 0;
-  border-top: 1px solid #d0d6de;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 10px;
-  font-size: 0.85rem;
-}
-.footer-nav-left { display: flex; gap: 16px; flex-wrap: wrap; }
-.footer-nav-left a, .footer-nav-right a {
-  color: #0066cc;
-  font-weight: 600;
-  padding: 6px 12px;
-  border: 1px solid #0066cc;
-  border-radius: 5px;
-  transition: background 0.15s;
-}
-.footer-nav-left a:hover, .footer-nav-right a:hover { background: #e8f0ff; text-decoration: none; }
-.footer-nav-right a { background: #003366; color: #fff; border-color: #003366; }
-.footer-nav-right a:hover { background: #00264d; }
-.footer-meta { font-size: 0.75rem; color: #888; text-align: right; align-self: flex-end; }
-
-/* ── Utility ─────────────────────────────────────────────────────────── */
+/* ── Utility ────────────────────────────────────────────────────── */
 .section-heading {
   font-size: 0.95rem;
   font-weight: 700;
@@ -522,28 +828,42 @@ code, pre {
   display: flex;
   align-items: center;
   gap: 6px;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
 }
-.divider-light { border: none; border-top: 1px solid #e8ecf0; margin: 14px 0; }
-.phase-intro-text { font-size: 0.88rem; color: #444; margin-bottom: 14px; line-height: 1.5; }
+.divider-light { border: none; border-top: 1px solid rgba(0,51,102,0.09); margin: 14px 0; }
+.phase-intro-text { font-size: 0.88rem; color: #566579; margin-bottom: 14px; line-height: 1.5; }
 </style>
 </head>
 <body>
 
-<!-- ── Header ───────────────────────────────────────────────────── -->
-<header class="site-header">
-  <a href="index.html" class="back-link">← Workflows Hub</a>
-  <div class="header-titles">
-    <h1>🤖 Avatar Creation &amp; Product Discovery</h1>
-    <p class="header-sub">P9-av · Two combined workflows — Avatar Creation (Phases 0–6) and Product Discovery (Stages A–F)</p>
+<nav class="site-nav" aria-label="Site navigation">
+  <div class="nav-inner">
+    <a href="../p1-landing.html" class="nav-brand" aria-label="Adoption Guide Home">
+      <div class="nav-brand-dot" aria-hidden="true"></div>
+      Hangar AI · Adoption Guide
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">All Workflows</a>
+      <a href="../phase-gate-guide.html" class="nav-link">Phase Gate Guide</a>
+      <a href="../p1-landing.html" class="btn-nav-home">← Guide Home</a>
+    </div>
   </div>
-  <span class="header-badge">P9-av · v2.0.0</span>
-</header>
-
-<!-- ── Page-level nav ─────────────────────────────────────────── -->
-<nav class="page-nav" aria-label="Page sections">
-  <a href="#avatar" class="active">🤖 Part 1: Avatar Creation</a>
-  <a href="#discovery">🔍 Part 2: Product Discovery</a>
 </nav>
+
+<div class="shell">
+  <div class="page-hero-wrap">
+    <div class="page-hero">
+      <div class="eyebrow">WORKFLOW · AVATAR + PRODUCT DISCOVERY</div>
+      <h1>Avatar &amp; Product Discovery Workflow</h1>
+      <p class="subtitle">Seven Avatar phases for persona development plus six Product Discovery stages — governed from idea to constitutionally-compliant backlog item.</p>
+      <div class="persona-routing" aria-label="Intended audiences">
+        <span class="routing-chip">🎓 Coach ✅</span>
+        <span class="routing-chip">🏗️ Architect ✅</span>
+        <span class="routing-chip">⚙️ Engineer ✅</span>
+      </div>
+    </div>
+  </div>
+</div>
 
 <main class="page-wrap">
 
@@ -1740,22 +2060,25 @@ code, pre {
 </section><!-- /discovery section -->
 
 
-<!-- ── Footer Navigation ──────────────────────────────────── -->
-<footer class="site-footer" role="contentinfo">
-  <nav class="footer-nav-left" aria-label="Footer navigation">
-    <a href="index.html">← Workflows Hub</a>
-    <a href="../p1-landing.html">← Adoption Guide</a>
-  </nav>
-  <div class="footer-nav-right">
-    <a href="greenfield.html">Continue to Greenfield →</a>
-  </div>
-  <div class="footer-meta">
-    P9-av · Registry v2.0.0 · 2026-05-07T18:00:00Z<br>
-    ENG-13.1 ⛔ · DC-08 · DC-09 · DC-10 · DC-11 · DC-12 · G8
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-title">Hangar AI Constitution — Adoption Guide</div>
+    <div>American Airlines · Hangar AI Program · Adoption Guide v1.0.0</div>
+    <nav class="footer-links" aria-label="Footer navigation">
+      <a href="../p1-landing.html">Guide Home</a>
+      <span class="footer-sep" aria-hidden="true">·</span>
+      <a href="index.html">All Workflows</a>
+      <span class="footer-sep" aria-hidden="true">·</span>
+      <a href="adoption.html">Adoption</a>
+      <span class="footer-sep" aria-hidden="true">·</span>
+      <a href="legacy-rescue.html">Legacy Rescue</a>
+      <span class="footer-sep" aria-hidden="true">·</span>
+      <a href="../phase-gate-guide.html">Phase Gate Guide</a>
+    </nav>
   </div>
 </footer>
-
-</main><!-- /page-wrap -->
 
 <script>
 function copyPrompt(btn, text) {

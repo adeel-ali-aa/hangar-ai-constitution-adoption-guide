@@ -4,295 +4,668 @@
   data-source-files="laws/index.yaml,AGENTS.md,avatars/,agent-skills/"
   data-render-timestamp="2026-05-06T19:24:09Z"
   data-page-id="P2"
+  data-registry-version="2.0.0"
   data-nav-parent="p1-landing.html">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hangar AI Constitution — Constitutional AI Model</title>
 <style>
-  :root {
-    --aa-navy: #003366;
-    --aa-red: #cc0000;
-    --aa-silver: #d0d6de;
-    --aa-blue: #0066cc;
-    --aa-light: #f0f4f8;
-    --eng: #1a6b3a;
-    --prd: #7b3f8c;
-    --bus: #b85c00;
-    --eng-bg: #e8f5ec;
-    --prd-bg: #f2e8f7;
-    --bus-bg: #fdf0e0;
-    --nn: #cc0000;
-    --card-shadow: 0 2px 8px rgba(0,0,0,0.12);
-    --radius: 8px;
-    --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: var(--font); background: #f5f7fa; color: #1a2332; font-size: 13px; }
+/* ═══════════════════════════════════════════════════════════════════
+   ADOPTION GUIDE DESIGN SYSTEM v2 — ENG-13.1 ⛔ COMPLIANT
+   Zero external deps. System fonts only. Inner pages.
+   ═══════════════════════════════════════════════════════════════════ */
 
-  /* ── HEADER ── */
-  header {
-    background: linear-gradient(135deg, var(--aa-navy) 0%, #001a40 100%);
-    color: #fff; padding: 24px 40px 20px;
-    border-bottom: 3px solid var(--aa-red);
-    display: flex; align-items: center; justify-content: space-between;
-  }
-  header h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.3px; }
-  header .sub { font-size: 12px; color: #8aabcc; margin-top: 4px; }
-  .badge-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
-  .badge {
-    background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 12px; padding: 2px 10px; font-size: 11px; color: #c8d8ea;
-  }
-  .badge.nn { background: rgba(204,0,0,0.3); border-color: rgba(204,0,0,0.5); color: #ffaaaa; }
+/* ── RESET & TOKENS ──────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #132033;
+  background:
+    radial-gradient(circle at top right, rgba(199,155,44,0.12), transparent 30%),
+    radial-gradient(circle at left 20%, rgba(0,51,102,0.06), transparent 25%),
+    linear-gradient(180deg, #fdfcf8 0%, #f2f5fa 50%, #f8f2ea 100%);
+  min-height: 100vh;
+}
+a { color: inherit; }
+h1,h2,h3,h4 {
+  margin: 0;
+  font-family: Georgia, "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  font-weight: 700;
+  line-height: 1.08;
+}
+p { margin: 0 0 1rem; }
+ul, ol { margin: 0 0 1rem; padding-left: 1.4rem; }
+li { margin-bottom: 0.4rem; }
+code {
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 0.88em;
+  background: rgba(0,51,102,0.07);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+pre {
+  background: #0f1f3d;
+  color: #e8f0f8;
+  padding: 20px;
+  border-radius: 12px;
+  overflow-x: auto;
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 0.88rem;
+  line-height: 1.7;
+  margin: 12px 0;
+}
 
-  /* ── LAYOUT ── */
-  .page { max-width: 1400px; margin: 0 auto; padding: 24px 24px 48px; }
-  .section-title {
-    font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase;
-    color: #666; margin: 28px 0 12px; padding-bottom: 6px;
-    border-bottom: 1px solid #dde3ea;
-    display: flex; align-items: center; gap: 8px;
-  }
-  .section-title::before { content: ''; width: 3px; height: 14px; border-radius: 2px; background: var(--aa-blue); display: inline-block; }
+/* ── LAYOUT ──────────────────────────────────────────────────────── */
+.shell { width: min(1180px, calc(100% - 32px)); margin: 0 auto; }
+main { padding-bottom: 72px; }
+section { margin-top: 56px; }
+.section-head { margin-bottom: 28px; }
+.section-label {
+  display: inline-block;
+  margin-bottom: 8px;
+  color: #cc0000;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+.section-head h2 {
+  font-size: clamp(1.7rem, 3.5vw, 2.5rem);
+  letter-spacing: -0.03em;
+  color: #132033;
+}
+.section-head p {
+  margin: 12px 0 0;
+  max-width: 680px;
+  color: #566579;
+  font-size: 1rem;
+}
 
-  /* ── GRID HELPERS ── */
-  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-  .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
-  .grid-auto { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
-  .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+/* ── STICKY NAV ──────────────────────────────────────────────────── */
+.site-nav {
+  background: #001a40;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding: 0 16px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.nav-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 54px;
+  gap: 16px;
+}
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.88);
+  text-decoration: none;
+}
+.nav-brand-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #fff, #f7ca66);
+  flex-shrink: 0;
+}
+.nav-links { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.nav-link {
+  color: rgba(255,255,255,0.68);
+  text-decoration: none;
+  font-size: 0.83rem;
+  font-weight: 600;
+  transition: color 0.15s;
+}
+.nav-link:hover { color: #fff; }
+.btn-nav-home {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.16);
+  color: #fff;
+  font-size: 0.80rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+.btn-nav-home:hover { background: rgba(255,255,255,0.18); }
 
-  /* ── CARDS ── */
-  .card {
-    background: #fff; border-radius: var(--radius); box-shadow: var(--card-shadow);
-    padding: 16px; border: 1px solid #e4eaf2;
-  }
-  .card-title { font-size: 12px; font-weight: 700; color: var(--aa-navy); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
-  .card-title .icon { width: 20px; height: 20px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; }
+/* ── PAGE HERO ───────────────────────────────────────────────────── */
+.page-hero-wrap { padding: 36px 0 28px; }
+.page-hero {
+  padding: 44px 44px 40px;
+  border-radius: 30px;
+  background: linear-gradient(140deg, #001a40 0%, #003366 58%, #0d4080 100%);
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 20px 60px rgba(0,26,64,0.22);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.page-hero::before {
+  content: "";
+  position: absolute;
+  inset: auto -8% -40% 55%;
+  height: 280px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.03);
+  transform: rotate(-8deg);
+}
+.page-hero::after {
+  content: "";
+  position: absolute;
+  right: -50px; top: -50px;
+  width: 280px; height: 280px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.07);
+  pointer-events: none;
+}
+.eyebrow {
+  display: inline-block;
+  color: #ffd880;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 800;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+.page-hero h1 {
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  letter-spacing: -0.03em;
+  color: #fff;
+  margin-top: 14px;
+  text-shadow: 0 2px 20px rgba(0,26,64,0.30);
+}
+.page-hero .subtitle {
+  margin: 16px 0 0;
+  max-width: 680px;
+  color: rgba(255,255,255,0.80);
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+.persona-routing { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+.routing-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.18);
+  color: rgba(255,255,255,0.92);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
 
-  /* ── CONSTITUTION PILLARS ── */
-  .pillar-eng { border-top: 3px solid var(--eng); }
-  .pillar-prd { border-top: 3px solid var(--prd); }
-  .pillar-bus { border-top: 3px solid var(--bus); }
-  .pillar-eng .card-title { color: var(--eng); }
-  .pillar-prd .card-title { color: var(--prd); }
-  .pillar-bus .card-title { color: var(--bus); }
-  .pill-eng { background: var(--eng-bg); color: var(--eng); border-radius: 10px; padding: 1px 7px; font-size: 10px; font-weight: 600; }
-  .pill-prd { background: var(--prd-bg); color: var(--prd); border-radius: 10px; padding: 1px 7px; font-size: 10px; font-weight: 600; }
-  .pill-bus { background: var(--bus-bg); color: var(--bus); border-radius: 10px; padding: 1px 7px; font-size: 10px; font-weight: 600; }
+/* ── CONTENT CARDS ───────────────────────────────────────────────── */
+.card {
+  padding: 28px 26px;
+  border-radius: 22px;
+  background: rgba(255,255,255,0.96);
+  border: 1px solid rgba(0,51,102,0.09);
+  box-shadow: 0 14px 36px rgba(0,26,64,0.09);
+  margin-bottom: 16px;
+  transition: transform 0.18s, box-shadow 0.18s;
+}
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 48px rgba(0,26,64,0.14);
+}
+.card h3 {
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+  color: #132033;
+  margin-bottom: 10px;
+}
 
-  /* ── LAW ITEMS ── */
-  .law-item {
-    display: flex; align-items: flex-start; gap: 8px;
-    padding: 6px 8px; border-radius: 5px; margin-bottom: 4px;
-    background: #fafbfc; border: 1px solid #e8ecf0;
-    transition: background 0.15s;
-  }
-  .law-item:hover { background: #f0f4fa; }
-  .law-id { font-size: 10px; font-weight: 700; font-family: monospace; white-space: nowrap; min-width: 64px; }
-  .law-id.eng { color: var(--eng); }
-  .law-id.prd { color: var(--prd); }
-  .law-id.bus { color: var(--bus); }
-  .law-text { font-size: 11px; color: #3a4558; line-height: 1.4; }
-  .nn-star { color: var(--nn); font-weight: 700; font-size: 10px; }
+/* ── CALLOUTS ────────────────────────────────────────────────────── */
+.callout-warning, .callout-amber {
+  padding: 16px 20px; border-radius: 14px;
+  background: rgba(255,215,0,0.08); border-left: 4px solid #c79b2c;
+  margin: 12px 0;
+}
+.callout-danger, .callout-red {
+  padding: 16px 20px; border-radius: 14px;
+  background: rgba(204,0,0,0.06); border-left: 4px solid #cc0000;
+  margin: 12px 0;
+}
+.callout-info, .callout-blue {
+  padding: 16px 20px; border-radius: 14px;
+  background: #eaf0f7; border-left: 4px solid #0066cc;
+  margin: 12px 0;
+}
+.callout-success, .callout-green {
+  padding: 16px 20px; border-radius: 14px;
+  background: rgba(0,153,76,0.07); border-left: 4px solid #009934;
+  margin: 12px 0;
+}
 
-  /* ── WORKFLOW ── */
-  .workflow { display: flex; align-items: center; gap: 0; flex-wrap: wrap; margin: 8px 0; }
-  .wf-step {
-    background: var(--aa-navy); color: #fff;
-    padding: 6px 12px; font-size: 11px; font-weight: 600;
-    border-radius: 4px; white-space: nowrap;
-    position: relative;
-  }
-  .wf-step.red { background: #c0392b; }
-  .wf-step.green { background: var(--eng); }
-  .wf-step.blue { background: var(--aa-blue); }
-  .wf-step.purple { background: var(--prd); }
-  .wf-step.orange { background: var(--bus); }
-  .wf-step.gray { background: #556; }
-  .wf-arrow {
-    font-size: 14px; color: #aab; margin: 0 4px;
-  }
+/* ── BUTTONS ─────────────────────────────────────────────────────── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  min-height: 46px;
+  padding: 0 22px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  background: #003366;
+  color: #fff;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s, transform 0.15s;
+}
+.btn-primary:hover { background: #001a40; transform: translateY(-1px); }
 
-  /* ── AUTHORITY PYRAMID ── */
-  .pyramid { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 12px 0; }
-  .pyr-tier {
-    border-radius: 5px; font-size: 11px; font-weight: 600;
-    text-align: center; padding: 8px 16px; color: #fff;
-    display: flex; flex-direction: column; align-items: center;
-  }
-  .pyr-tier .tier-label { font-size: 9px; font-weight: 400; opacity: 0.8; margin-top: 2px; }
+.btn-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 8px;
+  background: rgba(0,51,102,0.08);
+  border: 1px solid rgba(0,51,102,0.14);
+  color: #003366;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s;
+}
+.btn-copy:hover { background: rgba(0,51,102,0.14); }
+.btn-copy.copied { background: rgba(0,153,76,0.12); border-color: rgba(0,153,76,0.20); color: #007a2e; }
 
-  /* ── RAG TIERS ── */
-  .rag-tier {
-    display: flex; align-items: flex-start; gap: 10px;
-    padding: 8px 10px; border-radius: 6px; margin-bottom: 6px;
-    background: #fafbfc; border-left: 3px solid #aab;
-  }
-  .rag-tier-num {
-    background: var(--aa-navy); color: #fff;
-    border-radius: 50%; width: 20px; height: 20px; min-width: 20px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 10px; font-weight: 700;
-  }
-  .rag-tier-body { flex: 1; }
-  .rag-tier-type { font-size: 11px; font-weight: 700; color: var(--aa-navy); }
-  .rag-tier-detail { font-size: 10px; color: #556; margin-top: 2px; }
+/* ── ACCORDIONS ──────────────────────────────────────────────────── */
+details {
+  border-radius: 14px;
+  background: rgba(255,255,255,0.96);
+  border: 1px solid rgba(0,51,102,0.09);
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+details[open] { box-shadow: 0 8px 24px rgba(0,26,64,0.09); }
+summary {
+  padding: 18px 20px;
+  cursor: pointer;
+  font-weight: 700;
+  color: #132033;
+  font-family: Georgia, "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+  gap: 12px;
+}
+summary::-webkit-details-marker { display: none; }
+summary::after {
+  content: "▾";
+  color: #566579;
+  font-size: 0.9rem;
+  transition: transform 0.2s;
+  font-family: sans-serif;
+  flex-shrink: 0;
+}
+details[open] summary::after { transform: rotate(180deg); }
+.details-body { padding: 4px 20px 20px; }
 
-  /* ── SKILL ITEMS ── */
-  .skill-item {
-    padding: 7px 10px; border-radius: 6px; border: 1px solid #e0e6f0;
-    background: #fafcff; margin-bottom: 5px;
-    display: flex; flex-direction: column; gap: 3px;
-  }
-  .skill-name { font-size: 11px; font-weight: 700; color: var(--aa-navy); }
-  .skill-laws { display: flex; gap: 4px; flex-wrap: wrap; }
-  .skill-law-tag { font-size: 9px; font-family: monospace; background: #e8ecf5; color: #345; padding: 1px 5px; border-radius: 3px; }
-  .skill-trigger { font-size: 10px; color: #778; font-style: italic; }
+/* ── TABLES ──────────────────────────────────────────────────────── */
+table { width: 100%; border-collapse: collapse; margin: 8px 0; }
+th {
+  background: #003366;
+  color: #fff;
+  padding: 12px 14px;
+  font-size: 0.83rem;
+  text-align: left;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+td {
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(0,51,102,0.09);
+  vertical-align: top;
+  font-size: 0.92rem;
+  color: #132033;
+}
+tr:last-child td { border-bottom: none; }
+tr:nth-child(even) td { background: rgba(0,51,102,0.03); }
 
-  /* ── OPERATING MODES ── */
-  .mode-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-  .mode-card {
-    border-radius: 6px; padding: 12px; border: 1px solid #dde3ea;
-    display: flex; flex-direction: column; gap: 6px;
-  }
-  .mode-card h4 { font-size: 12px; font-weight: 700; }
-  .mode-card ul { list-style: none; padding: 0; }
-  .mode-card ul li { font-size: 10px; color: #556; padding: 2px 0; }
-  .mode-card ul li::before { content: '→ '; color: var(--aa-blue); }
+/* ── TAGS / PILLS ────────────────────────────────────────────────── */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: #eaf0f7;
+  color: #003366;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.tag-gold { background: rgba(199,155,44,0.15); color: #7a5800; }
+.tag-red { background: rgba(204,0,0,0.08); color: #cc0000; }
+.tag-green { background: rgba(0,153,76,0.10); color: #007a2e; }
+.tag-navy { background: rgba(0,51,102,0.12); color: #003366; }
 
-  /* ── HIERARCHY LAYERS ── */
-  .hier-layer {
-    background: #fff; border-radius: 6px; padding: 10px 16px;
-    border: 1px solid #dde; margin-bottom: 4px;
-    display: flex; align-items: center; justify-content: space-between;
-  }
-  .hier-layer-label { font-size: 12px; font-weight: 700; color: var(--aa-navy); }
-  .hier-layer-sub { font-size: 10px; color: #778; }
-  .hier-chips { display: flex; gap: 6px; flex-wrap: wrap; }
-  .hier-chip {
-    border-radius: 10px; padding: 2px 9px; font-size: 10px; font-weight: 600;
-    background: var(--aa-light); color: var(--aa-navy); border: 1px solid #c8d4e8;
-  }
+/* ── PHASE STEPS (workflow pages) ────────────────────────────────── */
+.phase-step {
+  padding: 28px;
+  border-radius: 22px;
+  background: rgba(255,255,255,0.96);
+  border: 1px solid rgba(0,51,102,0.09);
+  box-shadow: 0 14px 36px rgba(0,26,64,0.08);
+  margin-bottom: 20px;
+}
+.phase-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: #003366;
+  color: #fff;
+  font-weight: 800;
+  font-size: 1rem;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(0,26,64,0.20);
+}
+.phase-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+.phase-header h3 {
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+  color: #132033;
+}
 
-  /* ── AGENTIC FEEDBACK LOOP ── */
-  .loop-diagram {
-    display: flex; flex-direction: column; gap: 6px; padding: 8px;
-  }
-  .loop-step {
-    display: flex; align-items: center; gap: 10px;
-    padding: 8px 10px; border-radius: 6px;
-  }
-  .loop-step .actor { font-size: 10px; font-weight: 700; min-width: 50px; text-align: center; border-radius: 4px; padding: 3px 6px; }
-  .loop-step .actor.agent { background: #1a6b3a; color: #fff; }
-  .loop-step .actor.system { background: var(--aa-blue); color: #fff; }
-  .loop-step .actor.human { background: var(--aa-red); color: #fff; }
-  .loop-step .action { font-size: 11px; color: #334; flex: 1; }
-  .loop-step .gate { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 10px; }
-  .loop-step .gate.fail { background: #fde; color: #c00; }
-  .loop-step .gate.pass { background: #dfd; color: #060; }
+/* ── GRID HELPERS ────────────────────────────────────────────────── */
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+@media (max-width: 820px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
 
-  /* ── TOKEN STATS ── */
-  .stat-row { display: flex; flex-wrap: wrap; gap: 10px; margin: 6px 0; }
-  .stat {
-    background: var(--aa-light); border: 1px solid #c8d8e8;
-    border-radius: 6px; padding: 8px 14px; text-align: center; flex: 1; min-width: 100px;
-  }
-  .stat-val { font-size: 18px; font-weight: 700; color: var(--aa-navy); }
-  .stat-lbl { font-size: 10px; color: #778; margin-top: 2px; }
+/* ── FOOTER ──────────────────────────────────────────────────────── */
+footer {
+  background: #003366;
+  color: rgba(255,255,255,0.55);
+  font-size: 0.82rem;
+  padding: 36px 24px;
+  text-align: center;
+  line-height: 2;
+  border-top: 2px solid #001a40;
+}
+.footer-inner { max-width: 1180px; margin: 0 auto; }
+.footer-title {
+  color: rgba(255,255,255,0.82);
+  font-weight: 700;
+  font-size: 0.92rem;
+  margin-bottom: 4px;
+}
+footer a { color: rgba(106,171,221,0.90); text-decoration: none; font-weight: 600; }
+footer a:hover { text-decoration: underline; color: #fff; }
+.footer-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px 20px;
+  margin-top: 12px;
+}
+.footer-sep { color: rgba(255,255,255,0.20); }
 
-  /* ── GUARDRAILS ── */
-  .guardrail-item {
-    display: flex; align-items: flex-start; gap: 8px;
-    padding: 5px 8px; margin-bottom: 3px; border-radius: 5px;
-  }
-  .guardrail-item.never { background: #fff0f0; border-left: 3px solid #e00; }
-  .guardrail-item.always { background: #f0fff4; border-left: 3px solid #090; }
-  .guardrail-icon { font-size: 12px; min-width: 16px; }
-  .guardrail-text { font-size: 11px; }
-  .guardrail-law { font-size: 10px; font-family: monospace; color: #888; }
 
-  /* ── AVATAR TABLE ── */
-  .avatar-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; }
-  .avatar-chip {
-    background: #fff; border: 1px solid #dde3ea; border-radius: 6px;
-    padding: 8px 10px; font-size: 11px; text-align: center;
-    display: flex; flex-direction: column; gap: 3px; align-items: center;
-  }
-  .avatar-chip .cat { font-size: 9px; color: #778; }
-  .avatar-chip .name { font-weight: 600; color: var(--aa-navy); }
+/* ═══ P2 PAGE-SPECIFIC STYLES ═══ */
 
-  /* ── FOLD SECTION ── */
-  details { margin-bottom: 6px; }
-  summary {
-    cursor: pointer; padding: 6px 10px; background: #f5f7fa;
-    border-radius: 5px; font-size: 11px; font-weight: 600; color: var(--aa-navy);
-    border: 1px solid #e0e6f0; list-style: none; display: flex; align-items: center; gap: 6px;
-    user-select: none;
-  }
-  summary::-webkit-details-marker { display: none; }
-  summary::before { content: '▶'; font-size: 9px; color: var(--aa-blue); transition: transform 0.2s; }
-  details[open] summary::before { transform: rotate(90deg); }
-  details .detail-body { padding: 10px 0 0; }
+/* ── PAGE TOKENS ── */
+:root {
+  --aa-navy: #003366;
+  --aa-red: #cc0000;
+  --aa-silver: #d0d6de;
+  --aa-blue: #0066cc;
+  --aa-light: #f0f4f8;
+  --eng: #1a6b3a;
+  --prd: #7b3f8c;
+  --bus: #b85c00;
+  --eng-bg: #e8f5ec;
+  --prd-bg: #f2e8f7;
+  --bus-bg: #fdf0e0;
+  --nn: #cc0000;
+  --card-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  --radius: 8px;
+}
 
-  /* ── FOOTER ── */
-  footer { text-align: center; font-size: 10px; color: #999; padding: 24px; }
+/* ── MAIN WRAPPER ── */
+.page { max-width: 1180px; margin: 0 auto; padding: 24px 24px 48px; }
+.section-title {
+  font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase;
+  color: #666; margin: 28px 0 12px; padding-bottom: 6px;
+  border-bottom: 1px solid #dde3ea;
+  display: flex; align-items: center; gap: 8px;
+}
+.section-title::before { content: ''; width: 3px; height: 14px; border-radius: 2px; background: var(--aa-blue); display: inline-block; }
 
-  /* ── TABS ── */
-  .tab-bar { display: flex; gap: 4px; margin-bottom: 16px; flex-wrap: wrap; }
-  .tab {
-    padding: 6px 14px; border-radius: 5px 5px 0 0; font-size: 11px; font-weight: 600;
-    cursor: pointer; border: 1px solid #dde3ea; border-bottom: none;
-    background: #e8ecf5; color: #556; transition: all 0.15s;
-  }
-  .tab.active { background: #fff; color: var(--aa-navy); border-color: #c8d4e8; }
-  .tab-content { display: none; }
-  .tab-content.active { display: block; }
+/* ── EXTRA GRIDS ── */
+.grid-auto { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+.grid-5    { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
 
-  /* ── INLINE MISC ── */
-  .small-label { font-size: 10px; font-weight: 700; color: #778; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 5px; }
-  .divider { border: none; border-top: 1px solid #e8ecf0; margin: 12px 0; }
-  .mono { font-family: monospace; font-size: 11px; background: #f0f4f8; padding: 1px 5px; border-radius: 3px; }
-  .tag-row { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 5px; }
-  .tag { font-size: 10px; background: #e8ecf5; color: #445; border-radius: 4px; padding: 2px 7px; }
+/* ── CARD TITLE ── */
+.card-title { font-size: 12px; font-weight: 700; color: var(--aa-navy); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+.card-title .icon { width: 20px; height: 20px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; }
+
+/* ── CONSTITUTION PILLARS ── */
+.pillar-eng { border-top: 3px solid var(--eng); }
+.pillar-prd { border-top: 3px solid var(--prd); }
+.pillar-bus { border-top: 3px solid var(--bus); }
+.pillar-eng .card-title { color: var(--eng); }
+.pillar-prd .card-title { color: var(--prd); }
+.pillar-bus .card-title { color: var(--bus); }
+.pill-eng { background: var(--eng-bg); color: var(--eng); border-radius: 10px; padding: 1px 7px; font-size: 10px; font-weight: 600; }
+.pill-prd { background: var(--prd-bg); color: var(--prd); border-radius: 10px; padding: 1px 7px; font-size: 10px; font-weight: 600; }
+.pill-bus { background: var(--bus-bg); color: var(--bus); border-radius: 10px; padding: 1px 7px; font-size: 10px; font-weight: 600; }
+
+/* ── LAW ITEMS ── */
+.law-item {
+  display: flex; align-items: flex-start; gap: 8px;
+  padding: 6px 8px; border-radius: 5px; margin-bottom: 4px;
+  background: #fafbfc; border: 1px solid #e8ecf0;
+  transition: background 0.15s;
+}
+.law-item:hover { background: #f0f4fa; }
+.law-id { font-size: 10px; font-weight: 700; font-family: monospace; white-space: nowrap; min-width: 64px; }
+.law-id.eng { color: var(--eng); }
+.law-id.prd { color: var(--prd); }
+.law-id.bus { color: var(--bus); }
+.law-text { font-size: 11px; color: #3a4558; line-height: 1.4; }
+.nn-star { color: var(--nn); font-weight: 700; font-size: 10px; }
+
+/* ── WORKFLOW ── */
+.workflow { display: flex; align-items: center; gap: 0; flex-wrap: wrap; margin: 8px 0; }
+.wf-step {
+  background: var(--aa-navy); color: #fff;
+  padding: 6px 12px; font-size: 11px; font-weight: 600;
+  border-radius: 4px; white-space: nowrap; position: relative;
+}
+.wf-step.red    { background: #c0392b; }
+.wf-step.green  { background: var(--eng); }
+.wf-step.blue   { background: var(--aa-blue); }
+.wf-step.purple { background: var(--prd); }
+.wf-step.orange { background: var(--bus); }
+.wf-step.gray   { background: #556; }
+.wf-arrow { font-size: 14px; color: #aab; margin: 0 4px; }
+
+/* ── AUTHORITY PYRAMID ── */
+.pyramid { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 12px 0; }
+.pyr-tier {
+  border-radius: 5px; font-size: 11px; font-weight: 600;
+  text-align: center; padding: 8px 16px; color: #fff;
+  display: flex; flex-direction: column; align-items: center;
+}
+.pyr-tier .tier-label { font-size: 9px; font-weight: 400; opacity: 0.8; margin-top: 2px; }
+
+/* ── RAG TIERS ── */
+.rag-tier {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 8px 10px; border-radius: 6px; margin-bottom: 6px;
+  background: #fafbfc; border-left: 3px solid #aab;
+}
+.rag-tier-num {
+  background: var(--aa-navy); color: #fff;
+  border-radius: 50%; width: 20px; height: 20px; min-width: 20px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700;
+}
+.rag-tier-body { flex: 1; }
+.rag-tier-type   { font-size: 11px; font-weight: 700; color: var(--aa-navy); }
+.rag-tier-detail { font-size: 10px; color: #556; margin-top: 2px; }
+
+/* ── SKILL ITEMS ── */
+.skill-item {
+  padding: 7px 10px; border-radius: 6px; border: 1px solid #e0e6f0;
+  background: #fafcff; margin-bottom: 5px;
+  display: flex; flex-direction: column; gap: 3px;
+}
+.skill-name    { font-size: 11px; font-weight: 700; color: var(--aa-navy); }
+.skill-laws    { display: flex; gap: 4px; flex-wrap: wrap; }
+.skill-law-tag { font-size: 9px; font-family: monospace; background: #e8ecf5; color: #345; padding: 1px 5px; border-radius: 3px; }
+.skill-trigger { font-size: 10px; color: #778; font-style: italic; }
+
+/* ── OPERATING MODES ── */
+.mode-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.mode-card { border-radius: 6px; padding: 12px; border: 1px solid #dde3ea; display: flex; flex-direction: column; gap: 6px; }
+.mode-card h4 { font-size: 12px; font-weight: 700; }
+.mode-card ul { list-style: none; padding: 0; }
+.mode-card ul li { font-size: 10px; color: #556; padding: 2px 0; }
+.mode-card ul li::before { content: '→ '; color: var(--aa-blue); }
+
+/* ── HIERARCHY LAYERS ── */
+.hier-layer {
+  background: #fff; border-radius: 6px; padding: 10px 16px;
+  border: 1px solid #dde; margin-bottom: 4px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.hier-layer-label { font-size: 12px; font-weight: 700; color: var(--aa-navy); }
+.hier-layer-sub   { font-size: 10px; color: #778; }
+.hier-chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.hier-chip {
+  border-radius: 10px; padding: 2px 9px; font-size: 10px; font-weight: 600;
+  background: var(--aa-light); color: var(--aa-navy); border: 1px solid #c8d4e8;
+}
+
+/* ── AGENTIC FEEDBACK LOOP ── */
+.loop-diagram { display: flex; flex-direction: column; gap: 6px; padding: 8px; }
+.loop-step { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 6px; }
+.loop-step .actor { font-size: 10px; font-weight: 700; min-width: 50px; text-align: center; border-radius: 4px; padding: 3px 6px; }
+.loop-step .actor.agent  { background: #1a6b3a; color: #fff; }
+.loop-step .actor.system { background: var(--aa-blue); color: #fff; }
+.loop-step .actor.human  { background: var(--aa-red); color: #fff; }
+.loop-step .action { font-size: 11px; color: #334; flex: 1; }
+.loop-step .gate { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 10px; }
+.loop-step .gate.fail { background: #fde; color: #c00; }
+.loop-step .gate.pass { background: #dfd; color: #060; }
+
+/* ── TOKEN STATS ── */
+.stat-row { display: flex; flex-wrap: wrap; gap: 10px; margin: 6px 0; }
+.stat { background: var(--aa-light); border: 1px solid #c8d8e8; border-radius: 6px; padding: 8px 14px; text-align: center; flex: 1; min-width: 100px; }
+.stat-val { font-size: 18px; font-weight: 700; color: var(--aa-navy); }
+.stat-lbl { font-size: 10px; color: #778; margin-top: 2px; }
+
+/* ── GUARDRAILS ── */
+.guardrail-item { display: flex; align-items: flex-start; gap: 8px; padding: 5px 8px; margin-bottom: 3px; border-radius: 5px; }
+.guardrail-item.never  { background: #fff0f0; border-left: 3px solid #e00; }
+.guardrail-item.always { background: #f0fff4; border-left: 3px solid #090; }
+.guardrail-icon { font-size: 12px; min-width: 16px; }
+.guardrail-text { font-size: 11px; }
+.guardrail-law  { font-size: 10px; font-family: monospace; color: #888; }
+
+/* ── AVATAR GRID ── */
+.avatar-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; }
+.avatar-chip {
+  background: #fff; border: 1px solid #dde3ea; border-radius: 6px;
+  padding: 8px 10px; font-size: 11px; text-align: center;
+  display: flex; flex-direction: column; gap: 3px; align-items: center;
+}
+.avatar-chip .cat  { font-size: 9px; color: #778; }
+.avatar-chip .name { font-weight: 600; color: var(--aa-navy); }
+
+/* ── TABS ── */
+.tab-bar { display: flex; gap: 4px; margin-bottom: 16px; flex-wrap: wrap; }
+.tab {
+  padding: 6px 14px; border-radius: 5px 5px 0 0; font-size: 11px; font-weight: 600;
+  cursor: pointer; border: 1px solid #dde3ea; border-bottom: none;
+  background: #e8ecf5; color: #556; transition: all 0.15s;
+}
+.tab.active { background: #fff; color: var(--aa-navy); border-color: #c8d4e8; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* ── INLINE MISC ── */
+.small-label { font-size: 10px; font-weight: 700; color: #778; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 5px; }
+.divider { border: none; border-top: 1px solid #e8ecf0; margin: 12px 0; }
+.mono { font-family: monospace; font-size: 11px; background: #f0f4f8; padding: 1px 5px; border-radius: 3px; }
+.tag-row { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 5px; }
+
+/* ── BADGES (page-hero area) ── */
+.badge-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+.badge { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 2px 10px; font-size: 11px; color: #c8d8ea; }
+.badge.nn { background: rgba(204,0,0,0.3); border-color: rgba(204,0,0,0.5); color: #ffaaaa; }
+
 </style>
 </head>
 <body>
 
-<a href="p1-landing.html" style="
-  display:inline-flex; align-items:center; gap:6px;
-  background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.18);
-  color:#8aabcc; font-size:11px; font-family:var(--font);
-  padding:6px 14px; border-radius:4px; text-decoration:none;
-  margin:12px 40px; transition:background 0.15s;
-" onmouseover="this.style.background='rgba(255,255,255,0.15)'"
-   onmouseout="this.style.background='rgba(255,255,255,0.08)'">
-  ← Back to Adoption Guide
-</a>
 
-<header>
-  <div>
-    <h1>⚖️ Hangar AI Constitution — Constitutional AI Model</h1>
-    <div class="sub">American Airlines · Governance Framework v2.0.0 · Established 2026-01</div>
-    <div class="badge-row">
-      <span class="badge">168 Laws</span>
-      <span class="badge">ENG: 67</span>
-      <span class="badge">PRD: 49</span>
-      <span class="badge">BUS: 55</span>
-      <span class="badge">29+ Skills</span>
-      <span class="badge">34+ Tech Avatars</span>
-      <span class="badge">23 Product Domains</span>
-      <span class="badge nn">⛔ 13 Non-Negotiable</span>
+<nav class="site-nav" aria-label="Site navigation">
+  <div class="nav-inner">
+    <a href="p1-landing.html" class="nav-brand" aria-label="Adoption Guide Home">
+      <div class="nav-brand-dot" aria-hidden="true"></div>
+      Hangar AI · Adoption Guide
+    </a>
+    <div class="nav-links">
+      <a href="workflows/index.html" class="nav-link">Workflows</a>
+      <a href="phase-gate-guide.html" class="nav-link">Phase Gate Guide</a>
+      <a href="p1-landing.html" class="btn-nav-home">← Guide Home</a>
     </div>
   </div>
-  <div style="text-align:right; font-size:11px; color:#8aabcc; line-height:1.8;">
-    <div><strong style="color:#fff">Audience:</strong> Technical Coaches · Senior Architects</div>
-    <div>Model Version: 2.0.0</div>
-    <div>Laws Registry: <span class="mono" style="background:rgba(255,255,255,0.1);color:#cdf">laws/index.yaml</span></div>
-  </div>
-</header>
+</nav>
 
+<div class="shell">
+  <div class="page-hero-wrap">
+    <div class="page-hero">
+      <div class="eyebrow">CONSTITUTIONAL FRAMEWORK</div>
+      <h1>The Constitutional AI Model</h1>
+      <p class="subtitle">How laws, gates, and personas work together to govern every AI-assisted task at American Airlines.</p>
+      <div class="persona-routing" aria-label="Intended audiences">
+        <span class="routing-chip">🎓 Coach ✅</span>
+        <span class="routing-chip">🏗️ Architect ✅</span>
+        <span class="routing-chip">⚙️ Engineer ✅</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main>
 <div class="page">
+
 
 <!-- ═══════════════════════════════════════════════════════════
      SECTION 1: IDENTITY & AUTHORITY HIERARCHY
@@ -1188,7 +1561,7 @@
   </div>
 </div>
 
-</div><!-- /page -->
+</div><!-- /.page -->
 
 <!-- T3.2c — "Questions to Explore" coaching block (DC-06: Socratic permitted for Senior Architects) -->
 <details style="margin: 32px 40px 0; background:#fff; border:1px solid #dde3ea; border-radius:8px; overflow:hidden;">
@@ -1225,15 +1598,25 @@
   </div>
 </details>
 
+
+</main>
+
 <footer>
-  American Airlines · Hangar AI Constitution v2.0.0 · laws/index.yaml · AGENTS.md · avatars/<br>
-  Source of truth: <code>governance/hangar-ai-constitution/</code> · 168 laws · 29+ skills · 34+ tech avatars · 23 product domains<br>
-  For Technical Coaches &amp; Senior Architects — built from the actual RAG model components, not documentation prose.<br>
-  <span style="font-size:10px; color:#6a8aaa; margin-top:4px; display:block;">
-    Page ID: P2 · Rendered: 2026-05-06T19:24:09Z · Source commit: 8b49e21 ·
-    <a href="p1-landing.html" style="color:#6a8aaa;">← Adoption Guide</a>
-  </span>
+  <div class="footer-inner">
+    <div class="footer-title">Hangar AI Constitution — Adoption Guide</div>
+    <div>American Airlines · Hangar AI Program · Adoption Guide v1.0.0</div>
+    <nav class="footer-links" aria-label="Footer navigation">
+      <a href="p1-landing.html">Guide Home</a>
+      <span class="footer-sep" aria-hidden="true">·</span>
+      <a href="p3-coach-quick-start.html">Coach Quick Start</a>
+      <span class="footer-sep" aria-hidden="true">·</span>
+      <a href="workflows/index.html">Workflows Hub</a>
+      <span class="footer-sep" aria-hidden="true">·</span>
+      <a href="phase-gate-guide.html">Phase Gate Guide</a>
+    </nav>
+  </div>
 </footer>
+
 
 <script>
 function showTab(id, el) {

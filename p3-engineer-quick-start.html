@@ -8,305 +8,696 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>P3 — Engineer Quick Start — Hangar AI Constitution</title>
 <style>
-  :root {
-    --aa-navy: #003366;
-    --aa-red: #cc0000;
-    --aa-silver: #d0d6de;
-    --aa-blue: #0066cc;
-    --aa-light: #f0f4f8;
-    --eng: #1a6b3a;
-    --sprint-bg: #fffbea;
-    --sprint-border: #e6b800;
-    --agent-bg: #eef4ff;
-    --agent-border: #0066cc;
-    --agency-bg: #f0f7f0;
-    --agency-border: #1a6b3a;
-    --card-shadow: 0 2px 10px rgba(0,0,0,0.09);
-    --radius: 10px;
-    --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: var(--font); background: #f5f7fa; color: #1a2332; font-size: 14px; line-height: 1.6; }
+/* ═══════════════════════════════════════════════════════════════════
+   ADOPTION GUIDE DESIGN SYSTEM v2 — ENG-13.1 ⛔ COMPLIANT
+   Zero external deps. System fonts only. Inner pages.
+   ═══════════════════════════════════════════════════════════════════ */
 
-  /* ── HEADER ── */
-  header {
-    background: linear-gradient(135deg, var(--aa-navy) 0%, #001a40 100%);
-    color: #fff; padding: 28px 48px 24px;
-    border-bottom: 3px solid var(--aa-red);
-  }
-  .header-inner { max-width: 960px; margin: 0 auto; display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
-  header h1 { font-size: 24px; font-weight: 700; letter-spacing: -0.3px; margin-bottom: 4px; }
-  .header-eyebrow { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: #6aabdd; margin-bottom: 6px; }
-  .header-sub { font-size: 13px; color: #8aabcc; margin-top: 4px; }
-  .header-meta { text-align: right; font-size: 11px; color: #6a8aaa; line-height: 2; white-space: nowrap; }
-  .header-meta strong { color: #cdf; }
-  .back-link {
-    display: inline-flex; align-items: center; gap: 5px;
-    color: #6aabdd; font-size: 12px; text-decoration: none;
-    margin-bottom: 10px; transition: color 0.15s;
-  }
-  .back-link:hover { color: #8ac4ee; }
-  .role-badge {
-    display: inline-flex; align-items: center; gap: 6px;
-    background: var(--aa-blue); color: #fff;
-    border-radius: 20px; padding: 5px 14px;
-    font-size: 13px; font-weight: 700; margin-top: 8px;
-  }
+/* ── RESET & TOKENS ──────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #132033;
+  background:
+    radial-gradient(circle at top right, rgba(199,155,44,0.12), transparent 30%),
+    radial-gradient(circle at left 20%, rgba(0,51,102,0.06), transparent 25%),
+    linear-gradient(180deg, #fdfcf8 0%, #f2f5fa 50%, #f8f2ea 100%);
+  min-height: 100vh;
+}
+a { color: inherit; }
+h1,h2,h3,h4 {
+  margin: 0;
+  font-family: Georgia, "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  font-weight: 700;
+  line-height: 1.08;
+}
+p { margin: 0 0 1rem; }
+ul, ol { margin: 0 0 1rem; padding-left: 1.4rem; }
+li { margin-bottom: 0.4rem; }
+code {
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 0.88em;
+  background: rgba(0,51,102,0.07);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+pre {
+  background: #0f1f3d;
+  color: #e8f0f8;
+  padding: 20px;
+  border-radius: 12px;
+  overflow-x: auto;
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 0.88rem;
+  line-height: 1.7;
+  margin: 12px 0;
+}
 
-  /* ── LAYOUT ── */
-  .page { max-width: 960px; margin: 0 auto; padding: 32px 24px 72px; }
+/* ── LAYOUT ──────────────────────────────────────────────────────── */
+.shell { width: min(1180px, calc(100% - 32px)); margin: 0 auto; }
+main { padding-bottom: 72px; }
+section { margin-top: 56px; }
+.section-head { margin-bottom: 28px; }
+.section-label {
+  display: inline-block;
+  margin-bottom: 8px;
+  color: #cc0000;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+.section-head h2 {
+  font-size: clamp(1.7rem, 3.5vw, 2.5rem);
+  letter-spacing: -0.03em;
+  color: #132033;
+}
+.section-head p {
+  margin: 12px 0 0;
+  max-width: 680px;
+  color: #566579;
+  font-size: 1rem;
+}
 
-  /* ── ACCOMPLISH BAR ── */
-  .accomplish-bar {
-    background: #fffbea; border: 2px solid var(--sprint-border);
-    border-radius: var(--radius); padding: 16px 24px; margin-bottom: 28px;
-    display: flex; gap: 24px; flex-wrap: wrap; align-items: flex-start;
-  }
-  .accomplish-bar .label {
-    font-size: 11px; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 1px; color: #7a5500; white-space: nowrap; padding-top: 2px;
-  }
-  .accomplish-items { display: flex; gap: 18px; flex-wrap: wrap; }
-  .accomplish-item { display: flex; align-items: flex-start; gap: 7px; font-size: 13px; color: #4a3000; }
-  .accomplish-item .check { color: var(--aa-blue); font-size: 15px; flex-shrink: 0; padding-top: 1px; }
+/* ── STICKY NAV ──────────────────────────────────────────────────── */
+.site-nav {
+  background: #001a40;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding: 0 16px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.nav-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 54px;
+  gap: 16px;
+}
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.88);
+  text-decoration: none;
+}
+.nav-brand-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #fff, #f7ca66);
+  flex-shrink: 0;
+}
+.nav-links { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.nav-link {
+  color: rgba(255,255,255,0.68);
+  text-decoration: none;
+  font-size: 0.83rem;
+  font-weight: 600;
+  transition: color 0.15s;
+}
+.nav-link:hover { color: #fff; }
+.btn-nav-home {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.16);
+  color: #fff;
+  font-size: 0.80rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+.btn-nav-home:hover { background: rgba(255,255,255,0.18); }
 
-  /* ── SECTION TITLES ── */
-  .section-title {
-    font-size: 11px; font-weight: 700; letter-spacing: 1.3px; text-transform: uppercase;
-    color: #666; margin: 36px 0 14px; padding-bottom: 8px;
-    border-bottom: 1px solid #dde3ea;
-    display: flex; align-items: center; gap: 8px;
-  }
-  .section-title::before { content: ''; width: 3px; height: 14px; border-radius: 2px; background: var(--aa-blue); display: inline-block; }
-  .section-title.sprint::before { background: var(--sprint-border); }
-  .section-title.agent::before { background: var(--agent-border); }
-  .section-title.agency::before { background: var(--agency-border); }
-  .section-title.steps::before { background: var(--aa-red); }
-  .section-title.links::before { background: var(--aa-navy); }
-  .section-title.coaching::before { background: #888; }
+/* ── PAGE HERO ───────────────────────────────────────────────────── */
+.page-hero-wrap { padding: 36px 0 28px; }
+.page-hero {
+  padding: 44px 44px 40px;
+  border-radius: 30px;
+  background: linear-gradient(140deg, #001a40 0%, #003366 58%, #0d4080 100%);
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 20px 60px rgba(0,26,64,0.22);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.page-hero::before {
+  content: "";
+  position: absolute;
+  inset: auto -8% -40% 55%;
+  height: 280px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.03);
+  transform: rotate(-8deg);
+}
+.page-hero::after {
+  content: "";
+  position: absolute;
+  right: -50px; top: -50px;
+  width: 280px; height: 280px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.07);
+  pointer-events: none;
+}
+.eyebrow {
+  display: inline-block;
+  color: #ffd880;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 800;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+.page-hero h1 {
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  letter-spacing: -0.03em;
+  color: #fff;
+  margin-top: 14px;
+  text-shadow: 0 2px 20px rgba(0,26,64,0.30);
+}
+.page-hero .subtitle {
+  margin: 16px 0 0;
+  max-width: 680px;
+  color: rgba(255,255,255,0.80);
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+.persona-routing { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+.routing-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.18);
+  color: rgba(255,255,255,0.92);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
 
-  /* ── ⚡ FIRST GOVERNED TASK (DC-04) ── */
-  .sprint-band {
-    background: var(--sprint-bg); border: 2px solid var(--sprint-border);
-    border-radius: var(--radius); padding: 24px 28px; margin-bottom: 8px;
-  }
-  .sprint-header { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
-  .sprint-header h2 { font-size: 17px; font-weight: 700; color: #7a5500; }
-  .sprint-badge {
-    background: var(--sprint-border); color: #fff; border-radius: 12px;
-    padding: 2px 10px; font-size: 11px; font-weight: 700;
-  }
-  .sprint-steps { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
-  @media (max-width: 640px) { .sprint-steps { grid-template-columns: 1fr; } }
-  .sprint-step {
-    background: #fff; border-radius: 8px; border: 1px solid #f0d060;
-    padding: 18px; display: flex; flex-direction: column; gap: 8px;
-  }
-  .sprint-step-num { font-size: 11px; font-weight: 700; color: #aa8800; text-transform: uppercase; letter-spacing: 0.8px; }
-  .sprint-step-title { font-size: 14px; font-weight: 700; color: #4a3000; }
-  .sprint-step-desc { font-size: 12px; color: #665500; line-height: 1.6; }
-  .prompt-block {
-    background: #f7f3e8; border: 1px solid #ddd0a0; border-radius: 6px;
-    padding: 10px 12px; font-family: 'Courier New', Courier, monospace;
-    font-size: 11px; color: #3a2c00; line-height: 1.6; margin-top: 4px;
-    word-break: break-word;
-  }
-  .copy-btn {
-    display: inline-flex; align-items: center; gap: 5px; margin-top: 6px;
-    background: var(--aa-blue); color: #fff; border: none; border-radius: 5px;
-    padding: 7px 14px; font-size: 12px; font-weight: 600; cursor: pointer;
-    transition: background 0.15s; font-family: var(--font); align-self: flex-start;
-  }
-  .copy-btn:hover { background: #0055aa; }
-  .copy-btn.copied { background: var(--eng); }
-  .sprint-step a { color: var(--aa-blue); font-weight: 600; font-size: 13px; text-decoration: none; }
-  .sprint-step a:hover { text-decoration: underline; }
+/* ── CONTENT CARDS ───────────────────────────────────────────────── */
+.card {
+  padding: 28px 26px;
+  border-radius: 22px;
+  background: rgba(255,255,255,0.96);
+  border: 1px solid rgba(0,51,102,0.09);
+  box-shadow: 0 14px 36px rgba(0,26,64,0.09);
+  margin-bottom: 16px;
+  transition: transform 0.18s, box-shadow 0.18s;
+}
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 48px rgba(0,26,64,0.14);
+}
+.card h3 {
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+  color: #132033;
+  margin-bottom: 10px;
+}
 
-  /* ── 🤖 AGENT ROLE EXPLAINER (DC-03) ── */
-  .agent-section {
-    background: var(--agent-bg); border: 1px solid #b8d0f0;
-    border-radius: var(--radius); padding: 24px 28px; margin-bottom: 8px;
-  }
-  .agent-section h2 { font-size: 16px; font-weight: 700; color: #003080; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
-  .agent-section .dc-tag { font-size: 10px; font-weight: 600; background: #003366; color: #fff; border-radius: 4px; padding: 2px 7px; }
-  .agent-section .sub { font-size: 13px; color: #2244aa; margin-bottom: 18px; }
-  .agent-flow { display: flex; flex-direction: column; gap: 0; }
-  .agent-step {
-    display: grid; grid-template-columns: 36px 1fr;
-    gap: 14px; align-items: start; padding: 14px 0;
-    border-bottom: 1px solid #ccd8f0;
-  }
-  .agent-step:last-child { border-bottom: none; }
-  .agent-step-icon { font-size: 22px; padding-top: 1px; text-align: center; }
-  .agent-step-content {}
-  .agent-step-label {
-    font-size: 11px; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 0.9px; color: #0050aa; margin-bottom: 3px;
-  }
-  .agent-step-label.you { color: var(--eng); }
-  .agent-step-label.archive { color: #6a3f00; }
-  .agent-step-desc { font-size: 13px; color: #1a2a4a; line-height: 1.65; }
-  .agent-step-desc code { background: #dde8f8; border-radius: 3px; padding: 1px 5px; font-size: 11px; color: #003366; }
+/* ── CALLOUTS ────────────────────────────────────────────────────── */
+.callout-warning, .callout-amber {
+  padding: 16px 20px; border-radius: 14px;
+  background: rgba(255,215,0,0.08); border-left: 4px solid #c79b2c;
+  margin: 12px 0;
+}
+.callout-danger, .callout-red {
+  padding: 16px 20px; border-radius: 14px;
+  background: rgba(204,0,0,0.06); border-left: 4px solid #cc0000;
+  margin: 12px 0;
+}
+.callout-info, .callout-blue {
+  padding: 16px 20px; border-radius: 14px;
+  background: #eaf0f7; border-left: 4px solid #0066cc;
+  margin: 12px 0;
+}
+.callout-success, .callout-green {
+  padding: 16px 20px; border-radius: 14px;
+  background: rgba(0,153,76,0.07); border-left: 4px solid #009934;
+  margin: 12px 0;
+}
 
-  /* ── 🧭 HUMAN AGENCY (DC-07 — VISIBLE) ── */
-  .agency-section {
-    background: var(--agency-bg); border: 1px solid #a8d0b0;
-    border-radius: var(--radius); padding: 24px 28px; margin-bottom: 8px;
-  }
-  .agency-section h2 { font-size: 16px; font-weight: 700; color: #0f4d26; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
-  .agency-section .dc-tag { font-size: 10px; font-weight: 600; background: var(--eng); color: #fff; border-radius: 4px; padding: 2px 7px; }
-  .agency-section .sub { font-size: 13px; color: #1a5a30; margin-bottom: 18px; }
-  .agency-items { display: flex; flex-direction: column; gap: 0; }
-  .agency-item {
-    display: grid; grid-template-columns: 28px 1fr;
-    gap: 14px; align-items: start; padding: 14px 0;
-    border-bottom: 1px solid #b8d8c0;
-  }
-  .agency-item:last-child { border-bottom: none; }
-  .agency-num {
-    width: 26px; height: 26px; border-radius: 50%;
-    background: var(--eng); color: #fff;
-    font-size: 12px; font-weight: 700;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0; margin-top: 1px;
-  }
-  .agency-content {}
-  .agency-title { font-size: 14px; font-weight: 700; color: #0f4d26; margin-bottom: 3px; }
-  .agency-title .law-tag {
-    font-size: 10px; font-weight: 700; background: rgba(204,0,0,0.12);
-    color: var(--aa-red); border-radius: 4px; padding: 1px 6px; margin-left: 6px;
-  }
-  .agency-desc { font-size: 13px; color: #1a4028; line-height: 1.65; }
+/* ── BUTTONS ─────────────────────────────────────────────────────── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  min-height: 46px;
+  padding: 0 22px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  background: #003366;
+  color: #fff;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s, transform 0.15s;
+}
+.btn-primary:hover { background: #001a40; transform: translateY(-1px); }
 
-  /* ── 📋 WORKFLOW STEPS (DC-01) ── */
-  .step-cards { display: flex; flex-direction: column; gap: 8px; }
-  .step-card {
-    background: #fff; border-radius: 8px; border: 1px solid #e4eaf2;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.06); overflow: hidden;
-  }
-  .step-card-header {
-    display: grid; grid-template-columns: 36px 1fr auto;
-    gap: 12px; align-items: center; padding: 14px 16px;
-    cursor: pointer; background: #fff; border: none;
-    width: 100%; text-align: left; font-family: var(--font);
-    transition: background 0.12s;
-  }
-  .step-card-header:hover { background: #f7f9fc; }
-  .step-card.open .step-card-header { background: #f0f4fa; border-bottom: 1px solid #dde3ea; }
-  .step-num {
-    width: 32px; height: 32px; border-radius: 50%;
-    background: var(--aa-navy); color: #fff;
-    font-size: 13px; font-weight: 700;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-  }
-  .step-title-wrap {}
-  .step-title { font-size: 14px; font-weight: 700; color: #1a2332; }
-  .step-subtitle { font-size: 11px; color: #888; margin-top: 1px; }
-  .step-chevron {
-    font-size: 16px; color: #aaa; transition: transform 0.2s; display: inline-block;
-  }
-  .step-card.open .step-chevron { transform: rotate(180deg); }
-  .step-card-body {
-    display: none; padding: 16px 18px 18px 66px;
-  }
-  .step-card.open .step-card-body { display: block; }
-  .step-card-body p { font-size: 13px; color: #2a3a50; line-height: 1.7; }
-  .step-card-body p + p { margin-top: 8px; }
-  .step-card-body a { color: var(--aa-blue); font-weight: 600; text-decoration: none; }
-  .step-card-body a:hover { text-decoration: underline; }
-  .step-card-body .law-inline {
-    display: inline-block; background: rgba(204,0,0,0.10);
-    color: var(--aa-red); border-radius: 4px; padding: 1px 7px;
-    font-size: 11px; font-weight: 700; margin-left: 4px;
-  }
-  .step-card-body ul { margin: 8px 0 0 0; padding-left: 18px; }
-  .step-card-body ul li { font-size: 13px; color: #2a3a50; line-height: 1.7; margin-bottom: 3px; }
-  .metric-chip {
-    display: inline-flex; align-items: center; gap: 5px;
-    background: #e8f5ee; border: 1px solid #90c8a4;
-    border-radius: 12px; padding: 2px 10px;
-    font-size: 11px; font-weight: 700; color: var(--eng); margin-top: 6px;
-  }
+.btn-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 8px;
+  background: rgba(0,51,102,0.08);
+  border: 1px solid rgba(0,51,102,0.14);
+  color: #003366;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s;
+}
+.btn-copy:hover { background: rgba(0,51,102,0.14); }
+.btn-copy.copied { background: rgba(0,153,76,0.12); border-color: rgba(0,153,76,0.20); color: #007a2e; }
 
-  /* ── 🔗 WORKFLOW LINKS ── */
-  .links-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
-  @media (max-width: 540px) { .links-grid { grid-template-columns: 1fr; } }
-  .link-card {
-    background: #fff; border-radius: 8px; border: 1px solid #e4eaf2;
-    box-shadow: var(--card-shadow); padding: 18px 20px;
-    display: flex; flex-direction: column; gap: 6px;
-    text-decoration: none; transition: box-shadow 0.15s, transform 0.15s;
-  }
-  .link-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.12); transform: translateY(-1px); }
-  .link-card-icon { font-size: 22px; }
-  .link-card-title { font-size: 14px; font-weight: 700; color: var(--aa-navy); }
-  .link-card-sub { font-size: 12px; color: #667; }
-  .link-card-arrow { font-size: 11px; color: var(--aa-blue); margin-top: 2px; }
+/* ── ACCORDIONS ──────────────────────────────────────────────────── */
+details {
+  border-radius: 14px;
+  background: rgba(255,255,255,0.96);
+  border: 1px solid rgba(0,51,102,0.09);
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+details[open] { box-shadow: 0 8px 24px rgba(0,26,64,0.09); }
+summary {
+  padding: 18px 20px;
+  cursor: pointer;
+  font-weight: 700;
+  color: #132033;
+  font-family: Georgia, "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+  gap: 12px;
+}
+summary::-webkit-details-marker { display: none; }
+summary::after {
+  content: "▾";
+  color: #566579;
+  font-size: 0.9rem;
+  transition: transform 0.2s;
+  font-family: sans-serif;
+  flex-shrink: 0;
+}
+details[open] summary::after { transform: rotate(180deg); }
+.details-body { padding: 4px 20px 20px; }
 
-  /* ── ▼ COACHING NOTES (DC-06 collapsed) ── */
-  .coaching-details {
-    background: #f8f9fa; border: 1px solid #dde3ea;
-    border-radius: var(--radius); overflow: hidden;
-  }
-  .coaching-details summary {
-    padding: 14px 20px; font-size: 14px; font-weight: 700; color: #444;
-    cursor: pointer; list-style: none; display: flex; align-items: center; gap: 8px;
-    user-select: none;
-  }
-  .coaching-details summary::-webkit-details-marker { display: none; }
-  .coaching-details summary::before {
-    content: '▶'; font-size: 10px; color: #888; transition: transform 0.2s; display: inline-block;
-  }
-  .coaching-details[open] summary::before { transform: rotate(90deg); }
-  .coaching-details summary:hover { background: #f0f2f5; }
-  .coaching-body { padding: 0 20px 20px; }
-  .coaching-prompt {
-    background: #fff; border-radius: 8px; border: 1px solid #e0e5eb;
-    border-left: 3px solid #888; padding: 14px 16px; margin-top: 12px;
-  }
-  .coaching-prompt-num { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #888; margin-bottom: 5px; }
-  .coaching-prompt-text { font-size: 13px; color: #2a3a50; line-height: 1.7; font-style: italic; }
+/* ── TABLES ──────────────────────────────────────────────────────── */
+table { width: 100%; border-collapse: collapse; margin: 8px 0; }
+th {
+  background: #003366;
+  color: #fff;
+  padding: 12px 14px;
+  font-size: 0.83rem;
+  text-align: left;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+td {
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(0,51,102,0.09);
+  vertical-align: top;
+  font-size: 0.92rem;
+  color: #132033;
+}
+tr:last-child td { border-bottom: none; }
+tr:nth-child(even) td { background: rgba(0,51,102,0.03); }
 
-  /* ── FOOTER ── */
-  footer {
-    background: var(--aa-navy); color: #8aabcc; padding: 28px 48px;
-    border-top: 3px solid var(--aa-red);
-  }
-  .footer-inner { max-width: 960px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
-  .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
-  .footer-links a { color: #6aabdd; text-decoration: none; font-size: 13px; font-weight: 600; transition: color 0.15s; }
-  .footer-links a:hover { color: #8ac4ee; }
-  .footer-registry { font-size: 11px; color: #556a7a; text-align: right; line-height: 1.8; }
+/* ── TAGS / PILLS ────────────────────────────────────────────────── */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: #eaf0f7;
+  color: #003366;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.tag-gold { background: rgba(199,155,44,0.15); color: #7a5800; }
+.tag-red { background: rgba(204,0,0,0.08); color: #cc0000; }
+.tag-green { background: rgba(0,153,76,0.10); color: #007a2e; }
+.tag-navy { background: rgba(0,51,102,0.12); color: #003366; }
+
+/* ── PHASE STEPS (workflow pages) ────────────────────────────────── */
+.phase-step {
+  padding: 28px;
+  border-radius: 22px;
+  background: rgba(255,255,255,0.96);
+  border: 1px solid rgba(0,51,102,0.09);
+  box-shadow: 0 14px 36px rgba(0,26,64,0.08);
+  margin-bottom: 20px;
+}
+.phase-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: #003366;
+  color: #fff;
+  font-weight: 800;
+  font-size: 1rem;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(0,26,64,0.20);
+}
+.phase-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+.phase-header h3 {
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+  color: #132033;
+}
+
+/* ── GRID HELPERS ────────────────────────────────────────────────── */
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+@media (max-width: 820px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+
+/* ── FOOTER ──────────────────────────────────────────────────────── */
+footer {
+  background: #003366;
+  color: rgba(255,255,255,0.55);
+  font-size: 0.82rem;
+  padding: 36px 24px;
+  text-align: center;
+  line-height: 2;
+  border-top: 2px solid #001a40;
+}
+.footer-inner { max-width: 1180px; margin: 0 auto; }
+.footer-title {
+  color: rgba(255,255,255,0.82);
+  font-weight: 700;
+  font-size: 0.92rem;
+  margin-bottom: 4px;
+}
+footer a { color: rgba(106,171,221,0.90); text-decoration: none; font-weight: 600; }
+footer a:hover { text-decoration: underline; color: #fff; }
+.footer-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px 20px;
+  margin-top: 12px;
+}
+.footer-sep { color: rgba(255,255,255,0.20); }
+
+/* ── PAGE-SPECIFIC STYLES ────────────────────────────────────────── */
+:root {
+  --aa-navy: #003366;
+  --aa-red: #cc0000;
+  --aa-silver: #d0d6de;
+  --aa-blue: #0066cc;
+  --aa-light: #f0f4f8;
+  --eng: #1a6b3a;
+  --sprint-bg: #fffbea;
+  --sprint-border: #e6b800;
+  --agent-bg: #eef4ff;
+  --agent-border: #0066cc;
+  --agency-bg: #f0f7f0;
+  --agency-border: #1a6b3a;
+  --card-shadow: 0 2px 10px rgba(0,0,0,0.09);
+  --radius: 10px;
+  --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+/* ── ACCOMPLISH BAR ── */
+.accomplish-bar {
+  background: #fffbea; border: 2px solid var(--sprint-border);
+  border-radius: var(--radius); padding: 16px 24px; margin-bottom: 28px;
+  display: flex; gap: 24px; flex-wrap: wrap; align-items: flex-start;
+}
+.accomplish-bar .label {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1px; color: #7a5500; white-space: nowrap; padding-top: 2px;
+}
+.accomplish-items { display: flex; gap: 18px; flex-wrap: wrap; }
+.accomplish-item { display: flex; align-items: flex-start; gap: 7px; font-size: 13px; color: #4a3000; }
+.accomplish-item .check { color: var(--aa-blue); font-size: 15px; flex-shrink: 0; padding-top: 1px; }
+
+/* ── SECTION TITLES ── */
+.section-title {
+  font-size: 11px; font-weight: 700; letter-spacing: 1.3px; text-transform: uppercase;
+  color: #666; margin: 36px 0 14px; padding-bottom: 8px;
+  border-bottom: 1px solid #dde3ea;
+  display: flex; align-items: center; gap: 8px;
+}
+.section-title::before { content: ''; width: 3px; height: 14px; border-radius: 2px; background: var(--aa-blue); display: inline-block; }
+.section-title.sprint::before { background: var(--sprint-border); }
+.section-title.agent::before { background: var(--agent-border); }
+.section-title.agency::before { background: var(--agency-border); }
+.section-title.steps::before { background: var(--aa-red); }
+.section-title.links::before { background: var(--aa-navy); }
+.section-title.coaching::before { background: #888; }
+
+/* ── ⚡ FIRST GOVERNED TASK (DC-04) ── */
+.sprint-band {
+  background: var(--sprint-bg); border: 2px solid var(--sprint-border);
+  border-radius: var(--radius); padding: 24px 28px; margin-bottom: 8px;
+}
+.sprint-header { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+.sprint-header h2 { font-size: 17px; font-weight: 700; color: #7a5500; }
+.sprint-badge {
+  background: var(--sprint-border); color: #fff; border-radius: 12px;
+  padding: 2px 10px; font-size: 11px; font-weight: 700;
+}
+.sprint-steps { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+@media (max-width: 640px) { .sprint-steps { grid-template-columns: 1fr; } }
+.sprint-step {
+  background: #fff; border-radius: 8px; border: 1px solid #f0d060;
+  padding: 18px; display: flex; flex-direction: column; gap: 8px;
+}
+.sprint-step-num { font-size: 11px; font-weight: 700; color: #aa8800; text-transform: uppercase; letter-spacing: 0.8px; }
+.sprint-step-title { font-size: 14px; font-weight: 700; color: #4a3000; }
+.sprint-step-desc { font-size: 12px; color: #665500; line-height: 1.6; }
+.prompt-block {
+  background: #f7f3e8; border: 1px solid #ddd0a0; border-radius: 6px;
+  padding: 10px 12px; font-family: 'Courier New', Courier, monospace;
+  font-size: 11px; color: #3a2c00; line-height: 1.6; margin-top: 4px;
+  word-break: break-word;
+}
+.copy-btn {
+  display: inline-flex; align-items: center; gap: 5px; margin-top: 6px;
+  background: var(--aa-blue); color: #fff; border: none; border-radius: 5px;
+  padding: 7px 14px; font-size: 12px; font-weight: 600; cursor: pointer;
+  transition: background 0.15s; font-family: var(--font); align-self: flex-start;
+}
+.copy-btn:hover { background: #0055aa; }
+.copy-btn.copied { background: var(--eng); }
+.sprint-step a { color: var(--aa-blue); font-weight: 600; font-size: 13px; text-decoration: none; }
+.sprint-step a:hover { text-decoration: underline; }
+
+/* ── 🤖 AGENT ROLE EXPLAINER (DC-03) ── */
+.agent-section {
+  background: var(--agent-bg); border: 1px solid #b8d0f0;
+  border-radius: var(--radius); padding: 24px 28px; margin-bottom: 8px;
+}
+.agent-section h2 { font-size: 16px; font-weight: 700; color: #003080; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+.agent-section .dc-tag { font-size: 10px; font-weight: 600; background: #003366; color: #fff; border-radius: 4px; padding: 2px 7px; }
+.agent-section .sub { font-size: 13px; color: #2244aa; margin-bottom: 18px; }
+.agent-flow { display: flex; flex-direction: column; gap: 0; }
+.agent-step {
+  display: grid; grid-template-columns: 36px 1fr;
+  gap: 14px; align-items: start; padding: 14px 0;
+  border-bottom: 1px solid #ccd8f0;
+}
+.agent-step:last-child { border-bottom: none; }
+.agent-step-icon { font-size: 22px; padding-top: 1px; text-align: center; }
+.agent-step-content {}
+.agent-step-label {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.9px; color: #0050aa; margin-bottom: 3px;
+}
+.agent-step-label.you { color: var(--eng); }
+.agent-step-label.archive { color: #6a3f00; }
+.agent-step-desc { font-size: 13px; color: #1a2a4a; line-height: 1.65; }
+.agent-step-desc code { background: #dde8f8; border-radius: 3px; padding: 1px 5px; font-size: 11px; color: #003366; }
+
+/* ── 🧭 HUMAN AGENCY (DC-07 — VISIBLE) ── */
+.agency-section {
+  background: var(--agency-bg); border: 1px solid #a8d0b0;
+  border-radius: var(--radius); padding: 24px 28px; margin-bottom: 8px;
+}
+.agency-section h2 { font-size: 16px; font-weight: 700; color: #0f4d26; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+.agency-section .dc-tag { font-size: 10px; font-weight: 600; background: var(--eng); color: #fff; border-radius: 4px; padding: 2px 7px; }
+.agency-section .sub { font-size: 13px; color: #1a5a30; margin-bottom: 18px; }
+.agency-items { display: flex; flex-direction: column; gap: 0; }
+.agency-item {
+  display: grid; grid-template-columns: 28px 1fr;
+  gap: 14px; align-items: start; padding: 14px 0;
+  border-bottom: 1px solid #b8d8c0;
+}
+.agency-item:last-child { border-bottom: none; }
+.agency-num {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--eng); color: #fff;
+  font-size: 12px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 1px;
+}
+.agency-content {}
+.agency-title { font-size: 14px; font-weight: 700; color: #0f4d26; margin-bottom: 3px; }
+.agency-title .law-tag {
+  font-size: 10px; font-weight: 700; background: rgba(204,0,0,0.12);
+  color: var(--aa-red); border-radius: 4px; padding: 1px 6px; margin-left: 6px;
+}
+.agency-desc { font-size: 13px; color: #1a4028; line-height: 1.65; }
+
+/* ── 📋 WORKFLOW STEPS (DC-01) ── */
+.step-cards { display: flex; flex-direction: column; gap: 8px; }
+.step-card {
+  background: #fff; border-radius: 8px; border: 1px solid #e4eaf2;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06); overflow: hidden;
+}
+.step-card-header {
+  display: grid; grid-template-columns: 36px 1fr auto;
+  gap: 12px; align-items: center; padding: 14px 16px;
+  cursor: pointer; background: #fff; border: none;
+  width: 100%; text-align: left; font-family: var(--font);
+  transition: background 0.12s;
+}
+.step-card-header:hover { background: #f7f9fc; }
+.step-card.open .step-card-header { background: #f0f4fa; border-bottom: 1px solid #dde3ea; }
+.step-num {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--aa-navy); color: #fff;
+  font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.step-title-wrap {}
+.step-title { font-size: 14px; font-weight: 700; color: #1a2332; }
+.step-subtitle { font-size: 11px; color: #888; margin-top: 1px; }
+.step-chevron {
+  font-size: 16px; color: #aaa; transition: transform 0.2s; display: inline-block;
+}
+.step-card.open .step-chevron { transform: rotate(180deg); }
+.step-card-body {
+  display: none; padding: 16px 18px 18px 66px;
+}
+.step-card.open .step-card-body { display: block; }
+.step-card-body p { font-size: 13px; color: #2a3a50; line-height: 1.7; }
+.step-card-body p + p { margin-top: 8px; }
+.step-card-body a { color: var(--aa-blue); font-weight: 600; text-decoration: none; }
+.step-card-body a:hover { text-decoration: underline; }
+.step-card-body .law-inline {
+  display: inline-block; background: rgba(204,0,0,0.10);
+  color: var(--aa-red); border-radius: 4px; padding: 1px 7px;
+  font-size: 11px; font-weight: 700; margin-left: 4px;
+}
+.step-card-body ul { margin: 8px 0 0 0; padding-left: 18px; }
+.step-card-body ul li { font-size: 13px; color: #2a3a50; line-height: 1.7; margin-bottom: 3px; }
+.metric-chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: #e8f5ee; border: 1px solid #90c8a4;
+  border-radius: 12px; padding: 2px 10px;
+  font-size: 11px; font-weight: 700; color: var(--eng); margin-top: 6px;
+}
+
+/* ── 🔗 WORKFLOW LINKS ── */
+.links-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+@media (max-width: 540px) { .links-grid { grid-template-columns: 1fr; } }
+.link-card {
+  background: #fff; border-radius: 8px; border: 1px solid #e4eaf2;
+  box-shadow: var(--card-shadow); padding: 18px 20px;
+  display: flex; flex-direction: column; gap: 6px;
+  text-decoration: none; transition: box-shadow 0.15s, transform 0.15s;
+}
+.link-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.12); transform: translateY(-1px); }
+.link-card-icon { font-size: 22px; }
+.link-card-title { font-size: 14px; font-weight: 700; color: var(--aa-navy); }
+.link-card-sub { font-size: 12px; color: #667; }
+.link-card-arrow { font-size: 11px; color: var(--aa-blue); margin-top: 2px; }
+
+/* ── ▼ COACHING NOTES (DC-06 collapsed) ── */
+.coaching-details {
+  background: #f8f9fa; border: 1px solid #dde3ea;
+  border-radius: var(--radius); overflow: hidden;
+}
+.coaching-details summary {
+  padding: 14px 20px; font-size: 14px; font-weight: 700; color: #444;
+  cursor: pointer; list-style: none; display: flex; align-items: center; gap: 8px;
+  user-select: none; justify-content: flex-start;
+}
+.coaching-details summary::-webkit-details-marker { display: none; }
+.coaching-details summary::after { display: none; }
+.coaching-details summary::before {
+  content: '▶'; font-size: 10px; color: #888; transition: transform 0.2s; display: inline-block;
+}
+.coaching-details[open] summary::before { transform: rotate(90deg); }
+.coaching-details summary:hover { background: #f0f2f5; }
+.coaching-body { padding: 0 20px 20px; }
+.coaching-prompt {
+  background: #fff; border-radius: 8px; border: 1px solid #e0e5eb;
+  border-left: 3px solid #888; padding: 14px 16px; margin-top: 12px;
+}
+.coaching-prompt-num { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #888; margin-bottom: 5px; }
+.coaching-prompt-text { font-size: 13px; color: #2a3a50; line-height: 1.7; font-style: italic; }
 </style>
 </head>
 <body>
 
-<!-- ═══════════════════════════════════════════════════════
-     HEADER
-═══════════════════════════════════════════════════════ -->
-<header>
-  <div class="header-inner">
-    <div>
-      <a href="p1-landing.html" class="back-link">← Adoption Guide</a>
-      <div class="header-eyebrow">Hangar AI Constitution · Adoption Guide</div>
-      <h1>P3 — Engineer Quick Start</h1>
-      <div class="header-sub">Your first constitutionally-governed coding session.</div>
-      <div class="role-badge">⚙️ Engineer</div>
-    </div>
-    <div class="header-meta">
-      <strong>Page ID:</strong> P3-ENG<br>
-      <strong>Registry:</strong> v2.0.0<br>
-      <strong>DC:</strong> 01–12 binding<br>
-      <strong>Rendered:</strong> 2026-05-07
+<nav class="site-nav" aria-label="Site navigation">
+  <div class="nav-inner">
+    <a href="p1-landing.html" class="nav-brand" aria-label="Adoption Guide Home">
+      <div class="nav-brand-dot" aria-hidden="true"></div>
+      Hangar AI · Adoption Guide
+    </a>
+    <div class="nav-links">
+      <a href="workflows/index.html" class="nav-link">Workflows</a>
+      <a href="phase-gate-guide.html" class="nav-link">Phase Gate Guide</a>
+      <a href="p1-landing.html" class="btn-nav-home">← Guide Home</a>
     </div>
   </div>
-</header>
+</nav>
+
+<div class="shell">
+  <div class="page-hero-wrap">
+    <div class="page-hero">
+      <div class="eyebrow">ENGINEER · QUICK START</div>
+      <h1>Engineer Quick Start</h1>
+      <p class="subtitle">Your first constitutionally-governed task — TDD gate passing, SonarQube green, and phase gate evidence filed in under 60 minutes.</p>
+      <div class="persona-routing" aria-label="Intended audiences">
+        <span class="routing-chip">⚙️ Engineer ✅</span>
+        <span class="routing-chip">🎓 Coach — see Coach Quick Start</span>
+        <span class="routing-chip">🏗️ Architect — see Architect Quick Start</span>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- ═══════════════════════════════════════════════════════
      MAIN
 ═══════════════════════════════════════════════════════ -->
-<main class="page">
+<main><div class="shell">
 
   <!-- ACCOMPLISH BAR -->
   <div class="accomplish-bar" role="note" aria-label="Session goals">
@@ -665,21 +1056,24 @@
     </div>
   </details>
 
+</div>
 </main>
 
-<!-- ═══════════════════════════════════════════════════════
-     FOOTER
-═══════════════════════════════════════════════════════ -->
 <footer>
   <div class="footer-inner">
-    <div class="footer-links">
-      <a href="p1-landing.html">← Back to Adoption Guide</a>
-      <a href="workflows/index.html">🔀 Workflows Hub</a>
-    </div>
-    <div class="footer-registry">
-      Registry: laws/index.yaml v2.0.0 · DC-01 through DC-12 binding<br>
-      Rendered: 2026-05-07 · Page ID: P3-ENG
-    </div>
+    <div class="footer-title">Hangar AI Constitution — Adoption Guide</div>
+    <div>American Airlines · Hangar AI Program · Adoption Guide v1.0.0</div>
+    <nav class="footer-links" aria-label="Footer navigation">
+      <a href="p1-landing.html">Guide Home</a>
+      <span class="footer-sep" aria-hidden="true">·</span>
+      <a href="p3-coach-quick-start.html">Coach Quick Start</a>
+      <span class="footer-sep" aria-hidden="true">·</span>
+      <a href="p3-architect-quick-start.html">Architect Quick Start</a>
+      <span class="footer-sep" aria-hidden="true">·</span>
+      <a href="workflows/index.html">Workflows Hub</a>
+      <span class="footer-sep" aria-hidden="true">·</span>
+      <a href="phase-gate-guide.html">Phase Gate Guide</a>
+    </nav>
   </div>
 </footer>
 
