@@ -1583,15 +1583,11 @@ footer a:hover { text-decoration: underline; color: #fff; }
   </div>
 
   <div class="card">
-    <div class="card-title">⚡ Complete Gate Pipeline — Mandatory Every Phase</div>
-    <div style="font-size:10px; color:#445; margin-bottom:10px;">Per PRD-2.6 + ENG-12 + ENG-14.1 — this full sequence is required before a human sees any phase artifact.</div>
+    <div class="card-title">⚡ Per-Phase Gate Pipeline — Mandatory Every Phase</div>
+    <div style="font-size:10px; color:#445; margin-bottom:4px;">Per PRD-2.6 + ENG-12 + ENG-14.1 — this full sequence is required before a human sees any phase artifact.</div>
+    <div style="font-size:10px; color:#778; margin-bottom:10px; font-style:italic;">Note: <span class="mono">aa-agents-sync --check</span> is Phase 0 / workflow init — not per-phase-gate.</div>
 
     <div class="loop-diagram">
-      <div class="loop-step" style="background:#f0faf4;">
-        <div class="actor agent">AGENT</div>
-        <div class="action"><span class="mono" style="font-size:10px;">aa-agents-sync --check</span> — verify AGENTS.md is current (ENG-1.2)</div>
-      </div>
-      <div style="text-align:center; font-size:12px; color:#aab;">↓</div>
       <div class="loop-step" style="background:#e8f0fc;">
         <div class="actor agent">AGENT</div>
         <div class="action"><span class="mono" style="font-size:10px;">aa-artifact-render ARTIFACT.md</span> — render as HTML with citation tooltips (ENG-13.1)</div>

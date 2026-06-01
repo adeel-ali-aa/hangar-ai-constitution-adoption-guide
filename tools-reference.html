@@ -361,19 +361,11 @@ footer {
 ═══════════════════════════════════════════════════════════ -->
 <div class="section-title">The Mandatory Phase Gate Pipeline</div>
 <div class="card" style="margin-bottom: 24px;">
-  <div class="card-title">⚡ Full Sequence — Required Before Human Sees Any Phase Artifact</div>
-  <p style="font-size:12px; color:#445; margin-bottom:16px;">Per PRD-2.6, ENG-12, ENG-14.1. Every phase gate in every workflow runs this sequence in full. No shortcuts, no self-certification.</p>
+  <div class="card-title">⚡ Per-Phase Gate Sequence — Required Before Human Sees Any Phase Artifact</div>
+  <p style="font-size:12px; color:#445; margin-bottom:4px;">Per PRD-2.6, ENG-12, ENG-14.1. Every phase gate in every workflow runs this sequence in full. No shortcuts, no self-certification.</p>
+  <p style="font-size:11px; color:#778; margin-bottom:16px; font-style:italic;">Note: <code>aa-agents-sync --check</code> is a <strong>Phase 0 / workflow initialization</strong> check — run once when starting a new engagement, not at every gate. See the <a href="#aa-agents-sync" style="color:var(--aa-blue);">aa-agents-sync</a> section below.</p>
 
   <div class="pipeline">
-    <div class="pipe-step">
-      <div class="pipe-actor agent">AGENT</div>
-      <div class="pipe-body">
-        <div class="pipe-cmd">aa-agents-sync --check</div>
-        <div class="pipe-note">Verify AGENTS.md is current against constitution version. Drift (exit 2) = update before proceeding.</div>
-        <div style="margin-top:4px;"><span class="pipe-law">ENG-1.2</span></div>
-      </div>
-    </div>
-    <div class="pipe-connector">↓</div>
     <div class="pipe-step">
       <div class="pipe-actor agent">AGENT</div>
       <div class="pipe-body">
