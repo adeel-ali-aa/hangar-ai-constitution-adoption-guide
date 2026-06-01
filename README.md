@@ -10,12 +10,14 @@ A persona-aware, single-URL web guide for Technical Coaches, Senior Architects, 
 | [p3-coach-quick-start.html](p3-coach-quick-start.html) | Technical Coach Quick Start |
 | [p3-architect-quick-start.html](p3-architect-quick-start.html) | Senior Architect Quick Start |
 | [p3-engineer-quick-start.html](p3-engineer-quick-start.html) | Engineer Quick Start |
-| [phase-gate-guide.html](phase-gate-guide.html) | Phase Gate Evidence Guide |
+| [phase-gate-guide.html](phase-gate-guide.html) | Phase Gate & Jury Guide |
 | [workflows/index.html](workflows/index.html) | Workflows Hub |
 | [workflows/adoption.html](workflows/adoption.html) | Adoption Workflow |
 | [workflows/legacy-rescue.html](workflows/legacy-rescue.html) | Legacy Rescue Workflow |
 | [workflows/greenfield.html](workflows/greenfield.html) | Greenfield Development Workflow |
-| [workflows/avatar-discovery.html](workflows/avatar-discovery.html) | Avatar + Product Discovery Workflow |
+| [workflows/avatar.html](workflows/avatar.html) | Avatar Creation Workflow |
+| [workflows/product-discovery.html](workflows/product-discovery.html) | Product Discovery Workflow |
+| [workflows/avatar-discovery.html](workflows/avatar-discovery.html) | ↳ Redirect to both pages above (URL preserved for bookmarks) |
 
 ## Usage
 

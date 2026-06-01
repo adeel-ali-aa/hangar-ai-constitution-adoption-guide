@@ -764,16 +764,31 @@ footer a:hover { text-decoration: underline; color: #fff; }
 <main>
   <div class="shell">
 
-    <!-- ── CONSTITUTION 101 BANNER ──────────────────────────── -->
+    <!-- ── NEW TO HANGAR AI CONSTITUTION ───────────────────────── -->
     <section id="foundation" style="margin-top:40px;">
-      <a href="constitution-101.html" class="p101-banner" aria-label="New to Constitutional AI? Read the 101">
-        <div class="p101-icon" aria-hidden="true">🎓</div>
-        <div class="p101-text">
-          <strong>New to Constitutional AI?</strong>
-          <span>Why is SOLID in the constitution? What's an Avatar? What does "governed output" mean? — All answered in plain English.</span>
-        </div>
-        <div class="p101-cta">Read the 101 →</div>
-      </a>
+      <div class="section-head" style="margin-bottom:16px;">
+        <span class="section-label">FOUNDATION</span>
+        <p>Begin with the 101 to build your mental model, then explore the full AI model with all 168 laws.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <a href="constitution-101.html" class="p101-banner" aria-label="Read the Constitution 101">
+          <div class="p101-icon" aria-hidden="true">🎓</div>
+          <div class="p101-text">
+            <strong>Constitution 101</strong>
+            <span>Why is SOLID in here? What's an Avatar? What does "governed output" mean? — 10 misconceptions answered in plain English.</span>
+          </div>
+          <div class="p101-cta">Read the 101 →</div>
+        </a>
+        <a href="p2-constitutional-ai-model.html" class="p101-banner" aria-label="Explore the Constitutional AI Model">
+          <div class="p101-icon" aria-hidden="true">⚖️</div>
+          <div class="p101-text">
+            <strong>Constitutional AI Model</strong>
+            <span>All 168 laws across ENG, PRD, and BUS pillars — visualised with avatars, skills, and the RLHF feedback loop.</span>
+          </div>
+          <div class="p101-cta">Explore Model →</div>
+        </a>
+      </div>
+      <style>@media(max-width:640px){#foundation .p101-banner{grid-column:1/-1;}#foundation>div{grid-template-columns:1fr;}}</style>
     </section>
 
     <!-- ── CHOOSE YOUR ROLE ─────────────────────────────────── -->
@@ -868,7 +883,7 @@ footer a:hover { text-decoration: underline; color: #fff; }
           <span class="workflow-link">Open Workflow →</span>
         </a>
 
-        <a href="workflows/avatar-discovery.html" class="workflow-card">
+        <a href="workflows/avatar.html" class="workflow-card">
           <div class="workflow-top">
             <div class="workflow-emoji">🤖</div>
             <span class="phase-pill">7 phases</span>
@@ -878,7 +893,7 @@ footer a:hover { text-decoration: underline; color: #fff; }
           <span class="workflow-link">Open Workflow →</span>
         </a>
 
-        <a href="workflows/avatar-discovery.html#discovery" class="workflow-card">
+        <a href="workflows/product-discovery.html" class="workflow-card">
           <div class="workflow-top">
             <div class="workflow-emoji">🔍</div>
             <span class="phase-pill">6 stages</span>
@@ -905,6 +920,22 @@ footer a:hover { text-decoration: underline; color: #fff; }
 
       <div class="resource-grid">
 
+        <a href="constitution-101.html" class="resource-card">
+          <div class="resource-icon">💡</div>
+          <span class="resource-type">Foundation</span>
+          <h3>Constitution 101</h3>
+          <p>Why is SOLID in here? What's an Avatar? Can we change the Constitution? Ten misconceptions answered in plain English.</p>
+          <span class="resource-cta">Read the 101 →</span>
+        </a>
+
+        <a href="p2-constitutional-ai-model.html" class="resource-card">
+          <div class="resource-icon">⚖️</div>
+          <span class="resource-type">Model Reference</span>
+          <h3>Constitutional AI Model</h3>
+          <p>All 168 laws visualised by pillar — ENG, PRD, BUS. Designed for coaches and architects building governance baselines.</p>
+          <span class="resource-cta">Explore Model →</span>
+        </a>
+
         <a href="phase-gate-guide.html" class="resource-card">
           <div class="resource-icon">📊</div>
           <span class="resource-type">Reference</span>
@@ -919,22 +950,6 @@ footer a:hover { text-decoration: underline; color: #fff; }
           <h3>Prompt Templates</h3>
           <p>Ready-to-copy prompts for Phase 1, Phase 2, and follow-up tasks. Paste directly into your AI session.</p>
           <span class="resource-cta">Browse Templates →</span>
-        </a>
-
-        <a href="p2-constitutional-ai-model.html" class="resource-card">
-          <div class="resource-icon">⚖️</div>
-          <span class="resource-type">Model Reference</span>
-          <h3>Constitutional AI Model</h3>
-          <p>All 168 laws visualised by pillar — ENG, PRD, BUS. Designed for coaches and architects building governance baselines.</p>
-          <span class="resource-cta">Explore Model →</span>
-        </a>
-
-        <a href="constitution-101.html" class="resource-card">
-          <div class="resource-icon">💡</div>
-          <span class="resource-type">Foundation</span>
-          <h3>Constitution 101</h3>
-          <p>Why is SOLID in here? What's an Avatar? Can we change the Constitution? Nine misconceptions answered in plain English.</p>
-          <span class="resource-cta">Read the 101 →</span>
         </a>
 
       </div>

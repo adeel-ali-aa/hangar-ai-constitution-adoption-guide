@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>📊 Phase Gate Evidence Guide</title>
+<title>📊 Phase Gate &amp; Jury Guide</title>
 <style>
 /* ═══════════════════════════════════════════════════════════════════
    ADOPTION GUIDE DESIGN SYSTEM v2 — ENG-13.1 ⛔ COMPLIANT
@@ -607,12 +607,31 @@ ul, ol { color: #4a5568; }
   <div class="page-hero-wrap">
     <div class="page-hero">
       <div class="eyebrow">REFERENCE GUIDE · ALL ROLES</div>
-      <h1>Phase Gate Evidence Guide</h1>
-      <p class="subtitle">What to produce at every gate, how to detect drift, and the three monitoring prompts that keep every team constitutionally compliant.</p>
+      <h1>Phase Gate &amp; Jury Guide</h1>
+      <p class="subtitle">What to produce at every gate, the multi-cognition jury that validates evidence before your review, how to detect drift, and the monitoring prompts that keep every team constitutionally compliant.</p>
       <div class="persona-routing" aria-label="Intended audiences">
         <span class="routing-chip">🎓 Coach ✅</span>
         <span class="routing-chip">🏗️ Architect ✅</span>
         <span class="routing-chip">⚙️ Engineer ✅</span>
+      </div>
+
+      <!-- 6-step gate pipeline visual -->
+      <div style="margin-top:24px;padding:18px 20px 16px;background:rgba(0,51,102,0.05);border-radius:12px;border:1px solid rgba(0,51,102,0.10);" role="img" aria-label="6-step mandatory gate pipeline">
+        <div style="font-size:0.75rem;font-weight:700;letter-spacing:0.08em;color:#566579;margin-bottom:12px;text-transform:uppercase;">Mandatory Gate Pipeline (every phase gate)</div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;font-size:0.82rem;font-weight:600;">
+          <span style="background:#003366;color:#fff;padding:5px 12px;border-radius:20px;">1 · Render</span>
+          <span style="color:#8a9aac;font-size:0.9em;">→</span>
+          <span style="background:#003366;color:#fff;padding:5px 12px;border-radius:20px;">2 · Citation Audit</span>
+          <span style="color:#8a9aac;font-size:0.9em;">→</span>
+          <span style="background:#5c3d00;color:#fff;padding:5px 12px;border-radius:20px;">3 · Jury (PRD-2.6 ⛔)</span>
+          <span style="color:#8a9aac;font-size:0.9em;">→</span>
+          <span style="background:#5c3d00;color:#fff;padding:5px 12px;border-radius:20px;">4 · Jury Gate</span>
+          <span style="color:#8a9aac;font-size:0.9em;">→</span>
+          <span style="background:#1a5c2e;color:#fff;padding:5px 12px;border-radius:20px;">5 · SonarQube</span>
+          <span style="color:#8a9aac;font-size:0.9em;">→</span>
+          <span style="background:#1a5c2e;color:#fff;padding:5px 12px;border-radius:20px;">6 · Human ⛔</span>
+        </div>
+        <div style="font-size:0.77rem;color:#566579;margin-top:8px;">Steps 3–4 are non-negotiable — the jury validates evidence before it reaches you. See <a href="#jury-heading" style="color:#003366;">Section 4b</a> for the full pipeline.</div>
       </div>
     </div>
   </div>
@@ -652,8 +671,12 @@ ul, ol { color: #4a5568; }
         <li>Ask: <em>does this match my intent?</em></li>
         <li><strong>APPROVE</strong> to proceed, or <strong>OBJECT</strong> to scope down or re-propose</li>
       </ol>
-      <p style="color:#1a5c2e; margin-bottom:0; font-weight:600;">
+      <p style="color:#1a5c2e; margin-bottom:8px; font-weight:600;">
         Your approval is the constitutional gate. It is never automatic.
+      </p>
+      <p style="color:#1a5c2e; margin-bottom:0; font-size:0.92em;">
+        Before your approval, a multi-cognition jury independently validates the evidence — but the final APPROVE/OBJECT decision remains yours.
+        See <a href="#jury-heading" style="color:#1a5c2e; font-weight:600;">Section 4b: Multi-Cognition Jury</a> for the mandatory pipeline.
       </p>
     </div>
   </section>
@@ -735,6 +758,9 @@ ul, ol { color: #4a5568; }
             <li>Kill-if criteria are measurable and time-bounded (not vague)</li>
           </ul>
 
+          <h3>Jury Gate <span style="font-size:0.8em;font-weight:400;color:#7a5000;">(PRD-2.6 ⛔ — before your review)</span></h3>
+          <p style="font-size:0.9em;color:#444;margin-bottom:6px;">A 5-juror multi-cognition panel must validate this evidence before it reaches you. If any juror issues <strong>CHALLENGED</strong>, the agent resolves it first. See <a href="#jury-heading" style="color:#003366;">Section 4b</a> for the mandatory pipeline.</p>
+
           <h3>Decision</h3>
           <div class="decision-row">
             <div class="badge-approve">✅ APPROVE — "The proposal matches my intent and scope"</div>
@@ -771,6 +797,9 @@ ul, ol { color: #4a5568; }
             <li>Commit message references the proposal ID</li>
           </ul>
 
+          <h3>Jury Gate <span style="font-size:0.8em;font-weight:400;color:#7a5000;">(PRD-2.6 ⛔ — before your review)</span></h3>
+          <p style="font-size:0.9em;color:#444;margin-bottom:6px;">A 5-juror multi-cognition panel must validate this evidence before it reaches you. If any juror issues <strong>CHALLENGED</strong>, the agent resolves it first. See <a href="#jury-heading" style="color:#003366;">Section 4b</a> for the mandatory pipeline.</p>
+
           <h3>Decision</h3>
           <div class="decision-row">
             <div class="badge-approve">✅ APPROVE — proceed to ARCHIVE phase</div>
@@ -800,6 +829,9 @@ ul, ol { color: #4a5568; }
             <li>All phase artifacts are committed to source control</li>
             <li><code>PROGRESS.md</code> updated to reflect the completed phase</li>
           </ul>
+
+          <h3>Jury Gate <span style="font-size:0.8em;font-weight:400;color:#7a5000;">(PRD-2.6 ⛔ — before your review)</span></h3>
+          <p style="font-size:0.9em;color:#444;margin-bottom:6px;">A 5-juror multi-cognition panel must validate this evidence before it reaches you. If any juror issues <strong>CHALLENGED</strong>, the agent resolves it first. See <a href="#jury-heading" style="color:#003366;">Section 4b</a> for the mandatory pipeline.</p>
 
           <h3>Decision</h3>
           <div class="decision-row">
@@ -883,6 +915,9 @@ ul, ol { color: #4a5568; }
             </tbody>
           </table>
 
+          <h3 style="margin-top:14px;">Jury Gate <span style="font-size:0.8em;font-weight:400;color:#7a5000;">(PRD-2.6 ⛔ — before your review)</span></h3>
+          <p style="font-size:0.9em;color:#444;margin-bottom:6px;">A 5-juror multi-cognition panel must validate this evidence before it reaches you. If any juror issues <strong>CHALLENGED</strong>, the agent resolves it first. See <a href="#jury-heading" style="color:#003366;">Section 4b</a> for the mandatory pipeline.</p>
+
           <h3 style="margin-top:14px;">Decision</h3>
           <div class="decision-row">
             <div class="badge-approve">✅ APPROVE — no new issues introduced</div>
@@ -924,6 +959,9 @@ ul, ol { color: #4a5568; }
             <li>Surviving mutants have been reviewed individually</li>
             <li>Each surviving mutant has either a <strong>killing test added</strong> or an <strong>explicit acceptance note</strong> (e.g., "trivial getter — accepted")</li>
           </ul>
+
+          <h3>Jury Gate <span style="font-size:0.8em;font-weight:400;color:#7a5000;">(PRD-2.6 ⛔ — before your review)</span></h3>
+          <p style="font-size:0.9em;color:#444;margin-bottom:6px;">A 5-juror multi-cognition panel must validate this evidence before it reaches you. If any juror issues <strong>CHALLENGED</strong>, the agent resolves it first. See <a href="#jury-heading" style="color:#003366;">Section 4b</a> for the mandatory pipeline.</p>
 
           <h3>Decision</h3>
           <div class="decision-row">
