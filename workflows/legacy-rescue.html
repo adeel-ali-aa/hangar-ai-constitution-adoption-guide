@@ -949,11 +949,57 @@ main {
   <!-- YAML TRIGGER PHRASE BOX -->
   <div class="trigger-box" aria-label="Workflow YAML trigger phrase">
     <h2>YAML Trigger Phrase</h2>
+    <div style="background:#fff3cd;border:1px solid #cc8800;border-radius:6px;padding:10px 14px;font-size:0.88em;margin-bottom:10px;">
+      ⚠️ <strong>Entry point updated:</strong> Always start with <code>legacy-rescue-decision-track</code> — it determines whether your codebase should be refactored, rewritten, or both. Do not trigger the refactor or rewrite sub-workflows directly.
+    </div>
     <div class="trigger-code-row">
-      <div class="trigger-code" id="trigger-phrase">workflow: legacy-rescue-refactor</div>
+      <div class="trigger-code" id="trigger-phrase">workflow: legacy-rescue-decision-track</div>
       <button class="copy-btn"
         aria-label="Copy legacy rescue trigger phrase"
-        onclick="copyPrompt(this, 'workflow: legacy-rescue-refactor')">📋 Copy</button>
+        onclick="copyPrompt(this, 'workflow: legacy-rescue-decision-track')">📋 Copy</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════ PHASE 0: DECISION TRACK -->
+  <div class="section-label">Phase 0 — Decision Track (Required Entry Point)</div>
+  <div class="phases-section" style="margin-bottom:12px;">
+    <div class="phase-card" id="phase-0" style="border-left:4px solid #cc8800;">
+      <button class="phase-header-btn"
+        onclick="togglePhase(this)"
+        aria-expanded="true"
+        aria-controls="phase-0-body">
+        <span class="phase-num-pill" style="background:#cc8800;" aria-hidden="true">Phase 0</span>
+        <span class="phase-title-text">
+          <span class="phase-name">Decision Track</span>
+          <span class="phase-purpose">Determine whether this codebase should be refactored, rewritten, or both</span>
+        </span>
+        <span class="expand-icon" aria-hidden="true">▼</span>
+      </button>
+      <div class="phase-body" id="phase-0-body">
+        <p>Before any Legacy Rescue work begins, the <strong>Decision Track</strong> analyses the codebase and produces a REFACTOR / REWRITE / HYBRID ruling. This ruling determines which sub-workflow(s) run next.</p>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0;">
+          <div style="background:#eef4ff;border:1px solid #b0c8f8;border-radius:8px;padding:12px;">
+            <div style="font-weight:700;color:#0033cc;margin-bottom:6px;">🔧 REFACTOR</div>
+            <p style="font-size:0.88em;margin:0;">Existing architecture is salvageable. Proceed with the 7-phase Legacy Rescue Refactor workflow.</p>
+          </div>
+          <div style="background:#fff0f0;border:1px solid #f8b0b0;border-radius:8px;padding:12px;">
+            <div style="font-weight:700;color:#cc0000;margin-bottom:6px;">🔁 REWRITE</div>
+            <p style="font-size:0.88em;margin:0;">Architecture is too degraded to salvage incrementally. Proceed with the Legacy Rescue Rewrite workflow.</p>
+          </div>
+          <div style="background:#f0fff4;border:1px solid #a0d8b0;border-radius:8px;padding:12px;">
+            <div style="font-weight:700;color:#006622;margin-bottom:6px;">⚡ HYBRID</div>
+            <p style="font-size:0.88em;margin:0;">Bounded-context split: some contexts refactor, others rewrite. Both sub-workflows run in parallel on their respective contexts.</p>
+          </div>
+        </div>
+        <div class="prompt-row">
+          <div class="prompt-type-label"><span class="type-tag type-yaml">YAML</span> Trigger</div>
+          <div class="prompt-code" id="p0-yaml">workflow: legacy-rescue-decision-track</div>
+          <div class="prompt-copy-row">
+            <button class="copy-btn" aria-label="Copy Phase 0 YAML trigger"
+              onclick="copyPrompt(this, document.getElementById('p0-yaml').textContent)">📋 Copy</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 

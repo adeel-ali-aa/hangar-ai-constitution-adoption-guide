@@ -829,7 +829,7 @@ footer a:hover { text-decoration: underline; color: #fff; }
         <p>Think of it like a job description + code of conduct for the AI agent. Without an Avatar, the agent is ungoverned — it's helpful but constitutionally unbound. That's the risk.</p>
 
         <div class="callout-warning" style="margin-top:4px;">
-          <strong>Example:</strong> The "Senior Architect Avatar" tells the agent it IS a senior architect at American Airlines, governed by 168 laws, with DC-07 visibility required and bounded-context scoping mandatory. Every response it gives is shaped by that constitutional identity — regardless of what workflow phase is active.
+          <strong>Example:</strong> The "Senior Architect Avatar" tells the agent it IS a senior architect at American Airlines, governed by 174 laws, with DC-07 visibility required and bounded-context scoping mandatory. Every response it gives is shaped by that constitutional identity — regardless of what workflow phase is active.
         </div>
       </div>
 
@@ -965,12 +965,14 @@ footer a:hover { text-decoration: underline; color: #fff; }
             <div class="phase-num">2</div>
             <h3>Jury Deliberation</h3>
           </div>
-          <p>A 6-juror panel reviews the proposal over 2+ rounds:</p>
+          <p>A 5-juror multi-cognition panel reviews the proposal over 2+ rounds (<span style="font-style:italic">PRD-2.6 ⛔, ENG-12.3</span>):</p>
           <ul style="margin-bottom:0;">
-            <li>Jurors: Architect · Coach · Engineer · Product Owner · Compliance · Legal</li>
+            <li>Jurors: <strong>J1–J5</strong>, each on a distinct LLM substrate (e.g. claude-opus, claude-sonnet, gpt-4.1) — no two jurors share the same model</li>
+            <li>Plus a <strong>Judicial Synthesizer</strong> who consolidates per-juror verdicts into a single APPROVED / REJECTED finding</li>
             <li>Round 1 <strong>must</strong> surface concerns — unanimous first-round approval is constitutionally invalid</li>
             <li>Concerns must be addressed before the proposal advances</li>
           </ul>
+          <p style="margin-top:10px;font-size:0.9em;color:#555;font-style:italic">Why multi-model? Distinct LLM substrates produce genuinely independent reasoning — each model has different training biases and blind spots. A concern raised by four different models simultaneously is far more signal than four instances of the same model agreeing.</p>
         </div>
 
         <div class="phase-step">
@@ -997,7 +999,7 @@ footer a:hover { text-decoration: underline; color: #fff; }
       <details>
         <summary>Deep Dive — Why unanimous first-round approval is constitutionally invalid</summary>
         <div class="details-body">
-          <p>This is one of the Constitution's most counterintuitive rules — and one of its most important. If a 6-person jury unanimously approves a constitutional amendment in the first round, it means no one surfaced a concern. In a system governing AI output across an organization, that's almost certainly false consensus — not genuine agreement.</p>
+          <p>This is one of the Constitution's most counterintuitive rules — and one of its most important. If a 5-juror multi-cognition panel unanimously approves a proposal in the first round, it means no one surfaced a concern. In a system governing AI output across an organization, that's almost certainly false consensus — not genuine agreement.</p>
           <p>Constitutional amendments carry systemic risk. If the amendment is sound, it can survive a round of structured concerns. If it cannot, those concerns caught a real problem before it became a constitutional flaw. Requiring Round 1 concerns forces deliberation — even when a proposal seems obviously correct. "Obviously correct" proposals have historically introduced the most consequential unforeseen problems.</p>
           <p>This rule doesn't slow down good proposals. It surfaces hidden risks in proposals that look good on first read.</p>
         </div>
@@ -1227,7 +1229,7 @@ footer a:hover { text-decoration: underline; color: #fff; }
 
       <div class="callout-success">
         <div class="reality-label">✅ Reality</div>
-        <p style="margin:0;font-weight:600;">GitHub Copilot skills are prompt customizations scoped to a developer's session. Constitutional skills are governed behavioral contracts — ratified by a jury, tied to 168 laws, consistent across every team and every agent session. One is a setting. The other is an institution.</p>
+        <p style="margin:0;font-weight:600;">GitHub Copilot skills are prompt customizations scoped to a developer's session. Constitutional skills are governed behavioral contracts — ratified by a jury, tied to 174 laws, consistent across every team and every agent session. One is a setting. The other is an institution.</p>
       </div>
 
       <div class="card">

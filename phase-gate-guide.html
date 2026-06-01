@@ -911,10 +911,11 @@ ul, ol { color: #4a5568; }
           <h3>What you're reading</h3>
           <p>A mutation test HTML report located in <code>hangar-ai-specs/evidence/mutation-report/</code> — showing which synthetic code mutations were killed by the test suite and which survived.</p>
 
-          <h3>Thresholds by phase</h3>
+          <h3>Thresholds by workflow track</h3>
           <ul class="check-list">
             <li>Legacy Rescue Phase 4 — mutation score <strong>≥ 70%</strong></li>
-            <li>Phase 7 (full constitutional) — mutation score <strong>≥ 90%</strong></li>
+            <li>Greenfield Phase 7 — mutation score <strong>≥ 85%</strong> <span style="color:#555;font-size:0.88em">(ENG-4.11 — critical-path threshold)</span></li>
+            <li>Legacy Rescue Phase 7 (Harden) — mutation score <strong>≥ 90%</strong> <span style="color:#555;font-size:0.88em">(ENG-4.12 ⛔ — HARD_BLOCK)</span></li>
           </ul>
 
           <h3>What to check</h3>
@@ -933,6 +934,74 @@ ul, ol { color: #4a5568; }
       </div>
 
     </div><!-- /.gate-cards -->
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════
+       SECTION 4b — Multi-Cognition Jury — PRD-2.6 ⛔
+  ═══════════════════════════════════════════════════════════════════ -->
+  <section aria-labelledby="jury-heading">
+    <h2 id="jury-heading">⚖️ Multi-Cognition Jury — PRD-2.6 ⛔</h2>
+
+    <div class="callout-green" role="note" style="background:#fff8e1;border-left:4px solid #cc8800;margin-bottom:20px;">
+      <div class="callout-title" style="color:#7a5000;">⛔ NON-NEGOTIABLE — PRD-2.6 / ENG-12.3</div>
+      <p style="color:#7a5000;margin:0;">Every phase gate SHALL be challenged by a multi-model jury before the stage may advance. Skipping the jury is a constitutional violation — agent cannot self-declare phase complete.</p>
+    </div>
+
+    <p>The multi-cognition jury is the constitutional mechanism for catching what a single model — or a single human — misses. Each juror runs on a distinct LLM substrate, producing genuinely independent reasoning.</p>
+
+    <h3 style="margin:20px 0 10px;">Jury Composition (ENG-12.3)</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:20px;">
+      <div style="background:#eef4ff;border:1px solid #b0c8f8;border-radius:8px;padding:12px;text-align:center;">
+        <div style="font-weight:700;font-size:1.1em;color:#0033cc;">J1–J5</div>
+        <div style="font-size:0.85em;color:#333;margin-top:4px;">5 jurors, each on a distinct LLM substrate. No two jurors share the same model.</div>
+      </div>
+      <div style="background:#f0fff4;border:1px solid #a0d8b0;border-radius:8px;padding:12px;text-align:center;">
+        <div style="font-weight:700;font-size:1.1em;color:#006622;">Judicial Synthesizer</div>
+        <div style="font-size:0.85em;color:#333;margin-top:4px;">Separate from the 5 jurors. Consolidates per-juror verdicts into the final APPROVED / REJECTED finding.</div>
+      </div>
+      <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:8px;padding:12px;text-align:center;">
+        <div style="font-weight:700;font-size:1.1em;color:#7a5000;">J6 (conditional)</div>
+        <div style="font-size:0.85em;color:#333;margin-top:4px;">Citation Auditor juror, added when ENG-14.2 applies. Not required for every gate.</div>
+      </div>
+    </div>
+    <p style="font-size:0.9em;color:#555;font-style:italic;">PRD-2.6 requires a minimum of 4 jurors. Current implementation uses 5 (J1–J5) per ENG-12.3. Why distinct models? Each LLM has different training biases and blind spots — a concern raised by four different models carries far more signal than four instances of the same model agreeing.</p>
+
+    <h3 style="margin:20px 0 10px;">Jury Verdicts &amp; Deliberation (ENG-12.1)</h3>
+    <div style="overflow-x:auto;margin-bottom:16px;">
+      <table style="width:100%;border-collapse:collapse;font-size:0.9em;">
+        <thead>
+          <tr style="background:#dce8ff;">
+            <th style="padding:8px 12px;text-align:left;border:1px solid #b0c8f8;">Per-Juror Verdict</th>
+            <th style="padding:8px 12px;text-align:left;border:1px solid #b0c8f8;">Meaning</th>
+            <th style="padding:8px 12px;text-align:left;border:1px solid #b0c8f8;">Consequence</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td style="padding:8px 12px;border:1px solid #b0c8f8;"><strong>VALIDATED</strong></td><td style="padding:8px 12px;border:1px solid #b0c8f8;">Evidence is sound, no concerns</td><td style="padding:8px 12px;border:1px solid #b0c8f8;">Counts toward approval</td></tr>
+          <tr><td style="padding:8px 12px;border:1px solid #b0c8f8;"><strong>QUALIFIED</strong></td><td style="padding:8px 12px;border:1px solid #b0c8f8;">Concern raised — correction required</td><td style="padding:8px 12px;border:1px solid #b0c8f8;">Corrections applied before R2</td></tr>
+          <tr><td style="padding:8px 12px;border:1px solid #b0c8f8;"><strong>CHALLENGED</strong></td><td style="padding:8px 12px;border:1px solid #b0c8f8;">Blocking issue found</td><td style="padding:8px 12px;border:1px solid #b0c8f8;">Must resolve before jury can pass</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>If ≥2 jurors issue QUALIFIED or any juror issues CHALLENGED, corrections are applied and a Round 2 (R2) deliberation runs. <strong>Unanimous Round 1 approval is constitutionally invalid</strong> — it means no one surfaced a concern, which in a system governing AI output is almost certainly false consensus.</p>
+
+    <h3 style="margin:20px 0 10px;">Mandatory Jury Tool Pipeline</h3>
+    <p>At each phase gate, the agent MUST run this pipeline before the human review checkpoint (ENG-12.1, ENG-12.2):</p>
+    <div style="background:#0f1f3d;color:#e8f0f8;border-radius:8px;padding:16px 18px;font-family:'Consolas','Courier New',monospace;font-size:0.88em;margin-bottom:16px;overflow-x:auto;">
+      <div style="color:#8ab4f8;margin-bottom:6px"># Step 1 — Render evidence artifact (ENG-13.1)</div>
+      <div style="margin-bottom:10px;">aa-artifact-render ARTIFACT.md --laws-dir laws</div>
+      <div style="color:#8ab4f8;margin-bottom:6px"># Step 2 — Citation audit: exit 2 = halt jury (ENG-14.1)</div>
+      <div style="margin-bottom:10px;">aa-citation-audit ARTIFACT.md</div>
+      <div style="color:#8ab4f8;margin-bottom:6px"># Step 3 — 5-juror R1 deliberation → corrections → R2 if needed (PRD-2.6)</div>
+      <div style="color:#aaa;margin-bottom:10px;">[jury deliberation — each juror on distinct LLM substrate]</div>
+      <div style="color:#8ab4f8;margin-bottom:6px"># Step 4 — Jury gate: FAIL = cannot advance (PRD-2.6, ENG-12.3)</div>
+      <div style="margin-bottom:10px;">aa-jury-gate SYNTHESIS.md</div>
+      <div style="color:#8ab4f8;margin-bottom:6px"># Step 5 — SonarQube quality gate (ENG-4.1, ENG-12.1)</div>
+      <div style="margin-bottom:10px;">sonarqube-gate</div>
+      <div style="color:#8ab4f8;margin-bottom:6px"># Step 6 — Human review checkpoint ⛔ NON-NEGOTIABLE (ENG-12.1, ENG-12.2)</div>
+      <div>[human APPROVE / OBJECT]</div>
+    </div>
+    <p style="font-size:0.88em;color:#555;font-style:italic;">Note: <code>aa-agents-sync --check</code> is a Phase 0 / workflow initialization step — run once when starting an engagement, not at every phase gate. See <a href="tools-reference.html" style="color:#0033cc;">Tools Reference</a> for full CLI documentation.</p>
   </section>
 
   <!-- ══════════════════════════════════════════════════════════════

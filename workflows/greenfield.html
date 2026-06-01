@@ -1600,7 +1600,7 @@ artifact: phase-6-security.html</pre>
       <div class="phase-num">7</div>
       <div class="phase-title-wrap">
         <h3>Phase 7 — Mutation</h3>
-        <div class="phase-sub">Mutation testing · target ≥ 90% score · surviving mutant review</div>
+        <div class="phase-sub">Mutation testing · target ≥ 85% score · surviving mutant review</div>
       </div>
       <div class="phase-tags">
         <span class="law-chip blue">ENG-4.11</span>
@@ -1608,7 +1608,7 @@ artifact: phase-6-security.html</pre>
       <span class="expand-icon" aria-hidden="true">▼</span>
     </button>
     <div class="phase-body" id="phase-7-body">
-      <p style="font-size:13px;color:#3a4a5c;margin-bottom:14px">Run mutation testing to verify that tests actually catch bugs. A mutation score below 90% means your tests have gaps. Every surviving mutant must be reviewed — either killed with a new test or explicitly accepted with documented rationale.</p>
+      <p style="font-size:13px;color:#3a4a5c;margin-bottom:14px">Run mutation testing to verify that tests actually catch bugs. A mutation score below 85% means your tests have gaps. Every surviving mutant must be reviewed — either killed with a new test or explicitly accepted with documented rationale. <em style="color:#555;">(ENG-4.11 baseline ≥70% general code; greenfield workflow requires ≥85% as Phase 7 exit evidence — the critical-path threshold.)</em></p>
 
       <div class="prompt-tabs" role="tablist" aria-label="Phase 7 prompt channels">
         <button class="tab-btn" role="tab" aria-selected="true"  aria-controls="p7-cli"  id="p7-cli-tab"  onclick="switchTab(this,'p7-cli')">🖥 CLI</button>
@@ -1617,13 +1617,13 @@ artifact: phase-6-security.html</pre>
       </div>
       <div class="tab-panel active" id="p7-cli" role="tabpanel" aria-labelledby="p7-cli-tab">
         <div class="prompt-wrap">
-          <pre class="prompt-code" id="p7-cli-text">gh copilot ask "Run Greenfield Phase 7 Mutation: run mutation testing on [service — e.g. loyalty-points-api]. Target mutation score ≥ 90%. Review surviving mutants and either kill them with new tests or document explicit acceptance with rationale."</pre>
+          <pre class="prompt-code" id="p7-cli-text">gh copilot ask "Run Greenfield Phase 7 Mutation: run mutation testing on [service — e.g. loyalty-points-api]. Target mutation score ≥ 85% (ENG-4.11). Review surviving mutants and either kill them with new tests or document explicit acceptance with rationale."</pre>
           <button class="copy-btn" aria-label="Copy Phase 7 CLI prompt" onclick="copyPrompt(this, document.getElementById('p7-cli-text').textContent)">📋 Copy</button>
         </div>
       </div>
       <div class="tab-panel" id="p7-ide" role="tabpanel" aria-labelledby="p7-ide-tab">
         <div class="prompt-wrap">
-          <pre class="prompt-code ide" id="p7-ide-text">Run mutation testing. Target ≥ 90% mutation score. Review surviving mutants.</pre>
+          <pre class="prompt-code ide" id="p7-ide-text">Run mutation testing. Target ≥ 85% mutation score (ENG-4.11). Review surviving mutants.</pre>
           <button class="copy-btn" aria-label="Copy Phase 7 IDE prompt" onclick="copyPrompt(this, document.getElementById('p7-ide-text').textContent)">📋 Copy</button>
         </div>
       </div>
@@ -1634,7 +1634,7 @@ name: mutation
 trigger: "Run Greenfield Phase 7 Mutation for [service name — e.g. loyalty-points-api]"
 skill: skill-11-mutation-testing
 law: ENG-4.11
-target_mutation_score: "≥ 90%"
+target_mutation_score: "≥ 85% (ENG-4.11 — greenfield critical-path threshold)"
 sonarqube_gate: mutation_score≥85 (critical paths)
 artifact: phase-7-mutation.html</pre>
           <button class="copy-btn" aria-label="Copy Phase 7 YAML trigger" onclick="copyPrompt(this, document.getElementById('p7-yaml-text').textContent)">📋 Copy</button>
@@ -1653,7 +1653,7 @@ artifact: phase-7-mutation.html</pre>
             <div class="gi-value">Mutation score percentage · surviving mutant list · kill/accept decisions per mutant</div>
           </div>
         </div>
-        <div class="decision-q">Score ≥ 90%? Each surviving mutant reviewed and documented?</div>
+        <div class="decision-q">Score ≥ 85%? Each surviving mutant reviewed and documented?</div>
         <div style="margin-top:12px">
           <div class="gi-label" style="margin-bottom:6px">⚠️ Drift signals</div>
           <ul class="drift-list">

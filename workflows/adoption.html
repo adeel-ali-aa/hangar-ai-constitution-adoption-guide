@@ -1154,6 +1154,37 @@ footer a:hover { text-decoration: underline; color: #fff; }
         </div>
       </div>
 
+      <!-- aa-agents-sync callout -->
+      <div class="callout-info" style="margin:20px 0;padding:16px 20px;background:#eef4ff;border-left:4px solid #0033cc;border-radius:8px;">
+        <div style="font-weight:700;font-size:1em;margin-bottom:8px;">🔄 aa-agents-sync — Keep AGENTS.md Current <span style="font-size:0.82em;font-weight:400;color:#444;">(ENG-1.2)</span></div>
+        <p style="margin:0 0 10px;">After creating <code>AGENTS.md</code> in Phase 2, use <code>aa-agents-sync</code> to detect and fix constitution drift. Run <code>--check</code> at the start of each future workflow engagement.</p>
+        <div style="background:#0f1f3d;color:#e8f0f8;border-radius:6px;padding:12px 14px;font-family:'Consolas','Courier New',monospace;font-size:0.85em;margin-bottom:10px;">
+          <div style="color:#8ab4f8;margin-bottom:6px"># Install once</div>
+          <div>pip install aa-agents-sync</div>
+          <div style="color:#8ab4f8;margin-top:10px;margin-bottom:6px"># Phase 0 — run at the start of every workflow engagement</div>
+          <div>aa-agents-sync --check AGENTS.md</div>
+          <div style="color:#8ab4f8;margin-top:10px;margin-bottom:6px"># If drift detected (exit 2), sync before proceeding</div>
+          <div>aa-agents-sync --apply AGENTS.md</div>
+          <div style="color:#8ab4f8;margin-top:10px;margin-bottom:6px"># Preview changes without writing</div>
+          <div>aa-agents-sync --dry-run AGENTS.md</div>
+        </div>
+        <table style="width:100%;border-collapse:collapse;font-size:0.88em;">
+          <thead>
+            <tr style="background:#dce8ff;">
+              <th style="padding:6px 10px;text-align:left;border:1px solid #b0c8f8;">Exit Code</th>
+              <th style="padding:6px 10px;text-align:left;border:1px solid #b0c8f8;">Meaning</th>
+              <th style="padding:6px 10px;text-align:left;border:1px solid #b0c8f8;">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td style="padding:6px 10px;border:1px solid #b0c8f8;"><code>0</code></td><td style="padding:6px 10px;border:1px solid #b0c8f8;">Current — no drift</td><td style="padding:6px 10px;border:1px solid #b0c8f8;">Proceed</td></tr>
+            <tr><td style="padding:6px 10px;border:1px solid #b0c8f8;"><code>2</code></td><td style="padding:6px 10px;border:1px solid #b0c8f8;">Drift detected</td><td style="padding:6px 10px;border:1px solid #b0c8f8;">Run <code>--apply</code> to sync, then proceed</td></tr>
+            <tr><td style="padding:6px 10px;border:1px solid #b0c8f8;"><code>1</code></td><td style="padding:6px 10px;border:1px solid #b0c8f8;">Error</td><td style="padding:6px 10px;border:1px solid #b0c8f8;">Check path and constitution version</td></tr>
+          </tbody>
+        </table>
+        <p style="margin:10px 0 0;font-size:0.88em;">For full options and examples, see <a href="../tools-reference.html#aa-agents-sync" style="color:#0033cc;">Tools Reference → aa-agents-sync</a>.</p>
+      </div>
+
       <hr class="divider">
 
       <!-- DC-10 Phase Gate Evidence -->
