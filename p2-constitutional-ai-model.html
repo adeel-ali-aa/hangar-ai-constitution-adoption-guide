@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en"
   data-source-commit="8b49e216fd17a8c4083ae793cd14eb24e6880103"
-  data-source-files="laws/index.yaml,AGENTS.md,avatars/,agent-skills/"
-  data-render-timestamp="2026-05-06T19:24:09Z"
+  data-source-files="laws/index.yaml,AGENTS.md,avatars/,agent-skills/,tools/"
+  data-render-timestamp="2026-06-01T19:30:21Z"
   data-page-id="P2"
   data-registry-version="2.0.0"
   data-nav-parent="p1-landing.html">
@@ -643,6 +643,7 @@ footer a:hover { text-decoration: underline; color: #fff; }
     <div class="nav-links">
       <a href="workflows/index.html" class="nav-link">Workflows</a>
       <a href="phase-gate-guide.html" class="nav-link">Phase Gate Guide</a>
+      <a href="tools-reference.html" class="nav-link">Tools Reference</a>
       <a href="p1-landing.html" class="btn-nav-home">← Guide Home</a>
     </div>
   </div>
@@ -685,7 +686,7 @@ footer a:hover { text-decoration: underline; color: #fff; }
     <div class="small-label">Authority Hierarchy (strict priority)</div>
     <div class="pyramid">
       <div class="pyr-tier" style="background:#cc0000; width:90%;">
-        Level 1 — Constitution Laws <span class="tier-label">ABSOLUTE · 3 domains · 168 laws</span>
+        Level 1 — Constitution Laws <span class="tier-label">ABSOLUTE · 3 domains · 174 laws</span>
       </div>
       <div class="pyr-tier" style="background:#003366; width:75%;">
         Level 2 — AGENT.md Instructions <span class="tier-label">OPERATIONAL · guardrails &amp; protocols</span>
@@ -748,7 +749,7 @@ footer a:hover { text-decoration: underline; color: #fff; }
     <div class="card-title">
       <span class="icon" style="background:var(--eng-bg);">🔧</span>
       Engineering Constitution
-      <span class="pill-eng">ENG · 67 laws</span>
+      <span class="pill-eng">ENG · 76 laws</span>
     </div>
     <div class="small-label">Question: HOW do we build?</div>
     <p style="font-size:11px; color:#445; margin-bottom:10px;">Code quality, testing, architecture, DevOps, security, resiliency.</p>
@@ -768,8 +769,11 @@ footer a:hover { text-decoration: underline; color: #fff; }
     <div class="law-item"><span class="law-id eng">ENG-6.7</span><div><div class="law-text">Audit Trail — all actions logged and traceable</div><span class="nn-star">⛔ NN</span></div></div>
     <div class="law-item"><span class="law-id eng">ENG-10.1</span><div><div class="law-text">Constitution Metrics Collection</div><span class="nn-star">⛔ NN</span></div></div>
     <div class="law-item"><span class="law-id eng">ENG-11.1</span><div><div class="law-text">Hangar SDD Law — PROPOSE→IMPLEMENT→ARCHIVE</div><span class="nn-star">⛔ NN</span></div></div>
-    <div class="law-item"><span class="law-id eng">ENG-12.1</span><div><div class="law-text">Agentic Feedback Loop — SonarQube gate required</div><span class="nn-star">⛔ NN</span></div></div>
+    <div class="law-item"><span class="law-id eng">ENG-12.1</span><div><div class="law-text">Agentic Feedback Loop — Constitutional Gate provisioned before workflow phase; agent cannot advance without human review</div><span class="nn-star">⛔ NN</span></div></div>
+    <div class="law-item"><span class="law-id eng">ENG-12.2</span><div><div class="law-text">Phase Gate Enforcement — agent cannot self-certify phase completion; human must review jury-corrected artifact</div><span class="nn-star">⛔ NN</span></div></div>
+    <div class="law-item"><span class="law-id eng">ENG-12.3</span><div><div class="law-text">External Referee Law — the agent that introduced a change cannot self-certify its compliance; <span class="mono">aa-jury-gate</span> provides objective verdict</div><span class="nn-star">⛔ NN</span></div></div>
     <div class="law-item"><span class="law-id eng">ENG-13.1</span><div><div class="law-text">Artifact Rendering Standard — HTML before stakeholder review</div><span class="nn-star">⛔ NN</span></div></div>
+    <div class="law-item"><span class="law-id eng">ENG-14.1</span><div><div class="law-text">Citation Audit Gate — <span class="mono">aa-citation-audit</span> must run before jury; exit 2 halts jury immediately</div><span class="nn-star">⛔ NN</span></div></div>
     <hr class="divider">
     <div class="small-label">Priority Hierarchy (ENG-1.1)</div>
     <div style="font-size:10px; color:#334; line-height:1.9;">
@@ -793,7 +797,7 @@ footer a:hover { text-decoration: underline; color: #fff; }
     <div class="card-title">
       <span class="icon" style="background:var(--prd-bg);">🎯</span>
       Product Constitution
-      <span class="pill-prd">PRD · 49 laws</span>
+      <span class="pill-prd">PRD · 50 laws</span>
     </div>
     <div class="small-label">Question: WHAT do we build?</div>
     <p style="font-size:11px; color:#445; margin-bottom:10px;">User journeys, discovery, roadmaps, metrics, experimentation.</p>
@@ -808,6 +812,7 @@ footer a:hover { text-decoration: underline; color: #fff; }
     <div class="law-item"><span class="law-id prd">PRD-1.2</span><div><div class="law-text">Problem-First — no feature without validated user problem</div><span class="nn-star">⛔ NN</span></div></div>
     <div class="law-item"><span class="law-id prd">PRD-1.5</span><div><div class="law-text">Evidence-Based Decisions — no HiPPO, data required</div><span class="nn-star">⛔ NN</span></div></div>
     <div class="law-item"><span class="law-id prd">PRD-2.5</span><div><div class="law-text">Discovery Stage-Gate — 6-stage A→F evidence gates</div><span class="nn-star">⛔ NN</span></div></div>
+    <div class="law-item"><span class="law-id prd">PRD-2.6</span><div><div class="law-text">Multi-Cognition Jury — 5-juror panel (J1–J5 distinct LLM models) + Judicial Synthesizer at every phase gate; R1+R2 deliberation required</div><span class="nn-star">⛔ NN</span></div></div>
     <div class="law-item"><span class="law-id prd">PRD-5.1</span><div><div class="law-text">MVP Law — ship minimum viable, learn, iterate</div><span class="nn-star">⛔ NN</span></div></div>
     <div class="law-item"><span class="law-id prd">PRD-6.2</span><div><div class="law-text">Retention Over Acquisition — retain before grow</div><span class="nn-star">⛔ NN</span></div></div>
     <hr class="divider">
@@ -872,7 +877,7 @@ footer a:hover { text-decoration: underline; color: #fff; }
   <div class="hier-layer" style="border-left: 4px solid #cc0000;">
     <div>
       <div class="hier-layer-label">BASE CONSTITUTIONS</div>
-      <div class="hier-layer-sub">Apply to ALL AA software · 168 laws across 3 domains</div>
+      <div class="hier-layer-sub">Apply to ALL AA software · 174 laws across 3 domains</div>
     </div>
     <div class="hier-chips">
       <span class="hier-chip" style="background:var(--eng-bg); color:var(--eng);">Engineering</span>
@@ -1081,7 +1086,7 @@ footer a:hover { text-decoration: underline; color: #fff; }
       <div class="rag-tier-num" style="background:var(--eng);">1</div>
       <div class="rag-tier-body">
         <div class="rag-tier-type">Laws Index — <span class="mono">laws/index.yaml</span></div>
-        <div class="rag-tier-detail">Master law catalog · 168 laws · law IDs, titles, non-negotiable flags · version 2.0.0</div>
+        <div class="rag-tier-detail">Master law catalog · 174 laws · law IDs, titles, non-negotiable flags · version 2.0.0</div>
       </div>
     </div>
     <div class="rag-tier">
@@ -1521,31 +1526,120 @@ footer a:hover { text-decoration: underline; color: #fff; }
 <div class="section-title">10. Constitutional Enforcement Tools</div>
 <div class="grid-2" style="align-items:start;">
   <div class="card">
-    <div class="card-title">🔧 CLI Tools (tools/)</div>
+    <div class="card-title">🔧 CLI Tools (tools/) — v2.0 Set</div>
+
     <div class="skill-item">
-      <div class="skill-name">aa-constitution-lint</div>
-      <div style="font-size:10px; color:#445;">Validates law files, skill indexes, and law ID references across the entire constitution. Command: <span class="mono">aa-constitution-lint .</span></div>
-      <div class="skill-laws"><span class="skill-law-tag">ENG-10.1</span><span class="skill-law-tag">ENG-10.2</span></div>
+      <div class="skill-name">aa-agents-sync</div>
+      <div style="font-size:10px; color:#445;">AGENTS.md drift detection &amp; sync. Checks whether your repo's <span class="mono">AGENTS.md</span> is current against the constitution version. Writes <span class="mono">constitution-version.txt</span> on apply. Commands: <span class="mono">--check</span> · <span class="mono">--apply</span> · <span class="mono">--dry-run</span> · <span class="mono">--legacy-mode</span></div>
+      <div class="skill-laws"><span class="skill-law-tag">ENG-1.2</span></div>
     </div>
+
+    <div class="skill-item">
+      <div class="skill-name">aa-citation-audit ⛔</div>
+      <div style="font-size:10px; color:#445;">Pre-jury citation gate. Validates all law ID citations in an artifact against <span class="mono">laws/index.yaml</span> using fuzzy matching. <strong>Exit 2 halts the jury — jury must not run.</strong> Use <span class="mono">--output append</span> to write a <span class="mono">citation_audit:</span> block directly into artifact frontmatter. Command: <span class="mono">aa-citation-audit ARTIFACT.md</span></div>
+      <div class="skill-laws"><span class="skill-law-tag">ENG-14.1</span><span class="skill-law-tag">ENG-14.2</span></div>
+    </div>
+
+    <div class="skill-item">
+      <div class="skill-name">aa-jury-gate ⛔</div>
+      <div style="font-size:10px; color:#445;">Mechanical validation of PRD-2.6 jury synthesis artifacts. Runs 19 checks (S01–S19): juror count, model diversity, verdict structure, R1+R2 evidence, git-tracking. Prevents any authoring LLM from self-certifying. Command: <span class="mono">aa-jury-gate SYNTHESIS.md</span></div>
+      <div class="skill-laws"><span class="skill-law-tag">PRD-2.6</span><span class="skill-law-tag">ENG-12.3</span></div>
+    </div>
+
     <div class="skill-item">
       <div class="skill-name">aa-artifact-render</div>
-      <div style="font-size:10px; color:#445;">Renders governance artifacts (proposals, ADRs, evidence, tasks) as self-contained HTML with interactive law citation tooltips. Optional PDF via <span class="mono">--pdf</span></div>
+      <div style="font-size:10px; color:#445;">Renders governance artifacts (proposals, ADRs, evidence, specs, skills) as self-contained HTML with interactive law citation tooltips. Optional PDF via headless Chromium: <span class="mono">--pdf</span>. Auto-detects artifact type from frontmatter. v1.2.0. Command: <span class="mono">aa-artifact-render PROPOSAL.md --laws-dir laws</span></div>
       <div class="skill-laws"><span class="skill-law-tag">ENG-13.1</span><span class="skill-law-tag">ENG-13.2</span><span class="skill-law-tag">ENG-13.3</span></div>
     </div>
+
+    <div class="skill-item">
+      <div class="skill-name">aa-constitution-lint</div>
+      <div style="font-size:10px; color:#445;">Validates law files, skill indexes, and law ID references across the entire constitution. Includes new <span class="mono">agents_md_sync</span> rule. Command: <span class="mono">aa-constitution-lint .</span></div>
+      <div class="skill-laws"><span class="skill-law-tag">ENG-10.1</span><span class="skill-law-tag">ENG-10.2</span></div>
+    </div>
+
     <div class="skill-item">
       <div class="skill-name">sonarqube-gate</div>
       <div style="font-size:10px; color:#445;">Enforces code quality gates. Human MUST review dashboard — API result alone does not constitute compliance confirmation. Command: <span class="mono">sonarqube-gate</span></div>
       <div class="skill-laws"><span class="skill-law-tag">ENG-4.1</span><span class="skill-law-tag">ENG-12.1</span></div>
     </div>
+
     <div class="skill-item">
       <div class="skill-name">RAG Eval Harness</div>
-      <div style="font-size:10px; color:#445;">Evaluates constitution RAG retrieval quality. Command: <span class="mono">python tools/rag-eval/evaluate.py</span></div>
+      <div style="font-size:10px; color:#445;">Evaluates constitution RAG retrieval quality across 5 dimensions. 85% overall pass threshold. Command: <span class="mono">python tools/rag-eval/evaluate.py</span></div>
       <div class="skill-laws"><span class="skill-law-tag">ENG-10.5</span></div>
     </div>
+
+    <hr class="divider">
+    <div class="small-label">Exit Code Quick Reference</div>
+    <div style="font-size:10px; display:grid; grid-template-columns:auto auto 1fr; gap:3px 8px; color:#334; align-items:center;">
+      <span style="font-weight:700;">Tool</span><span style="font-weight:700;">Exit</span><span style="font-weight:700;">Meaning</span>
+      <span class="mono">aa-agents-sync</span><span>0 / 2 / 1</span><span>current / drift / error</span>
+      <span class="mono">aa-citation-audit</span><span>0 / 1 / 2</span><span>PASS / fix citations / tool error → halt jury</span>
+      <span class="mono">aa-jury-gate</span><span>0 / 1</span><span>PASS / FAIL</span>
+      <span class="mono">aa-constitution-lint</span><span>0 / 1</span><span>valid / violations found</span>
+    </div>
+    <p style="font-size:10px; margin-top:10px; margin-bottom:0;"><a href="tools-reference.html" style="color:var(--aa-blue); font-weight:700;">→ Full Tools Reference (install, options, examples)</a></p>
   </div>
 
   <div class="card">
-    <div class="card-title">📐 Architecture Laws Quick Reference</div>
+    <div class="card-title">⚡ Complete Gate Pipeline — Mandatory Every Phase</div>
+    <div style="font-size:10px; color:#445; margin-bottom:10px;">Per PRD-2.6 + ENG-12 + ENG-14.1 — this full sequence is required before a human sees any phase artifact.</div>
+
+    <div class="loop-diagram">
+      <div class="loop-step" style="background:#f0faf4;">
+        <div class="actor agent">AGENT</div>
+        <div class="action"><span class="mono" style="font-size:10px;">aa-agents-sync --check</span> — verify AGENTS.md is current (ENG-1.2)</div>
+      </div>
+      <div style="text-align:center; font-size:12px; color:#aab;">↓</div>
+      <div class="loop-step" style="background:#e8f0fc;">
+        <div class="actor agent">AGENT</div>
+        <div class="action"><span class="mono" style="font-size:10px;">aa-artifact-render ARTIFACT.md</span> — render as HTML with citation tooltips (ENG-13.1)</div>
+      </div>
+      <div style="text-align:center; font-size:12px; color:#aab;">↓</div>
+      <div class="loop-step" style="background:#fff8e0; border:1px solid #e0c84a; border-radius:6px;">
+        <div class="actor system">GATE</div>
+        <div class="action">
+          <span class="mono" style="font-size:10px;">aa-citation-audit ARTIFACT.md</span> — validate law citations (ENG-14.1)<br>
+          <span style="color:#cc0000; font-size:9px; font-weight:700;">⛔ Exit 2 = halt jury immediately. Do not proceed.</span>
+        </div>
+      </div>
+      <div style="text-align:center; font-size:12px; color:#aab;">↓</div>
+      <div class="loop-step" style="background:#e8f0fc;">
+        <div class="actor system">JURY</div>
+        <div class="action">
+          5-juror multi-cognition deliberation R1 → R2 (PRD-2.6)<br>
+          <span style="font-size:9px; color:#667;">J1 claude-opus · J2 claude-sonnet · J3–J5 distinct models · + Judicial Synthesizer</span>
+        </div>
+      </div>
+      <div style="text-align:center; font-size:12px; color:#aab;">↓</div>
+      <div class="loop-step" style="background:#fff8e0; border:1px solid #e0c84a; border-radius:6px;">
+        <div class="actor system">GATE</div>
+        <div class="action">
+          <span class="mono" style="font-size:10px;">aa-jury-gate SYNTHESIS.md</span> — 19 mechanical checks (PRD-2.6, ENG-12.3)<br>
+          <span style="color:#cc0000; font-size:9px; font-weight:700;">⛔ GATE: FAIL = cannot advance phase</span>
+        </div>
+      </div>
+      <div style="text-align:center; font-size:12px; color:#aab;">↓</div>
+      <div class="loop-step" style="background:#e8f0fc;">
+        <div class="actor agent">AGENT</div>
+        <div class="action"><span class="mono" style="font-size:10px;">sonarqube-gate</span> — run code quality scan (ENG-4.1, ENG-12.1)</div>
+      </div>
+      <div style="text-align:center; font-size:12px; color:#aab;">↓</div>
+      <div class="loop-step" style="background:#fff0e8; border:1px solid #f5c5a0; border-radius:6px;">
+        <div class="actor human">HUMAN</div>
+        <div class="action"><strong>Reviews rendered artifact + SonarQube dashboard</strong> — THE mandatory checkpoint. Agent cannot advance without this. (ENG-12.1, ENG-12.2)</div>
+        <span class="gate pass">PASS ✓</span>
+      </div>
+      <div style="text-align:center; font-size:12px; color:#aab;">↓</div>
+      <div class="loop-step" style="background:#f0faf4;">
+        <div class="actor human">HUMAN</div>
+        <div class="action">Approves phase advance (or directs remediation)</div>
+      </div>
+    </div>
+
+    <hr class="divider">
+    <div class="small-label">Architecture Laws Quick Reference</div>
     <div class="law-item"><span class="law-id eng">ENG-2.1</span><div class="law-text">DDD Law — Entities, Value Objects, Aggregates, Domain Services, Domain Events</div></div>
     <div class="law-item"><span class="law-id eng">ENG-2.2</span><div class="law-text">Layered Architecture — Presentation → Application → Domain → Infrastructure</div></div>
     <div class="law-item"><span class="law-id eng">ENG-2.3</span><div class="law-text">Vertical Slice Architecture — features as complete end-to-end slices</div></div>

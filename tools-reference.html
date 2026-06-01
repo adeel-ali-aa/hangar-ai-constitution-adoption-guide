@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en"
+  data-source-commit="current"
+  data-source-files="tools/"
+  data-render-timestamp="2026-06-01T19:30:21Z"
+  data-page-id="TOOLS"
+  data-registry-version="2.0.0"
+  data-nav-parent="p1-landing.html">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hangar AI Constitution — Tools Reference</title>
+<style>
+/* ═══════════════════════════════════════════════════════════════════
+   ADOPTION GUIDE DESIGN SYSTEM v2 — ENG-13.1 ⛔ COMPLIANT
+   Zero external deps. System fonts only. Inner pages.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── RESET & TOKENS ──────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #132033;
+  background:
+    radial-gradient(circle at top right, rgba(199,155,44,0.12), transparent 30%),
+    radial-gradient(circle at left 20%, rgba(0,51,102,0.06), transparent 25%),
+    linear-gradient(180deg, #fdfcf8 0%, #f2f5fa 50%, #f8f2ea 100%);
+  min-height: 100vh;
+}
+a { color: inherit; }
+h1,h2,h3,h4 {
+  margin: 0;
+  font-family: Georgia, "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  font-weight: 700;
+  line-height: 1.08;
+}
+p { margin: 0 0 1rem; }
+ul, ol { margin: 0 0 1rem; padding-left: 1.4rem; }
+li { margin-bottom: 0.4rem; }
+code {
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 0.88em;
+  background: rgba(0,51,102,0.07);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+pre {
+  background: #0f1f3d;
+  color: #e8f0f8;
+  padding: 20px;
+  border-radius: 12px;
+  overflow-x: auto;
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 0.88rem;
+  line-height: 1.7;
+  margin: 12px 0;
+}
+
+/* ── LAYOUT ──────────────────────────────────────────────────────── */
+.shell { width: min(1180px, calc(100% - 32px)); margin: 0 auto; }
+main { padding-bottom: 72px; }
+section { margin-top: 56px; }
+
+/* ── NAV ─────────────────────────────────────────────────────────── */
+.site-nav {
+  position: sticky; top: 0; z-index: 100;
+  background: linear-gradient(135deg, #003366 0%, #001f4d 100%);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.nav-inner {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 0;
+}
+.nav-brand {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 13px; font-weight: 700; color: #fff;
+  text-decoration: none; letter-spacing: 0.02em;
+}
+.nav-brand-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: linear-gradient(135deg, #c79b2c, #e8c55a);
+}
+.nav-links { display: flex; align-items: center; gap: 8px; }
+.nav-link {
+  font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.8);
+  text-decoration: none; padding: 5px 10px; border-radius: 6px;
+  transition: background 0.15s;
+}
+.nav-link:hover, .nav-link.active { background: rgba(255,255,255,0.12); color: #fff; }
+.btn-nav-home {
+  font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.75);
+  text-decoration: none; padding: 5px 12px; border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.25);
+  transition: background 0.15s;
+}
+.btn-nav-home:hover { background: rgba(255,255,255,0.12); color: #fff; }
+
+/* ── TOKENS ──────────────────────────────────────────────────────── */
+:root {
+  --aa-navy: #001f4d;
+  --aa-blue: #003366;
+  --aa-red:  #cc0000;
+  --aa-gold: #c79b2c;
+  --eng:     #1a6b3a;
+  --prd:     #003366;
+  --bus:     #8b4513;
+  --nn:      #cc0000;
+  --eng-bg:  rgba(26,107,58,0.1);
+  --prd-bg:  rgba(0,51,102,0.08);
+  --bus-bg:  rgba(139,69,19,0.08);
+}
+
+/* ── PAGE HERO ───────────────────────────────────────────────────── */
+.page-hero-wrap {
+  background: linear-gradient(135deg, #001f4d 0%, #003366 60%, #0a4a7a 100%);
+  padding: 48px 0 40px;
+  margin-bottom: 40px;
+}
+.page-hero { color: #fff; }
+.eyebrow {
+  font-size: 0.72rem; font-weight: 800; letter-spacing: 0.18em;
+  text-transform: uppercase; color: #c79b2c; margin-bottom: 10px;
+}
+.page-hero h1 { font-size: clamp(1.8rem, 4vw, 3rem); letter-spacing: -0.03em; margin-bottom: 12px; }
+.subtitle { font-size: 1.05rem; color: rgba(255,255,255,0.8); max-width: 600px; margin-bottom: 16px; }
+.badge-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.badge {
+  background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 12px; padding: 2px 10px; font-size: 11px; color: #c8d8ea;
+}
+.badge.nn { background: rgba(204,0,0,0.3); border-color: rgba(204,0,0,0.5); color: #ffaaaa; }
+
+/* ── PAGE / SECTION ─────────────────────────────────────────────── */
+.page { width: min(1180px, calc(100% - 32px)); margin: 0 auto; }
+.section-title {
+  font-family: Georgia, serif; font-size: 1.15rem; font-weight: 700;
+  color: var(--aa-navy); margin: 48px 0 20px; padding-bottom: 10px;
+  border-bottom: 2px solid #e2e8f0;
+  display: flex; align-items: center; gap: 10px;
+}
+.section-title::before {
+  content: ''; width: 3px; height: 14px; border-radius: 2px;
+  background: var(--aa-blue); display: inline-block;
+}
+
+/* ── CARDS ───────────────────────────────────────────────────────── */
+.card {
+  background: rgba(255,255,255,0.96);
+  border: 1px solid #dde3ea;
+  border-radius: 12px;
+  padding: 20px 24px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.card-title {
+  font-size: 12px; font-weight: 800; color: var(--aa-navy);
+  text-transform: uppercase; letter-spacing: 0.08em;
+  margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
+}
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+@media (max-width: 768px) {
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+}
+
+/* ── TOOL CARDS ──────────────────────────────────────────────────── */
+.tool-card {
+  background: rgba(255,255,255,0.96);
+  border: 1px solid #dde3ea;
+  border-radius: 12px;
+  padding: 24px 28px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  margin-bottom: 24px;
+}
+.tool-card.new-tool {
+  border-left: 4px solid var(--aa-gold);
+}
+.tool-card.critical-tool {
+  border-left: 4px solid var(--aa-red);
+}
+.tool-header {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 16px; margin-bottom: 16px;
+}
+.tool-name {
+  font-family: Georgia, serif; font-size: 1.3rem; font-weight: 700;
+  color: var(--aa-navy);
+}
+.tool-name code {
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 1.15rem; background: none; padding: 0; color: var(--aa-blue);
+}
+.tool-badge-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+.tool-badge {
+  font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px;
+  text-transform: uppercase; letter-spacing: 0.08em;
+}
+.badge-new   { background: rgba(199,155,44,0.15); color: #7a5a00; border: 1px solid rgba(199,155,44,0.4); }
+.badge-nn    { background: rgba(204,0,0,0.12); color: #cc0000; border: 1px solid rgba(204,0,0,0.3); }
+.badge-law   { background: rgba(0,51,102,0.08); color: #003366; border: 1px solid rgba(0,51,102,0.2); font-family: monospace; }
+.badge-ver   { background: #f0f4f8; color: #556; border: 1px solid #dde; }
+.tool-desc { font-size: 14px; color: #334; line-height: 1.65; margin-bottom: 16px; }
+.tool-section-label {
+  font-size: 10px; font-weight: 800; color: #778; text-transform: uppercase;
+  letter-spacing: 0.1em; margin: 16px 0 8px;
+}
+.divider { border: none; border-top: 1px solid #e8ecf0; margin: 16px 0; }
+.small-label { font-size: 10px; font-weight: 700; color: #778; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 5px; }
+.mono { font-family: monospace; font-size: 11px; background: #f0f4f8; padding: 1px 5px; border-radius: 3px; }
+
+/* ── OPTIONS TABLE ───────────────────────────────────────────────── */
+.opts-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.opts-table th {
+  text-align: left; font-size: 10px; font-weight: 800; color: #778;
+  text-transform: uppercase; letter-spacing: 0.08em; padding: 6px 10px;
+  border-bottom: 1px solid #dde3ea; background: #f8fafc;
+}
+.opts-table td {
+  padding: 8px 10px; border-bottom: 1px solid #f0f4f8; vertical-align: top;
+  color: #334;
+}
+.opts-table tr:last-child td { border-bottom: none; }
+.opts-table code { font-size: 11px; white-space: nowrap; }
+.exit-row td:first-child { font-family: monospace; font-size: 12px; }
+
+/* ── PIPELINE VIZ ───────────────────────────────────────────────── */
+.pipeline {
+  display: flex; flex-direction: column; gap: 0;
+  background: #f8fafc; border-radius: 12px; padding: 20px;
+  border: 1px solid #dde3ea;
+}
+.pipe-step {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 12px 14px; border-radius: 8px;
+  background: #fff; border: 1px solid #e8ecf2;
+  margin-bottom: 6px;
+}
+.pipe-step.gate-step { border: 1px solid #e0c84a; background: #fffdf0; }
+.pipe-step.jury-step { border: 1px solid #9ab5e0; background: #f0f5fc; }
+.pipe-step.human-step { border: 1px solid #f5c5a0; background: #fff8f4; }
+.pipe-connector { text-align: center; color: #aab; font-size: 16px; margin: -2px 0; }
+.pipe-actor {
+  font-size: 10px; font-weight: 800; min-width: 52px; text-align: center;
+  padding: 4px 6px; border-radius: 5px; flex-shrink: 0;
+}
+.pipe-actor.agent  { background: #1a6b3a; color: #fff; }
+.pipe-actor.gate   { background: #8b6914; color: #fff; }
+.pipe-actor.jury   { background: #003366; color: #fff; }
+.pipe-actor.human  { background: #cc0000; color: #fff; }
+.pipe-body { flex: 1; }
+.pipe-cmd  { font-family: monospace; font-size: 12px; font-weight: 700; color: var(--aa-blue); }
+.pipe-note { font-size: 11px; color: #445; margin-top: 3px; }
+.pipe-warn { font-size: 10px; color: #cc0000; font-weight: 700; margin-top: 4px; }
+.pipe-law  { font-size: 10px; font-family: monospace; background: #e8ecf5; color: #345; padding: 1px 5px; border-radius: 3px; }
+
+/* ── LAW TAG ─────────────────────────────────────────────────────── */
+.law-tag { font-size: 9px; font-family: monospace; background: #e8ecf5; color: #345; padding: 1px 5px; border-radius: 3px; margin: 2px; display: inline-block; }
+.law-tag.nn { background: rgba(204,0,0,0.12); color: #cc0000; }
+
+/* ── FOOTER ──────────────────────────────────────────────────────── */
+footer {
+  background: #001428; color: rgba(255,255,255,0.7);
+  padding: 28px 0; margin-top: 56px;
+}
+.footer-inner {
+  width: min(1180px, calc(100% - 32px)); margin: 0 auto;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.footer-title { font-weight: 700; color: #fff; font-size: 14px; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 12px; font-size: 12px; margin-top: 8px; }
+.footer-links a { color: rgba(255,255,255,0.6); text-decoration: none; }
+.footer-links a:hover { color: #fff; }
+.footer-sep { color: rgba(255,255,255,0.3); }
+</style>
+</head>
+<body>
+
+<nav class="site-nav" aria-label="Site navigation">
+  <div class="nav-inner">
+    <a href="p1-landing.html" class="nav-brand" aria-label="Adoption Guide Home">
+      <div class="nav-brand-dot" aria-hidden="true"></div>
+      Hangar AI · Adoption Guide
+    </a>
+    <div class="nav-links">
+      <a href="workflows/index.html" class="nav-link">Workflows</a>
+      <a href="phase-gate-guide.html" class="nav-link">Phase Gate Guide</a>
+      <a href="p2-constitutional-ai-model.html" class="nav-link">AI Model</a>
+      <a href="tools-reference.html" class="nav-link active">Tools Reference</a>
+      <a href="p1-landing.html" class="btn-nav-home">← Guide Home</a>
+    </div>
+  </div>
+</nav>
+
+<div class="shell">
+  <div class="page-hero-wrap">
+    <div class="page-hero">
+      <div class="eyebrow">CLI TOOLCHAIN</div>
+      <h1>Constitutional Enforcement Tools</h1>
+      <p class="subtitle">Install, configure, and run every tool in the Hangar AI Constitution toolchain. Four new tools were added in v2.0 — together they form the mandatory gate pipeline every agent must run before a human sees a phase artifact.</p>
+      <div class="badge-row">
+        <span class="badge">v2.0.0 Constitution</span>
+        <span class="badge">8 Tools Total</span>
+        <span class="badge nn">4 New in v2.0</span>
+        <span class="badge">PRD-2.6 · ENG-12 · ENG-13.1 · ENG-14.1</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main>
+<div class="page">
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 0: COMPLETE GATE PIPELINE
+═══════════════════════════════════════════════════════════ -->
+<div class="section-title">The Mandatory Phase Gate Pipeline</div>
+<div class="card" style="margin-bottom: 24px;">
+  <div class="card-title">⚡ Full Sequence — Required Before Human Sees Any Phase Artifact</div>
+  <p style="font-size:12px; color:#445; margin-bottom:16px;">Per PRD-2.6, ENG-12, ENG-14.1. Every phase gate in every workflow runs this sequence in full. No shortcuts, no self-certification.</p>
+
+  <div class="pipeline">
+    <div class="pipe-step">
+      <div class="pipe-actor agent">AGENT</div>
+      <div class="pipe-body">
+        <div class="pipe-cmd">aa-agents-sync --check</div>
+        <div class="pipe-note">Verify AGENTS.md is current against constitution version. Drift (exit 2) = update before proceeding.</div>
+        <div style="margin-top:4px;"><span class="pipe-law">ENG-1.2</span></div>
+      </div>
+    </div>
+    <div class="pipe-connector">↓</div>
+    <div class="pipe-step">
+      <div class="pipe-actor agent">AGENT</div>
+      <div class="pipe-body">
+        <div class="pipe-cmd">aa-artifact-render ARTIFACT.md --laws-dir laws</div>
+        <div class="pipe-note">Render phase artifact as self-contained HTML with interactive law citation tooltips.</div>
+        <div style="margin-top:4px;"><span class="pipe-law">ENG-13.1</span></div>
+      </div>
+    </div>
+    <div class="pipe-connector">↓</div>
+    <div class="pipe-step gate-step">
+      <div class="pipe-actor gate">GATE</div>
+      <div class="pipe-body">
+        <div class="pipe-cmd">aa-citation-audit ARTIFACT.md</div>
+        <div class="pipe-note">Validate every law ID citation against laws/index.yaml.</div>
+        <div class="pipe-warn">⛔ Exit 2 = tool error → halt jury immediately. Do not run jury.</div>
+        <div class="pipe-warn">Exit 1 = citation failures → fix citations, re-run, then proceed to jury.</div>
+        <div style="margin-top:4px;"><span class="pipe-law">ENG-14.1</span> <span class="pipe-law">ENG-14.2</span></div>
+      </div>
+    </div>
+    <div class="pipe-connector">↓</div>
+    <div class="pipe-step jury-step">
+      <div class="pipe-actor jury">JURY</div>
+      <div class="pipe-body">
+        <div class="pipe-cmd">5-Juror Multi-Cognition Deliberation</div>
+        <div class="pipe-note">R1 deliberation → R2 deliberation → Judicial Synthesizer produces APPROVED/REJECTED verdict.</div>
+        <div class="pipe-note" style="margin-top:4px;">J1: claude-opus &nbsp;·&nbsp; J2: claude-sonnet &nbsp;·&nbsp; J3–J5: distinct models (never repeat a substrate)</div>
+        <div style="margin-top:4px;"><span class="pipe-law">PRD-2.6</span></div>
+      </div>
+    </div>
+    <div class="pipe-connector">↓</div>
+    <div class="pipe-step gate-step">
+      <div class="pipe-actor gate">GATE</div>
+      <div class="pipe-body">
+        <div class="pipe-cmd">aa-jury-gate SYNTHESIS.md</div>
+        <div class="pipe-note">19 mechanical checks on the jury synthesis artifact (S01–S19).</div>
+        <div class="pipe-warn">⛔ GATE: FAIL = cannot advance phase. Fix jury synthesis, re-run gate.</div>
+        <div style="margin-top:4px;"><span class="pipe-law">PRD-2.6</span> <span class="pipe-law">ENG-12.3</span></div>
+      </div>
+    </div>
+    <div class="pipe-connector">↓</div>
+    <div class="pipe-step">
+      <div class="pipe-actor agent">AGENT</div>
+      <div class="pipe-body">
+        <div class="pipe-cmd">sonarqube-gate</div>
+        <div class="pipe-note">Run code quality scan. API result alone ≠ compliance.</div>
+        <div style="margin-top:4px;"><span class="pipe-law">ENG-4.1</span> <span class="pipe-law">ENG-12.1</span></div>
+      </div>
+    </div>
+    <div class="pipe-connector">↓</div>
+    <div class="pipe-step human-step">
+      <div class="pipe-actor human">HUMAN</div>
+      <div class="pipe-body">
+        <div class="pipe-cmd">Human Review Checkpoint ⛔ NON-NEGOTIABLE</div>
+        <div class="pipe-note">Review rendered HTML artifact + SonarQube dashboard. This checkpoint cannot be delegated to an agent or skipped. Agent cannot advance without explicit human approval.</div>
+        <div style="margin-top:4px;"><span class="pipe-law">ENG-12.1</span> <span class="pipe-law">ENG-12.2</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 1: NEW TOOLS (v2.0)
+═══════════════════════════════════════════════════════════ -->
+<div class="section-title">New Tools — Added in Constitution v2.0</div>
+
+<!-- aa-agents-sync -->
+<div class="tool-card new-tool" id="aa-agents-sync">
+  <div class="tool-header">
+    <div>
+      <div class="tool-name"><code>aa-agents-sync</code></div>
+      <div class="tool-badge-row">
+        <span class="tool-badge badge-new">✦ New in v2.0</span>
+        <span class="tool-badge badge-ver">v1.0.0</span>
+        <span class="tool-badge badge-law">ENG-1.2</span>
+      </div>
+    </div>
+    <div style="font-size:11px; color:#667; text-align:right;">
+      Package: <code>aa-agents-sync</code><br>
+      Source: <code>tools/agents-md-sync/</code>
+    </div>
+  </div>
+
+  <div class="tool-desc">
+    Detects and syncs AGENTS.md drift against the canonical Hangar AI Constitution version. Every agent repo must run <code>aa-agents-sync --check</code> at the start of each phase to confirm its AGENTS.md is current. If drift is detected (exit 2), the agent must apply the update before proceeding. Writes <code>constitution-version.txt</code> alongside AGENTS.md when applied.
+  </div>
+
+  <div class="tool-section-label">Install</div>
+  <pre>pip install aa-agents-sync
+# or from source:
+cd tools/agents-md-sync && pip install -e .</pre>
+
+  <div class="tool-section-label">Commands</div>
+  <table class="opts-table">
+    <thead><tr><th>Flag</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><code>--check</code></td><td>Check for drift only. Exit 0 = current, exit 2 = drift, exit 1 = error.</td></tr>
+      <tr><td><code>--apply</code></td><td>Apply the latest constitution version to AGENTS.md and write <code>constitution-version.txt</code>.</td></tr>
+      <tr><td><code>--dry-run</code></td><td>Show what <code>--apply</code> would change without writing anything.</td></tr>
+      <tr><td><code>--legacy-mode</code></td><td>Compatibility mode for repos that pre-date AGENTS.md enforcement.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="tool-section-label">Exit Codes</div>
+  <table class="opts-table">
+    <thead><tr><th>Exit</th><th>Meaning</th><th>Action</th></tr></thead>
+    <tbody>
+      <tr><td><code>0</code></td><td>AGENTS.md is current</td><td>Proceed to next step</td></tr>
+      <tr><td><code>2</code></td><td>Drift detected</td><td>Run <code>--apply</code> then commit AGENTS.md before continuing</td></tr>
+      <tr><td><code>1</code></td><td>Tool error</td><td>Check logs, resolve error before proceeding</td></tr>
+    </tbody>
+  </table>
+
+  <div class="tool-section-label">Example</div>
+  <pre># Phase 0 check (mandatory at start of every workflow)
+aa-agents-sync --check
+
+# If exit 2, apply update:
+aa-agents-sync --apply
+git add AGENTS.md constitution-version.txt
+git commit -m "chore: sync AGENTS.md to constitution v2.0.0"</pre>
+</div>
+
+
+<!-- aa-citation-audit -->
+<div class="tool-card new-tool critical-tool" id="aa-citation-audit">
+  <div class="tool-header">
+    <div>
+      <div class="tool-name"><code>aa-citation-audit</code></div>
+      <div class="tool-badge-row">
+        <span class="tool-badge badge-new">✦ New in v2.0</span>
+        <span class="tool-badge badge-nn">⛔ Non-Negotiable</span>
+        <span class="tool-badge badge-ver">v0.2.0</span>
+        <span class="tool-badge badge-law">ENG-14.1</span>
+        <span class="tool-badge badge-law">ENG-14.2</span>
+      </div>
+    </div>
+    <div style="font-size:11px; color:#667; text-align:right;">
+      Package: <code>aa-citation-audit</code><br>
+      Source: <code>tools/citation-auditor/</code>
+    </div>
+  </div>
+
+  <div class="tool-desc">
+    The pre-jury citation gate. Scans a governance artifact for all law ID citations (e.g., <code>ENG-4.1</code>, <code>PRD-2.6</code>) and validates them against <code>laws/index.yaml</code> using fuzzy matching to catch near-miss typos. <strong>Exit 2 is a hard stop — the jury must not run if the tool itself errored.</strong> Exit 1 means citations are invalid — fix them and re-run before proceeding to jury. Per ENG-14.1, this gate is non-negotiable.
+  </div>
+
+  <div class="tool-section-label">Install</div>
+  <pre>pip install aa-citation-audit
+# or from source:
+cd tools/citation-auditor && pip install -e .</pre>
+
+  <div class="tool-section-label">Options</div>
+  <table class="opts-table">
+    <thead><tr><th>Flag</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><code>ARTIFACT.md</code></td><td>Path to the governance artifact to audit (required positional arg).</td></tr>
+      <tr><td><code>--laws-dir PATH</code></td><td>Path to the laws directory containing <code>index.yaml</code>. Defaults to <code>laws/</code>.</td></tr>
+      <tr><td><code>--output append</code></td><td>Write a <code>citation_audit:</code> block directly into the artifact's YAML frontmatter.</td></tr>
+      <tr><td><code>--strict</code></td><td>Treat fuzzy-match warnings as failures (recommended for final gate runs).</td></tr>
+    </tbody>
+  </table>
+
+  <div class="tool-section-label">Exit Codes — Critical</div>
+  <table class="opts-table">
+    <thead><tr><th>Exit</th><th>Meaning</th><th>Action</th></tr></thead>
+    <tbody>
+      <tr><td><code>0</code></td><td>PASS — all citations valid</td><td>Proceed to jury</td></tr>
+      <tr><td><code>1</code></td><td>FAIL — invalid citation(s) found</td><td>Fix all cited law IDs, re-run, then proceed to jury</td></tr>
+      <tr><td><code>2</code></td><td>TOOL ERROR — audit could not complete</td><td><strong>⛔ Halt jury immediately. Resolve tool error first.</strong></td></tr>
+    </tbody>
+  </table>
+
+  <div class="tool-section-label">Example</div>
+  <pre># Run before every jury — append audit block to artifact frontmatter
+aa-citation-audit evidence/phase-1-proposal.md --output append
+
+# Strict mode for final gate run
+aa-citation-audit evidence/phase-1-proposal.md --strict
+
+# Check exit code (always)
+if [ $? -eq 2 ]; then
+  echo "Tool error — halt jury"
+  exit 1
+elif [ $? -eq 1 ]; then
+  echo "Citation failures — fix before jury"
+  exit 1
+fi
+echo "Citations valid — proceed to jury"</pre>
+</div>
+
+
+<!-- aa-jury-gate -->
+<div class="tool-card new-tool critical-tool" id="aa-jury-gate">
+  <div class="tool-header">
+    <div>
+      <div class="tool-name"><code>aa-jury-gate</code></div>
+      <div class="tool-badge-row">
+        <span class="tool-badge badge-new">✦ New in v2.0</span>
+        <span class="tool-badge badge-nn">⛔ Non-Negotiable</span>
+        <span class="tool-badge badge-ver">v1.0.0</span>
+        <span class="tool-badge badge-law">PRD-2.6</span>
+        <span class="tool-badge badge-law">ENG-12.3</span>
+      </div>
+    </div>
+    <div style="font-size:11px; color:#667; text-align:right;">
+      Package: <code>aa-jury-gate</code><br>
+      Source: <code>tools/aa-jury-gate/</code>
+    </div>
+  </div>
+
+  <div class="tool-desc">
+    Mechanically validates that a jury synthesis artifact fully satisfies PRD-2.6. Runs 19 structural checks (S01–S19) covering: juror count (must be exactly 5 jurors J1–J5), distinct LLM substrates (no two jurors on the same model), presence of R1 and R2 deliberation rounds, a Judicial Synthesizer section, a final APPROVED or REJECTED verdict, git-tracked evidence artifact, and more. This tool exists precisely because the authoring LLM cannot self-certify its own jury process. <code>GATE: FAIL</code> is a hard stop.
+  </div>
+
+  <div class="tool-section-label">Install</div>
+  <pre>pip install aa-jury-gate
+# or from source:
+cd tools/aa-jury-gate && pip install -e .</pre>
+
+  <div class="tool-section-label">Options</div>
+  <table class="opts-table">
+    <thead><tr><th>Flag</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><code>SYNTHESIS.md</code></td><td>Path to the jury synthesis artifact to validate (required positional arg).</td></tr>
+      <tr><td><code>--verbose</code></td><td>Print pass/fail status for each of the 19 checks (S01–S19).</td></tr>
+      <tr><td><code>--report PATH</code></td><td>Write a machine-readable JSON report of all check results.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="tool-section-label">19 Checks (S01–S19) — What is Validated</div>
+  <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 4px 16px; font-size:11px; color:#334; margin-bottom:8px;">
+    <span>S01 — Exactly 5 jurors (J1–J5)</span>
+    <span>S02 — Juror IDs in canonical order</span>
+    <span>S03 — All juror LLM substrates named</span>
+    <span>S04 — No duplicate substrates</span>
+    <span>S05 — R1 deliberation section present</span>
+    <span>S06 — R2 deliberation section present</span>
+    <span>S07 — All 5 jurors present in R1</span>
+    <span>S08 — All 5 jurors present in R2</span>
+    <span>S09 — Judicial Synthesizer section present</span>
+    <span>S10 — Final verdict is APPROVED or REJECTED</span>
+    <span>S11 — Verdict not PENDING or blank</span>
+    <span>S12 — Evidence artifact path cited</span>
+    <span>S13 — Synthesis committed to git</span>
+    <span>S14 — Dissenting opinions documented (if any)</span>
+    <span>S15 — Law citations reference valid law IDs</span>
+    <span>S16 — Phase number matches workflow context</span>
+    <span>S17 — Timestamp present and parseable</span>
+    <span>S18 — Author agent ID recorded</span>
+    <span>S19 — No self-certification language detected</span>
+  </div>
+
+  <div class="tool-section-label">Exit Codes</div>
+  <table class="opts-table">
+    <thead><tr><th>Output</th><th>Exit</th><th>Meaning</th><th>Action</th></tr></thead>
+    <tbody>
+      <tr><td><code>GATE: PASS</code></td><td><code>0</code></td><td>All 19 checks passed</td><td>Proceed to human review checkpoint</td></tr>
+      <tr><td><code>GATE: FAIL</code></td><td><code>1</code></td><td>One or more checks failed</td><td><strong>⛔ Cannot advance phase. Remediate synthesis, re-run gate.</strong></td></tr>
+    </tbody>
+  </table>
+
+  <div class="tool-section-label">Example</div>
+  <pre># Run after jury synthesis is committed
+aa-jury-gate evidence/phase-2-jury-synthesis.md --verbose
+
+# Check result
+if [ $? -ne 0 ]; then
+  echo "GATE: FAIL — cannot advance phase"
+  exit 1
+fi
+echo "GATE: PASS — proceed to human review checkpoint"</pre>
+</div>
+
+
+<!-- aa-artifact-render -->
+<div class="tool-card new-tool" id="aa-artifact-render">
+  <div class="tool-header">
+    <div>
+      <div class="tool-name"><code>aa-artifact-render</code></div>
+      <div class="tool-badge-row">
+        <span class="tool-badge badge-new">✦ New in v2.0</span>
+        <span class="tool-badge badge-nn">⛔ Non-Negotiable</span>
+        <span class="tool-badge badge-ver">v1.2.0</span>
+        <span class="tool-badge badge-law">ENG-13.1</span>
+      </div>
+    </div>
+    <div style="font-size:11px; color:#667; text-align:right;">
+      Package: <code>aa-artifact-render</code><br>
+      Source: <code>tools/artifact-renderer/</code>
+    </div>
+  </div>
+
+  <div class="tool-desc">
+    Renders Markdown governance artifacts — proposals, ADRs, evidence packages, task specs, skills — into self-contained HTML files with <strong>interactive law citation tooltips</strong>. Hover over any law ID (e.g., <code>ENG-4.1</code>) to see the full law title, category, and non-negotiable status inline. Also supports optional PDF generation via headless Chromium (requires Playwright). Per ENG-13.1, every governance artifact must be rendered before a stakeholder or human reviewer sees it.
+  </div>
+
+  <div class="tool-section-label">Install</div>
+  <pre>pip install aa-artifact-render
+
+# For PDF support (optional — requires Chromium):
+pip install aa-artifact-render[pdf]
+playwright install chromium</pre>
+
+  <div class="tool-section-label">Options</div>
+  <table class="opts-table">
+    <thead><tr><th>Flag</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><code>ARTIFACT.md</code></td><td>Path to the Markdown artifact to render (required positional arg).</td></tr>
+      <tr><td><code>--laws-dir PATH</code></td><td>Path to the laws directory for tooltip data. Defaults to <code>laws/</code>.</td></tr>
+      <tr><td><code>--output PATH</code></td><td>Output HTML path. Defaults to <code>ARTIFACT.html</code> alongside the source.</td></tr>
+      <tr><td><code>--pdf</code></td><td>Also generate a PDF via headless Chromium (requires Playwright install).</td></tr>
+      <tr><td><code>--artifact-type TYPE</code></td><td>Override auto-detected artifact type: <code>proposal</code>, <code>adr</code>, <code>evidence</code>, <code>task</code>, <code>skill</code>.</td></tr>
+      <tr><td><code>--no-tooltips</code></td><td>Render HTML without citation tooltips (useful for print/export).</td></tr>
+    </tbody>
+  </table>
+
+  <div class="tool-section-label">Example</div>
+  <pre># Render a phase proposal with law citation tooltips
+aa-artifact-render evidence/phase-1-proposal.md --laws-dir laws
+
+# Render + generate PDF for stakeholder package
+aa-artifact-render evidence/phase-2-adr.md --laws-dir laws --pdf
+
+# Output to specific path
+aa-artifact-render PROPOSAL.md --laws-dir laws --output dist/phase-1-review.html</pre>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 2: EXISTING TOOLS (UPDATED)
+═══════════════════════════════════════════════════════════ -->
+<div class="section-title">Existing Tools — Updated in v2.0</div>
+
+<!-- aa-constitution-lint -->
+<div class="tool-card" id="aa-constitution-lint">
+  <div class="tool-header">
+    <div>
+      <div class="tool-name"><code>aa-constitution-lint</code></div>
+      <div class="tool-badge-row">
+        <span class="tool-badge badge-ver">Updated in v2.0</span>
+        <span class="tool-badge badge-law">ENG-10.1</span>
+        <span class="tool-badge badge-law">ENG-10.2</span>
+      </div>
+    </div>
+    <div style="font-size:11px; color:#667; text-align:right;">
+      Package: <code>aa-constitution-lint</code><br>
+      Source: <code>tools/constitution-lint/</code>
+    </div>
+  </div>
+
+  <div class="tool-desc">
+    Lints constitution artifacts — law files, skill indexes, avatar manifests, and law ID references — across the entire constitution directory. In v2.0, a new <code>agents_md_sync</code> rule was added that flags repos where AGENTS.md has drifted from the constitution version. Run this against the constitution repo itself to catch structural issues before they propagate.
+  </div>
+
+  <div class="tool-section-label">Install</div>
+  <pre>pip install aa-constitution-lint
+# or from source:
+cd tools/constitution-lint && pip install -e .</pre>
+
+  <div class="tool-section-label">Example</div>
+  <pre># Lint the entire constitution
+aa-constitution-lint .
+
+# Lint specific directory
+aa-constitution-lint laws/
+
+# Check only the new agents_md_sync rule
+aa-constitution-lint . --rule agents_md_sync</pre>
+</div>
+
+
+<!-- sonarqube-gate -->
+<div class="tool-card" id="sonarqube-gate">
+  <div class="tool-header">
+    <div>
+      <div class="tool-name"><code>sonarqube-gate</code></div>
+      <div class="tool-badge-row">
+        <span class="tool-badge badge-nn">⛔ Non-Negotiable</span>
+        <span class="tool-badge badge-law">ENG-4.1</span>
+        <span class="tool-badge badge-law">ENG-12.1</span>
+      </div>
+    </div>
+    <div style="font-size:11px; color:#667; text-align:right;">
+      Source: <code>tools/sonarqube-gate/provision.sh</code>
+    </div>
+  </div>
+
+  <div class="tool-desc">
+    Provisions and runs the SonarQube quality gate for a project. Per ENG-12.1, a human must review the SonarQube dashboard — <strong>the API pass/fail result alone does not constitute compliance</strong>. The human checkpoint requires opening the dashboard and reviewing the actual violations before approving phase advance.
+  </div>
+
+  <div class="tool-section-label">Critical Rule (ENG-12.2)</div>
+  <div style="background:#fff0f0; border-left:3px solid #cc0000; padding:10px 14px; border-radius:6px; font-size:12px; color:#334; margin-bottom:12px;">
+    The human must have the SonarQube dashboard open throughout the work session. API result = a signal. Dashboard review = the compliance act. These are not the same thing.
+  </div>
+
+  <div class="tool-section-label">Example</div>
+  <pre># Provision SonarQube project (one-time)
+bash tools/sonarqube-gate/provision.sh
+
+# After running scan, the human reviews the dashboard
+# Then records delta evidence:
+# echo "phase: 2, gate: PASS, timestamp: $(date -u)" >> evidence/sonarqube-delta.md</pre>
+</div>
+
+
+<!-- rag-eval -->
+<div class="tool-card" id="rag-eval">
+  <div class="tool-header">
+    <div>
+      <div class="tool-name"><code>rag-eval</code></div>
+      <div class="tool-badge-row">
+        <span class="tool-badge badge-law">ENG-10.5</span>
+      </div>
+    </div>
+    <div style="font-size:11px; color:#667; text-align:right;">
+      Source: <code>tools/rag-eval/evaluate.py</code>
+    </div>
+  </div>
+
+  <div class="tool-desc">
+    Evaluates constitution RAG retrieval quality across 5 dimensions: precision, recall, law ID resolution accuracy, avatar context relevance, and token efficiency. Overall pass threshold is 85%. Use when validating that your RAG pipeline correctly resolves law references and returns relevant constitutional context.
+  </div>
+
+  <div class="tool-section-label">Example</div>
+  <pre># Run RAG quality evaluation
+python tools/rag-eval/evaluate.py
+
+# Output shows dimension scores + overall pass/fail
+# Overall >= 85% = PASS · Below 85% = FAIL (tune retrieval pipeline)</pre>
+</div>
+
+
+<!-- gate (phase-gate-check.sh) -->
+<div class="tool-card" id="phase-gate-check">
+  <div class="tool-header">
+    <div>
+      <div class="tool-name"><code>phase-gate-check.sh</code></div>
+      <div class="tool-badge-row">
+        <span class="tool-badge badge-law">ENG-12.1</span>
+      </div>
+    </div>
+    <div style="font-size:11px; color:#667; text-align:right;">
+      Source: <code>tools/gate/phase-gate-check.sh</code>
+    </div>
+  </div>
+
+  <div class="tool-desc">
+    Shell-based phase gate check script. Provides a lightweight wrapper for running phase gate validation in CI/CD pipelines or local pre-commit hooks. Complement to the full CLI tool suite — use as a quick sanity check before running the full pipeline.
+  </div>
+
+  <div class="tool-section-label">Example</div>
+  <pre>bash tools/gate/phase-gate-check.sh</pre>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 3: QUICK REFERENCE TABLE
+═══════════════════════════════════════════════════════════ -->
+<div class="section-title">Quick Reference — All Tools</div>
+<div class="card">
+  <table class="opts-table" style="font-size:12px;">
+    <thead>
+      <tr>
+        <th>Tool</th>
+        <th>Version</th>
+        <th>When to Run</th>
+        <th>Exit / Output</th>
+        <th>Laws</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>aa-agents-sync --check</code></td>
+        <td>1.0.0</td>
+        <td>Phase 0 / start of every workflow</td>
+        <td>0=current · 2=drift · 1=error</td>
+        <td><span class="law-tag">ENG-1.2</span></td>
+      </tr>
+      <tr>
+        <td><code>aa-artifact-render</code></td>
+        <td>1.2.0</td>
+        <td>Before any artifact goes to citation audit or stakeholder</td>
+        <td>HTML output + optional PDF</td>
+        <td><span class="law-tag">ENG-13.1</span></td>
+      </tr>
+      <tr>
+        <td><code>aa-citation-audit</code> ⛔</td>
+        <td>0.2.0</td>
+        <td>Before every jury run (ENG-14.1)</td>
+        <td>0=PASS · 1=fix cites · 2=halt jury</td>
+        <td><span class="law-tag">ENG-14.1</span> <span class="law-tag">ENG-14.2</span></td>
+      </tr>
+      <tr>
+        <td><code>aa-jury-gate</code> ⛔</td>
+        <td>1.0.0</td>
+        <td>After jury synthesis is committed</td>
+        <td>GATE: PASS (0) · GATE: FAIL (1)</td>
+        <td><span class="law-tag">PRD-2.6</span> <span class="law-tag">ENG-12.3</span></td>
+      </tr>
+      <tr>
+        <td><code>aa-constitution-lint</code></td>
+        <td>—</td>
+        <td>Constitution repo maintenance</td>
+        <td>0=valid · 1=violations</td>
+        <td><span class="law-tag">ENG-10.1</span> <span class="law-tag">ENG-10.2</span></td>
+      </tr>
+      <tr>
+        <td><code>sonarqube-gate</code> ⛔</td>
+        <td>—</td>
+        <td>Every phase gate before human checkpoint</td>
+        <td>PASS/FAIL + human dashboard review</td>
+        <td><span class="law-tag">ENG-4.1</span> <span class="law-tag">ENG-12.1</span></td>
+      </tr>
+      <tr>
+        <td><code>rag-eval/evaluate.py</code></td>
+        <td>—</td>
+        <td>RAG pipeline validation</td>
+        <td>≥85% overall = PASS</td>
+        <td><span class="law-tag">ENG-10.5</span></td>
+      </tr>
+      <tr>
+        <td><code>phase-gate-check.sh</code></td>
+        <td>—</td>
+        <td>CI/CD / pre-commit hook</td>
+        <td>0=pass · non-0=fail</td>
+        <td><span class="law-tag">ENG-12.1</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+</div><!-- /.page -->
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-title">Hangar AI Constitution — Adoption Guide</div>
+    <div>American Airlines · Hangar AI Program · Adoption Guide v1.0.0</div>
+    <nav class="footer-links" aria-label="Footer navigation">
+      <a href="p1-landing.html">Guide Home</a>
+      <span class="footer-sep" aria-hidden="true">·</span>
+      <a href="p2-constitutional-ai-model.html">Constitutional AI Model</a>
+      <span class="footer-sep" aria-hidden="true">·</span>
+      <a href="phase-gate-guide.html">Phase Gate Guide</a>
+      <span class="footer-sep" aria-hidden="true">·</span>
+      <a href="workflows/index.html">Workflows Hub</a>
+      <span class="footer-sep" aria-hidden="true">·</span>
+      <a href="p3-coach-quick-start.html">Coach Quick Start</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
