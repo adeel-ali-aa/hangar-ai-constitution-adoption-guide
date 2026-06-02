@@ -6,7 +6,7 @@ A persona-aware, single-URL web guide for Technical Coaches, Senior Architects, 
 
 | Page | Description |
 |------|-------------|
-| [p1-landing.html](p1-landing.html) | Landing Hub — persona selector |
+| [index.html](index.html) | Landing Hub — persona selector |
 | [p3-coach-quick-start.html](p3-coach-quick-start.html) | Technical Coach Quick Start |
 | [p3-architect-quick-start.html](p3-architect-quick-start.html) | Senior Architect Quick Start |
 | [p3-engineer-quick-start.html](p3-engineer-quick-start.html) | Engineer Quick Start |
@@ -21,7 +21,7 @@ A persona-aware, single-URL web guide for Technical Coaches, Senior Architects, 
 
 ## Usage
 
-All pages are 100% self-contained HTML — no build step, no dependencies. Open `p1-landing.html` in any browser.
+All pages are 100% self-contained HTML — no build step, no dependencies. Open `index.html` in any browser.
 
 ## Governed by
 
