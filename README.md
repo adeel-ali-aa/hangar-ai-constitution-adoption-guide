@@ -1,6 +1,8 @@
 # Hangar AI Constitution — Adoption Guide
 
-A persona-aware, single-URL web guide for Technical Coaches, Senior Architects, and Engineers adopting the [Hangar AI Constitution](https://github.com/AAInternal/hangar-ai-constitution) at American Airlines.
+A persona-aware web guide for Technical Coaches, Senior Architects, and Engineers adopting the [Hangar AI Constitution](https://github.com/AAInternal/hangar-ai-constitution) at American Airlines.
+
+🌐 **[View the Site](https://upgraded-spork-1q2q6zp.pages.github.io/)**
 
 ## Pages
 
