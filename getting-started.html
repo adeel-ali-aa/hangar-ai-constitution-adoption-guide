@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Get Started with the Hangar AI Constitution — 15 Minutes</title>
+  <style>
+    /* AA Brand constants: #001a40 navy, #003366 medium blue, #cc0000 red, #c79b2c gold */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #1a1a1a;
+      background: #ffffff;
+    }
+
+    /* Header band */
+    .site-header {
+      background: #001a40;
+      color: #ffffff;
+      padding: 0.75rem 1.5rem;
+      font-size: 0.85rem;
+      letter-spacing: 0.02em;
+    }
+    .site-header span { color: #c79b2c; font-weight: 700; }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, #001a40 0%, #003366 100%);
+      color: #ffffff;
+      padding: 3rem 1.5rem 2.5rem;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      font-weight: 700;
+      line-height: 1.25;
+      max-width: 760px;
+      margin: 0 auto 1rem;
+    }
+    .hero h1 em { color: #c79b2c; font-style: normal; }
+    .hero p {
+      font-size: 1rem;
+      max-width: 640px;
+      margin: 0 auto;
+      opacity: 0.9;
+    }
+    .badge {
+      display: inline-block;
+      background: #cc0000;
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.25rem 0.75rem;
+      border-radius: 2rem;
+      margin-bottom: 1.25rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    /* Main content */
+    main {
+      max-width: 840px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    section { margin-bottom: 2.5rem; }
+
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #001a40;
+      border-left: 4px solid #cc0000;
+      padding-left: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #003366;
+      margin: 1rem 0 0.5rem;
+    }
+
+    p { margin-bottom: 0.75rem; }
+
+    /* Prerequisites checklist */
+    .checklist {
+      list-style: none;
+      padding: 0;
+    }
+    .checklist li {
+      padding: 0.4rem 0 0.4rem 2rem;
+      position: relative;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .checklist li::before {
+      content: "☐";
+      position: absolute;
+      left: 0.25rem;
+      color: #cc0000;
+      font-size: 1.1rem;
+    }
+    .checklist li strong { color: #001a40; }
+
+    /* Step cards */
+    .step-card {
+      background: #f7f9fc;
+      border: 1px solid #dde3ed;
+      border-left: 4px solid #003366;
+      border-radius: 4px;
+      padding: 1.25rem 1.25rem 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .step-number {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #cc0000;
+      margin-bottom: 0.25rem;
+    }
+    .step-card h3 { margin-top: 0; }
+
+    /* Copyable code blocks */
+    .code-wrap { position: relative; margin: 0.75rem 0; }
+    pre {
+      background: #0d1117;
+      color: #e6edf3;
+      padding: 1rem 1rem 1rem 1rem;
+      border-radius: 4px;
+      overflow-x: auto;
+      font-size: 0.875rem;
+      line-height: 1.5;
+    }
+    pre code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; }
+    .copy-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      background: #21262d;
+      color: #8b949e;
+      border: 1px solid #30363d;
+      border-radius: 4px;
+      padding: 0.2rem 0.6rem;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+    .copy-btn:hover { background: #30363d; color: #e6edf3; }
+    .copy-btn.copied { color: #3fb950; border-color: #3fb950; }
+
+    /* Callout box */
+    .callout {
+      background: #fff8e6;
+      border: 1px solid #c79b2c;
+      border-left: 4px solid #c79b2c;
+      border-radius: 4px;
+      padding: 0.75rem 1rem;
+      margin: 0.75rem 0;
+      font-size: 0.9rem;
+    }
+    .callout strong { color: #7a5c00; }
+
+    /* Prompt guide grid */
+    .prompt-grid { display: grid; gap: 1rem; }
+    .prompt-card {
+      background: #f0f4ff;
+      border: 1px solid #c5d0f0;
+      border-radius: 4px;
+      padding: 1rem;
+    }
+    .prompt-card .prompt-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #003366;
+      margin-bottom: 0.5rem;
+    }
+
+    /* VS Code note */
+    .vscode-note {
+      background: #f3f0ff;
+      border: 1px solid #c8b8f0;
+      border-left: 4px solid #7c4dff;
+      border-radius: 4px;
+      padding: 1rem 1.25rem;
+    }
+
+    /* Follow-up */
+    .followup-box {
+      background: #001a40;
+      color: #fff;
+      border-radius: 6px;
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .followup-box h2 { color: #c79b2c; border: none; padding: 0; }
+    .followup-box p { opacity: 0.9; margin-bottom: 0.5rem; }
+    .followup-box a { color: #c79b2c; }
+
+    /* Footer */
+    footer {
+      background: #f5f5f5;
+      border-top: 2px solid #001a40;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.8rem;
+      color: #555;
+    }
+    footer a { color: #003366; }
+
+    @media (max-width: 600px) {
+      .hero { padding: 2rem 1rem; }
+      main { padding: 1.5rem 1rem 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- P4 -->
+<header class="site-header">
+  <span>✈ American Airlines</span> &nbsp;·&nbsp; Hangar AI Constitution &nbsp;·&nbsp; Getting Started
+</header>
+
+<!-- P1, P3 -->
+<section class="hero">
+  <div class="badge">✈ Hangar AI — 15-Minute Quick Start</div>
+  <h1>Your first AI response grounded in <em>American Airlines engineering standards</em> — in 15 minutes.</h1>
+  <p>The Hangar AI Constitution is a set of laws, skills, and workflows that govern how AI assists engineering at American Airlines. This page gets you running in 15 minutes.</p>
+</section>
+
+<main>
+
+  <!-- P1 -->
+  <section id="prerequisites">
+    <h2>Prerequisites</h2>
+    <p>Before you begin, confirm you have the following:</p>
+    <ul class="checklist">
+      <li><strong>git</strong> — installed and authenticated with GitHub (<code>git --version</code>)</li>
+      <li><strong>GitHub access</strong> — access to <code>AAInternal</code> org repositories</li>
+      <li><strong>GitHub Copilot licence</strong> — active Copilot subscription on your GitHub account</li>
+      <li><strong>Copilot CLI</strong> — <code>gh copilot</code> installed (<em>preferred</em> — see tip below) <em>or</em> VS Code with Copilot Chat extension</li>
+    </ul>
+    <div class="callout">
+      <strong>💡 Recommended tool:</strong> The <a href="https://docs.github.com/en/copilot/using-github-copilot/using-github-copilot-in-the-command-line">GitHub Copilot CLI</a> provides the richest experience with the Hangar AI Constitution. If you haven't installed it yet, run: <code>gh extension install github/gh-copilot</code>
+    </div>
+  </section>
+
+  <!-- P1 -->
+  <section id="step1">
+    <h2>Step 1 — Clone the Hangar AI Constitution</h2>
+    <p>Clone the constitution into a <code>governance/</code> subfolder inside your workspace root. Replace <code>&lt;workspace-root&gt;</code> with the folder you open in your IDE (e.g. <code>~/Repos</code>).</p>
+
+    <div class="step-card">
+      <div class="step-number">HTTPS (recommended)</div>
+      <h3>Clone with HTTPS</h3>
+      <div class="code-wrap">
+        <pre><code>git clone https://github.com/AAInternal/hangar-ai-constitution.git \
+  &lt;workspace-root&gt;/governance/hangar-ai-constitution</code></pre>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-number">SSH fallback</div>
+      <h3>Clone with SSH</h3>
+      <div class="code-wrap">
+        <pre><code>git clone git@github.com:AAInternal/hangar-ai-constitution.git \
+  &lt;workspace-root&gt;/governance/hangar-ai-constitution</code></pre>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- P1, P2 -->
+  <section id="step2">
+    <h2>Step 2 — Run the Setup</h2>
+    <p>Open a Copilot CLI session from your workspace root and paste this prompt. The agent will run the installer, copy <code>AGENTS.md</code> to your workspace root, and walk you through each step.</p>
+
+    <div class="step-card">
+      <div class="step-number">Setup prompt — copy &amp; paste into Copilot CLI or Chat</div>
+      <div class="code-wrap">
+        <pre><code>Help me set up the Hangar AI Constitution on my machine</code></pre>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>🔍 Want to preview first?</strong> Say:
+      <div class="code-wrap" style="margin-top:0.5rem">
+        <pre><code>Show me what the setup will do before making any changes</code></pre>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+      </div>
+      The agent will run the installer in <code>--dry-run</code> mode — a full preview with zero files written.
+    </div>
+  </section>
+
+  <!-- P1, P2 -->
+  <section id="step3">
+    <h2>Step 3 — Restart Your Session</h2>
+    <p>After the setup completes, start a new Copilot CLI session from your workspace root. The constitution loads automatically on session start.</p>
+
+    <div class="step-card">
+      <div class="step-number">What to expect on first load</div>
+      <h3>Session bootstrap</h3>
+      <p>The agent will:</p>
+      <ol style="padding-left:1.5rem; margin-top:0.5rem">
+        <li>Detect the constitution and ask if you want to pull the latest</li>
+        <li>Display a <strong>📰 What's New</strong> block if updates are pulled</li>
+        <li>Post a <code>Session Ready</code> report showing sync status and active laws</li>
+        <li>Ask which codebase you're working on today</li>
+      </ol>
+    </div>
+
+    <div class="callout">
+      <strong>✅ You're live.</strong> Every session from this workspace is now governed by the Hangar AI Constitution. Laws, skills, and workflows are active and binding.
+    </div>
+  </section>
+
+  <!-- P2, P4 -->
+  <section id="prompts">
+    <h2>Starter Prompts</h2>
+    <p>Copy and run these in any Copilot CLI or Copilot Chat session to get started with the constitution in your day-to-day work.</p>
+
+    <div class="prompt-grid">
+
+      <div class="prompt-card">
+        <div class="prompt-label">🏛️ Adopt the constitution in a repo</div>
+        <div class="code-wrap">
+          <pre><code>I want to adopt the Hangar AI Constitution in this repo. Help me set it up following the greenfield workflow.</code></pre>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="prompt-card">
+        <div class="prompt-label">🚀 Start a new feature (greenfield)</div>
+        <div class="code-wrap">
+          <pre><code>I'm building [feature name]. Walk me through the Hangar greenfield workflow starting with Phase 1 Capture, tied to story [story ID].</code></pre>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="prompt-card">
+        <div class="prompt-label">🔧 Improve a legacy module</div>
+        <div class="code-wrap">
+          <pre><code>I need to improve [module or feature] in this codebase. Start the Hangar legacy rescue workflow and help me identify the right entry point.</code></pre>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="prompt-card">
+        <div class="prompt-label">⚖️ Run a phase gate</div>
+        <div class="code-wrap">
+          <pre><code>We've completed Phase [N] for [feature]. Run the phase gate — citation audit, 5-juror jury, synthesis, and gate check.</code></pre>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="prompt-card">
+        <div class="prompt-label">📋 Daily work tied to a story</div>
+        <div class="code-wrap">
+          <pre><code>I'm working on story [story ID]: [title] today. Use the Hangar AI Constitution to guide my implementation and keep me aligned with our engineering standards.</code></pre>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- P1 -->
+  <section id="vscode">
+    <h2>VS Code Users</h2>
+    <div class="vscode-note">
+      <h3>Enable in VS Code Copilot Chat</h3>
+      <p>The installer can also create <code>.github/copilot-instructions.md</code> in your workspace root. When prompted <em>"Create .github/copilot-instructions.md for VS Code Copilot?"</em> — answer <strong>y</strong>.</p>
+      <p>Then add this to your VS Code <code>settings.json</code>:</p>
+      <div class="code-wrap">
+        <pre><code>"github.copilot.chat.codeGeneration.instructions": [
+  { "file": ".github/copilot-instructions.md" }
+]</code></pre>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+      </div>
+      <h3>Windows users — PowerShell installer</h3>
+      <p>A Windows PowerShell installer is available at <code>setup/install.ps1</code> in the constitution repo. Run it from PowerShell:</p>
+      <div class="code-wrap">
+        <pre><code>powershell -ExecutionPolicy Bypass -File governance\hangar-ai-constitution\setup\install.ps1</code></pre>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+      </div>
+      <p style="font-size:0.85rem; color:#555; margin-top:0.5rem">Note: <code>install.ps1</code> is coming soon — check the repo for availability.</p>
+    </div>
+  </section>
+
+  <!-- P3, P4 — TODO: replace NN-13 placeholder before final ship -->
+  <section id="followup">
+    <div class="followup-box">
+      <h2>Questions? We're here.</h2>
+      <p>Join the Hangar AI Constitution community channel for support, updates, and office hours.</p>
+      <p><strong>Channel:</strong> <!-- NN-13: replace with confirmed channel URL/name before ship --> <em>[Follow-up channel — coming soon]</em></p>
+      <p style="margin-top:0.75rem; font-size:0.85rem; opacity:0.8">Office hours and onboarding sessions available — ask in the channel for the schedule.</p>
+    </div>
+  </section>
+
+</main>
+
+<!-- P4 -->
+<footer>
+  <p>
+    <a href="index.html">← Adoption Guide Index</a>
+    &nbsp;·&nbsp;
+    Hangar AI Constitution &nbsp;·&nbsp; American Airlines Engineering
+  </p>
+</footer>
+
+<script>
+  function copyCode(btn) {
+    var pre = btn.previousElementSibling;
+    var text = pre.textContent;
+    navigator.clipboard.writeText(text).then(function() {
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(function() {
+        btn.textContent = 'Copy';
+        btn.classList.remove('copied');
+      }, 2000);
+    }).catch(function() {
+      btn.textContent = 'Error';
+      setTimeout(function() { btn.textContent = 'Copy'; }, 2000);
+    });
+  }
+</script>
+
+</body>
+</html>
