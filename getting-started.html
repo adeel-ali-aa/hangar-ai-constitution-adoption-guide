@@ -130,11 +130,13 @@
     pre {
       background: #0d1117;
       color: #e6edf3;
-      padding: 1rem 1rem 1rem 1rem;
+      padding: 1rem 3.5rem 1rem 1rem; /* right padding reserves space for copy button */
       border-radius: 4px;
       overflow-x: auto;
       font-size: 0.875rem;
       line-height: 1.5;
+      white-space: pre-wrap;
+      word-break: break-word;
     }
     pre code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; }
     .copy-btn {
@@ -142,12 +144,13 @@
       top: 0.5rem;
       right: 0.5rem;
       background: #21262d;
-      color: #8b949e;
-      border: 1px solid #30363d;
+      color: #c9d1d9;
+      border: 1px solid #58a6ff;
       border-radius: 4px;
-      padding: 0.2rem 0.6rem;
+      padding: 0.25rem 0.7rem;
       font-size: 0.75rem;
       cursor: pointer;
+      z-index: 1;
       transition: background 0.15s, color 0.15s;
     }
     .copy-btn:hover { background: #30363d; color: #e6edf3; }
@@ -184,9 +187,9 @@
 
     /* VS Code note */
     .vscode-note {
-      background: #f3f0ff;
-      border: 1px solid #c8b8f0;
-      border-left: 4px solid #7c4dff;
+      background: #eef2f8;
+      border: 1px solid #c5d0e6;
+      border-left: 4px solid #003366;
       border-radius: 4px;
       padding: 1rem 1.25rem;
     }
@@ -201,7 +204,7 @@
     }
     .followup-box h2 { color: #c79b2c; border: none; padding: 0; }
     .followup-box p { opacity: 0.9; margin-bottom: 0.5rem; }
-    .followup-box a { color: #c79b2c; }
+    .followup-box a { color: #e2b93d; }
 
     /* Footer */
     footer {
@@ -228,11 +231,17 @@
 </header>
 
 <!-- P1, P3 -->
-<section class="hero">
+<section class="hero" aria-labelledby="hero-heading">
   <div class="badge">✈ Hangar AI — 15-Minute Quick Start</div>
-  <h1>Your first AI response grounded in <em>American Airlines engineering standards</em> — in 15 minutes.</h1>
+  <h1 id="hero-heading">Your first AI response grounded in <em>American Airlines engineering standards</em> — in 15 minutes.</h1>
   <p>The Hangar AI Constitution is a set of laws, skills, and workflows that govern how AI assists engineering at American Airlines. This page gets you running in 15 minutes.</p>
 </section>
+
+<!-- P1, P2 — quick-start TL;DR -->
+<div style="background:#003366;color:#fff;padding:1rem 1.5rem;text-align:center;">
+  <p style="margin:0;font-size:0.9rem;opacity:0.85;">Already have <code style="background:rgba(255,255,255,0.15);padding:0.1rem 0.35rem;border-radius:3px;">git</code>, GitHub access &amp; Copilot?
+  &nbsp;<strong>Jump to <a href="#step1" style="color:#c79b2c;">Step 1</a></strong> — or scroll down for the full guide.</p>
+</div>
 
 <main>
 
@@ -280,12 +289,13 @@
   <!-- P1, P2 -->
   <section id="step2">
     <h2>Step 2 — Run the Setup</h2>
-    <p>Open a Copilot CLI session from your workspace root and paste this prompt. The agent will run the installer, copy <code>AGENTS.md</code> to your workspace root, and walk you through each step.</p>
+    <p>Open a Copilot CLI session from your workspace root and paste this prompt. The agent runs the installer, copies <code>AGENTS.md</code> to your workspace root, and walks you through each step with your consent.</p>
+    <p style="font-size:0.875rem;color:#555;margin-bottom:0.25rem">💻 <strong>VS Code user?</strong> Open Copilot Chat in your workspace, then paste the same prompt. Or <a href="#vscode">jump to VS Code setup</a> first.</p>
 
-    <div class="step-card">
-      <div class="step-number">Setup prompt — copy &amp; paste into Copilot CLI or Chat</div>
+    <div class="step-card" style="border-left-color:#cc0000;border-color:#cc0000;background:#fff5f5;">
+      <div class="step-number" style="font-size:0.8rem;">✨ The magic — copy &amp; paste this single prompt</div>
       <div class="code-wrap">
-        <pre><code>Help me set up the Hangar AI Constitution on my machine</code></pre>
+        <pre style="font-size:1rem;font-weight:600;"><code>Help me set up the Hangar AI Constitution on my machine</code></pre>
         <button class="copy-btn" onclick="copyCode(this)">Copy</button>
       </div>
     </div>
@@ -385,13 +395,12 @@
 ]</code></pre>
         <button class="copy-btn" onclick="copyCode(this)">Copy</button>
       </div>
-      <h3>Windows users — PowerShell installer</h3>
-      <p>A Windows PowerShell installer is available at <code>setup/install.ps1</code> in the constitution repo. Run it from PowerShell:</p>
+      <h3>Windows users — PowerShell installer <span style="background:#cc0000;color:#fff;font-size:0.65rem;font-weight:700;padding:0.1rem 0.45rem;border-radius:3px;vertical-align:middle;letter-spacing:0.04em;">COMING SOON</span></h3>
+      <p>A Windows PowerShell installer (<code>setup/install.ps1</code>) is in progress. Once available in the constitution repo, Windows users can run:</p>
       <div class="code-wrap">
-        <pre><code>powershell -ExecutionPolicy Bypass -File governance\hangar-ai-constitution\setup\install.ps1</code></pre>
-        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre style="opacity:0.5;cursor:not-allowed;" aria-label="Not yet available"><code>powershell -ExecutionPolicy Bypass -File governance\hangar-ai-constitution\setup\install.ps1</code></pre>
       </div>
-      <p style="font-size:0.85rem; color:#555; margin-top:0.5rem">Note: <code>install.ps1</code> is coming soon — check the repo for availability.</p>
+      <p style="font-size:0.85rem; color:#555; margin-top:0.25rem">⚠️ This command is not yet available. Check the constitution repo for updates.</p>
     </div>
   </section>
 
@@ -399,9 +408,8 @@
   <section id="followup">
     <div class="followup-box">
       <h2>Questions? We're here.</h2>
-      <p>Join the Hangar AI Constitution community channel for support, updates, and office hours.</p>
-      <p><strong>Channel:</strong> <!-- NN-13: replace with confirmed channel URL/name before ship --> <em>[Follow-up channel — coming soon]</em></p>
-      <p style="margin-top:0.75rem; font-size:0.85rem; opacity:0.8">Office hours and onboarding sessions available — ask in the channel for the schedule.</p>
+      <p>Ask your team lead or programme manager for the <strong>Hangar AI Constitution</strong> support channel — it's where the community shares tips, updates, and gets help.</p>
+      <p style="margin-top:0.75rem; font-size:0.85rem; opacity:0.8">Office hours and onboarding sessions are available. Ask in your team channel for the schedule.</p>
     </div>
   </section>
 
@@ -420,17 +428,41 @@
   function copyCode(btn) {
     var pre = btn.previousElementSibling;
     var text = pre.textContent;
-    navigator.clipboard.writeText(text).then(function() {
+
+    function showCopied() {
       btn.textContent = 'Copied!';
       btn.classList.add('copied');
       setTimeout(function() {
         btn.textContent = 'Copy';
         btn.classList.remove('copied');
       }, 2000);
-    }).catch(function() {
-      btn.textContent = 'Error';
-      setTimeout(function() { btn.textContent = 'Copy'; }, 2000);
-    });
+    }
+
+    function fallbackCopy(text) {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      try {
+        document.execCommand('copy');
+        showCopied();
+      } catch (e) {
+        btn.textContent = 'Select & copy';
+        setTimeout(function() { btn.textContent = 'Copy'; }, 3000);
+      }
+      document.body.removeChild(ta);
+    }
+
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(showCopied).catch(function() {
+        fallbackCopy(text);
+      });
+    } else {
+      fallbackCopy(text);
+    }
   }
 </script>
 
