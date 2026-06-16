@@ -295,7 +295,7 @@
     <div class="step-card" style="border-left-color:#cc0000;border-color:#cc0000;background:#fff5f5;">
       <div class="step-number" style="font-size:0.8rem;">✨ The magic — copy &amp; paste this single prompt</div>
       <div class="code-wrap">
-        <pre style="font-size:1rem;font-weight:600;"><code>Run the setup installer from the hangar ai constitution to set up constitutional governance in my workspace.</code></pre>
+        <pre style="font-size:1rem;font-weight:600;"><code>Run the setup installer from the Hangar AI Constitution to set up constitutional governance in my workspace. If you cannot locate the constitution or are not in the workspace root, stop and tell me before making any changes.</code></pre>
         <button class="copy-btn" onclick="copyCode(this)">Copy</button>
       </div>
     </div>
@@ -303,7 +303,7 @@
     <div class="callout">
       <strong>🔍 Want to preview first?</strong> Add this to the prompt above:
       <div class="code-wrap" style="margin-top:0.5rem">
-        <pre><code>But first, show me what changes will be made before writing any files.</code></pre>
+        <pre><code>Before writing any files, show me exactly what changes you would make, then stop and wait for my explicit approval.</code></pre>
         <button class="copy-btn" onclick="copyCode(this)">Copy</button>
       </div>
       The agent will run the installer in <code>--dry-run</code> mode — a full preview with zero files written.
@@ -342,7 +342,7 @@
       <div class="prompt-card">
         <div class="prompt-label">🏛️ Adopt the constitution in a repo</div>
         <div class="code-wrap">
-          <pre><code>Adopt the Hangar AI Constitution in this repo. Run the constitutional adoption workflow — check state, resolve avatars, create hangar-ai-specs/, and set up AGENTS.md.</code></pre>
+          <pre><code>Adopt the Hangar AI Constitution in this repo. Check the current adoption state, create or update AGENTS.md, create hangar-ai-specs/ if it doesn't exist, and confirm the setup is valid. Let me know if avatar configuration is needed — we can handle that as a separate step.</code></pre>
           <button class="copy-btn" onclick="copyCode(this)">Copy</button>
         </div>
       </div>
@@ -350,7 +350,7 @@
       <div class="prompt-card">
         <div class="prompt-label">🚀 Start a new feature (greenfield)</div>
         <div class="code-wrap">
-          <pre><code>I'm building [feature name]. Walk me through the Hangar greenfield workflow starting with Phase 1 Capture, tied to story [story ID].</code></pre>
+          <pre><code>I'm building [feature name]. Walk me through the Hangar greenfield workflow starting with Phase 1 Domain, tied to story [story ID].</code></pre>
           <button class="copy-btn" onclick="copyCode(this)">Copy</button>
         </div>
       </div>
@@ -358,7 +358,7 @@
       <div class="prompt-card">
         <div class="prompt-label">🔧 Improve a legacy module</div>
         <div class="code-wrap">
-          <pre><code>I need to improve [module or feature] in this codebase. Start the Hangar legacy rescue workflow and help me identify the right entry point.</code></pre>
+          <pre><code>I need to improve [module or feature] in this codebase. Start the Hangar legacy rescue workflow at Phase 0 Decision Track and help me assess whether to refactor, rewrite, or split before moving to Phase 1.</code></pre>
           <button class="copy-btn" onclick="copyCode(this)">Copy</button>
         </div>
       </div>
