@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hangar AI Constitution — Quick Start Brochure</title>
+  <style>
+    /* AA Brand: #001a40 navy · #003366 blue · #cc0000 red · #c79b2c gold */
+    /* PRE-PRINT GATE: verify QR_TARGET_URL returns HTTP 200 before removing this comment
+       QR_TARGET_URL = https://upgraded-spork-1q2q6zp.pages.github.io/getting-started.html */
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #001a40;
+      --blue: #003366;
+      --red: #cc0000;
+      --gold: #c79b2c;
+      --white: #ffffff;
+      --text: #1a1a1a;
+      --light: #f4f6fa;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 10pt;
+      line-height: 1.45;
+      color: var(--text);
+      background: var(--white);
+      width: 8.5in;
+      min-height: 11in;
+      margin: 0 auto;
+    }
+
+    /* ── Print layout ─────────────────────────────────────────────────────── */
+    @media print {
+      @page { size: US Letter portrait; margin: 0.5in; }
+      body { width: auto; margin: 0; font-size: 10pt; }
+      .no-print { display: none !important; }
+      a { color: inherit; text-decoration: none; }
+      .qr-section canvas { page-break-inside: avoid; }
+    }
+
+    /* ── Screen preview frame ────────────────────────────────────────────── */
+    @media screen {
+      body { padding: 0.5in; box-shadow: 0 0 40px rgba(0,0,0,0.15); margin: 2rem auto; }
+      .no-print {
+        position: fixed;
+        bottom: 1.5rem;
+        right: 1.5rem;
+        background: var(--navy);
+        color: var(--white);
+        border: none;
+        border-radius: 6px;
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+        cursor: pointer;
+        font-family: inherit;
+        z-index: 100;
+      }
+      .no-print:hover { background: var(--blue); }
+    }
+
+    /* ── Header band ─────────────────────────────────────────────────────── */
+    .brochure-header {
+      background: var(--navy);
+      color: var(--white);
+      padding: 14pt 18pt 12pt;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 4pt solid var(--red);
+    }
+    .brochure-header .wordmark {
+      font-size: 14pt;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .brochure-header .wordmark span { color: var(--gold); }
+    .brochure-header .subtitle {
+      font-size: 8pt;
+      opacity: 0.8;
+      text-align: right;
+      line-height: 1.3;
+    }
+
+    /* ── Hero strip ──────────────────────────────────────────────────────── */
+    .hero-strip {
+      background: linear-gradient(135deg, var(--blue) 0%, var(--navy) 100%);
+      color: var(--white);
+      padding: 18pt 18pt 14pt;
+    }
+    .hero-strip h1 {
+      font-size: 22pt;
+      font-weight: 800;
+      line-height: 1.15;
+      max-width: 5.5in;
+      margin-bottom: 6pt;
+    }
+    .hero-strip h1 em { color: var(--gold); font-style: normal; }
+    .hero-strip p {
+      font-size: 9pt;
+      opacity: 0.9;
+      max-width: 5in;
+      line-height: 1.5;
+    }
+
+    /* ── Two-column body ─────────────────────────────────────────────────── */
+    .body-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      padding: 16pt 18pt;
+    }
+    .col-left { padding-right: 12pt; border-right: 1pt solid #dde3ed; }
+    .col-right { padding-left: 12pt; }
+
+    /* ── Section headings ────────────────────────────────────────────────── */
+    .section-head {
+      font-size: 9pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--red);
+      margin-bottom: 6pt;
+      padding-bottom: 3pt;
+      border-bottom: 1pt solid #eee;
+    }
+
+    /* ── Steps ───────────────────────────────────────────────────────────── */
+    .step {
+      display: flex;
+      gap: 8pt;
+      margin-bottom: 10pt;
+    }
+    .step-num {
+      flex-shrink: 0;
+      width: 18pt;
+      height: 18pt;
+      background: var(--navy);
+      color: var(--white);
+      border-radius: 50%;
+      font-size: 9pt;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1pt;
+    }
+    .step-body { flex: 1; }
+    .step-body strong {
+      font-size: 9pt;
+      color: var(--navy);
+      display: block;
+      margin-bottom: 2pt;
+    }
+    .step-body p { font-size: 8pt; color: #444; margin-bottom: 3pt; }
+
+    /* ── Code blocks ─────────────────────────────────────────────────────── */
+    .code-block {
+      background: #0d1117;
+      color: #e6edf3;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 7.5pt;
+      padding: 5pt 7pt;
+      border-radius: 3pt;
+      margin: 3pt 0 6pt;
+      white-space: pre-wrap;
+      word-break: break-word;
+      line-height: 1.4;
+    }
+    .code-block.hero-prompt {
+      font-size: 9pt;
+      font-weight: 600;
+      background: var(--navy);
+      border-left: 3pt solid var(--gold);
+      padding: 7pt 9pt;
+    }
+
+    /* ── Prompt cards ────────────────────────────────────────────────────── */
+    .prompt-card {
+      margin-bottom: 8pt;
+    }
+    .prompt-label {
+      font-size: 7pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--blue);
+      margin-bottom: 2pt;
+    }
+
+    /* ── QR section ──────────────────────────────────────────────────────── */
+    .qr-section {
+      display: flex;
+      align-items: flex-start;
+      gap: 10pt;
+      padding: 10pt 18pt 12pt;
+      background: var(--light);
+      border-top: 1pt solid #dde3ed;
+    }
+    .qr-canvas-wrap {
+      flex-shrink: 0;
+      width: 1.5in;
+      height: 1.5in;
+      background: var(--white);
+      border: 1pt solid #ccc;
+      border-radius: 3pt;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .qr-canvas-wrap canvas { display: block; }
+    .qr-text { flex: 1; }
+    .qr-text strong { font-size: 9pt; color: var(--navy); display: block; margin-bottom: 4pt; }
+    .qr-text p { font-size: 8pt; color: #555; line-height: 1.45; }
+    .qr-url {
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 7pt;
+      color: var(--blue);
+      word-break: break-all;
+      margin-top: 4pt;
+      display: block;
+    }
+
+    /* ── Footer band ─────────────────────────────────────────────────────── */
+    .brochure-footer {
+      background: var(--navy);
+      color: rgba(255,255,255,0.7);
+      padding: 8pt 18pt;
+      font-size: 7.5pt;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 3pt solid var(--gold);
+    }
+    .brochure-footer span { color: var(--white); font-weight: 600; }
+  </style>
+</head>
+<body>
+
+<!-- Header band -->
+<header class="brochure-header">
+  <div class="wordmark"><span>✈ American Airlines</span> &nbsp;Hangar AI Constitution</div>
+  <div class="subtitle">Mobile Platform Engineering<br>Quick Start — 15 Minutes</div>
+</header>
+
+<!-- Hero strip -->
+<div class="hero-strip">
+  <h1>Your first AI response grounded in <em>AA engineering standards</em> — in 15 minutes.</h1>
+  <p>The Hangar AI Constitution governs how AI assists software engineering at American Airlines — laws, skills, and workflows active in every session.</p>
+</div>
+
+<!-- Two-column body -->
+<div class="body-cols">
+
+  <!-- LEFT: 3 steps -->
+  <div class="col-left">
+    <div class="section-head">Get Started in 3 Steps</div>
+
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <strong>Clone the Constitution</strong>
+        <p>Run this from your terminal. Replace <code>YOUR_WORKSPACE</code> with your working folder (e.g. <code>~/Repos</code>).</p>
+        <div class="code-block">git clone https://github.com/AAInternal/hangar-ai-constitution.git \
+  YOUR_WORKSPACE/governance/hangar-ai-constitution</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <strong>Open Copilot CLI &amp; paste this prompt</strong>
+        <p>Start a Copilot CLI session from your workspace folder, then paste:</p>
+        <div class="code-block hero-prompt">Help me set up the Hangar AI Constitution on my machine</div>
+        <p style="font-size:7.5pt;color:#666;">The agent runs the installer, copies the config file to your workspace, and confirms each step with you.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <strong>Restart your session</strong>
+        <p>Start a new Copilot CLI session. The constitution loads automatically. You'll see a <strong>Session Ready</strong> report confirming active laws.</p>
+        <p style="font-size:7.5pt;color:#666;">VS Code: enable via <code>.github/copilot-instructions.md</code> — the installer offers this automatically.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: Starter prompts -->
+  <div class="col-right">
+    <div class="section-head">Starter Prompts — Copy &amp; Use Today</div>
+
+    <div class="prompt-card">
+      <div class="prompt-label">🏛 Adopt the constitution in a repo</div>
+      <div class="code-block">I want to adopt the Hangar AI Constitution in this repo. Help me set it up following the greenfield workflow.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-label">🚀 Start a new feature (greenfield)</div>
+      <div class="code-block">I'm building [feature name]. Walk me through the Hangar greenfield workflow starting with Phase 1 Capture, tied to story [story ID].</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-label">📋 Daily work tied to a story</div>
+      <div class="code-block">I'm working on story [story ID]: [title] today. Use the Hangar AI Constitution to guide my implementation and keep me aligned with our engineering standards.</div>
+    </div>
+
+    <div style="margin-top:6pt;padding:6pt 8pt;background:#fff8e6;border-left:3pt solid var(--gold);border-radius:2pt;">
+      <p style="font-size:7.5pt;color:#5a4000;line-height:1.4;"><strong>Scan the QR code</strong> below for the full Getting Started guide — includes all 5 prompts, VS Code setup, and the legacy rescue workflow.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- QR + follow-up -->
+<div class="qr-section">
+  <div class="qr-canvas-wrap">
+    <canvas id="qr-canvas"></canvas>
+  </div>
+  <div class="qr-text">
+    <strong>Full Getting Started Guide</strong>
+    <p>Scan to open the complete onboarding guide — includes all 5 starter prompts, VS Code configuration, legacy rescue workflow, and step-by-step setup instructions.</p>
+    <p>Questions? Ask your team lead or programme manager for the Hangar AI Constitution support channel.</p>
+    <code class="qr-url">https://upgraded-spork-1q2q6zp.pages.github.io/getting-started.html</code>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="brochure-footer">
+  <div>American Airlines &nbsp;·&nbsp; <span>Hangar AI Constitution</span> &nbsp;·&nbsp; Mobile Platform Engineering</div>
+  <div>hangar-ai-constitution-adoption-guide · github.com/AAInternal</div>
+</footer>
+
+<!-- Print button (screen only) -->
+<button class="no-print" onclick="window.print()">🖨 Print / Save as PDF</button>
+
+<!-- Inline QR code generator (MIT licence)
+     qrcode.js v1.0.0 — davidshimjs — MIT License
+     Copyright (c) 2012 davidshimjs
+     Permission is hereby granted, free of charge, to any person obtaining a copy
+     of this software and associated documentation files (the "Software"), to deal
+     in the Software without restriction, including without limitation the rights
+     to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+     copies of the Software, and to permit persons to whom the Software is
+     furnished to do so, subject to the following conditions:
+     The above copyright notice and this permission notice shall be included in all
+     copies or substantial portions of the Software.
+     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND. -->
+<script>
+/* qrcode.js v1.0.0 minified — MIT — davidshimjs */
+var QRCode=function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this.parsedData=[];for(var b=[],d=0,e=this.data.length;e>d;d++){var f=this.data.charCodeAt(d);f>65536?(b[0]=240|(1835008&f)>>>18,b[1]=128|(258048&f)>>>12,b[2]=128|(4032&f)>>>6,b[3]=128|63&f):f>2048?(b[0]=224|(61440&f)>>>12,b[1]=128|(4032&f)>>>6,b[2]=128|63&f):f>128?(b[0]=192|(1984&f)>>>6,b[1]=128|63&f):b[0]=f,this.parsedData=this.parsedData.concat(b)}this.parsedData.length!=this.data.length&&(this.parsedData.unshift(191),this.parsedData.unshift(187),this.parsedData.unshift(239))}function b(a,b){this.typeNumber=a,this.errorCorrectLevel=b,this.modules=null,this.moduleCount=0,this.dataCache=null,this.dataList=[]}var c={MODE_NUMBER:1,MODE_ALPHA_NUM:2,MODE_8BIT_BYTE:4,MODE_KANJI:8},d={L:1,M:0,Q:3,H:2},e={PATTERN000:0,PATTERN001:1,PATTERN010:2,PATTERN011:3,PATTERN100:4,PATTERN101:5,PATTERN110:6,PATTERN111:7},f={PATTERN_POSITION_TABLE:[[],[6,18],[6,22],[6,26],[6,30],[6,34],[6,22,38],[6,24,42],[6,26,46],[6,28,50],[6,30,54],[6,32,58],[6,34,62],[6,26,46,66],[6,26,48,70],[6,26,50,74],[6,30,54,78],[6,30,56,82],[6,30,58,86],[6,34,62,90],[6,28,50,72,94],[6,26,50,74,98],[6,30,54,78,102],[6,28,54,80,106],[6,32,58,84,110],[6,30,58,86,114],[6,34,62,90,118],[6,26,50,74,98,122],[6,30,54,78,102,126],[6,26,52,78,104,130],[6,30,56,82,108,132],[6,34,60,86,112,136],[6,30,58,86,114,142],[6,34,62,90,118,146],[6,30,54,78,102,126,150],[6,24,50,76,102,128,154],[6,28,54,80,106,132,158],[6,32,58,84,110,136,162],[6,26,54,82,110,138,166],[6,30,58,86,114,142,170]],G15:1335,G18:7973,G15_MASK:21522,getBCHTypeInfo:function(a){for(var b=a<<10;f.getBCHDigit(b)-f.getBCHDigit(f.G15)>=0;)b^=f.G15<<f.getBCHDigit(b)-f.getBCHDigit(f.G15);return(a<<10|b)^f.G15_MASK},getBCHTypeNumber:function(a){for(var b=a<<12;f.getBCHDigit(b)-f.getBCHDigit(f.G18)>=0;)b^=f.G18<<f.getBCHDigit(b)-f.getBCHDigit(f.G18);return a<<12|b},getBCHDigit:function(a){for(var b=0;0!=a;)b++,a>>>=1;return b},getPatternPosition:function(a){return f.PATTERN_POSITION_TABLE[a-1]},getMask:function(a,b,c){switch(a){case e.PATTERN000:return(b+c)%2==0;case e.PATTERN001:return b%2==0;case e.PATTERN010:return c%3==0;case e.PATTERN011:return(b+c)%3==0;case e.PATTERN100:return(Math.floor(b/2)+Math.floor(c/3))%2==0;case e.PATTERN101:return b*c%2+b*c%3==0;case e.PATTERN110:return(b*c%2+b*c%3)%2==0;case e.PATTERN111:return(b*c%3+(b+c)%2)%2==0;default:throw new Error("bad maskPattern:"+a)}},getErrorCorrectPolynomial:function(a){for(var b=new i([1],0),c=0;a>c;c++)b=b.multiply(new i([1,g.gexp(c)],0));return b},getLengthInBits:function(a,b){if(b>=1&&10>b)switch(a){case c.MODE_NUMBER:return 10;case c.MODE_ALPHA_NUM:return 9;case c.MODE_8BIT_BYTE:return 8;case c.MODE_KANJI:return 8;default:throw new Error("mode:"+a)}else if(27>b)switch(a){case c.MODE_NUMBER:return 12;case c.MODE_ALPHA_NUM:return 11;case c.MODE_8BIT_BYTE:return 16;case c.MODE_KANJI:return 10;default:throw new Error("mode:"+a)}else{if(!(41>b))throw new Error("type:"+b);switch(a){case c.MODE_NUMBER:return 14;case c.MODE_ALPHA_NUM:return 13;case c.MODE_8BIT_BYTE:return 16;case c.MODE_KANJI:return 12;default:throw new Error("mode:"+a)}}},getLostPoint:function(a){for(var b=a.getModuleCount(),c=0,d=0;b>d;d++)for(var e=0;b>e;e++){for(var f=0,g=a.isDark(d,e),h=-1;1>=h;h++)if(!(0>d+h||d+h>=b))for(var i=-1;1>=i;i++)0>e+i||e+i>=b||(0!=h||0!=i)&&g==a.isDark(d+h,e+i)&&f++;f>5&&(c+=3+f-5)}for(var d=0;b-1>d;d++)for(var e=0;b-1>e;e++){var j=0;a.isDark(d,e)&&j++,a.isDark(d+1,e)&&j++,a.isDark(d,e+1)&&j++,a.isDark(d+1,e+1)&&j++,(0==j||4==j)&&(c+=3)}for(var d=0;b>d;d++)for(var e=0;b-7>e;e++){var k=void 0;(k=a.isDark(d,e)&&!a.isDark(d,e+1)&&a.isDark(d,e+2)&&a.isDark(d,e+3)&&a.isDark(d,e+4)&&!a.isDark(d,e+5)&&a.isDark(d,e+6))&&(c+=40),(k=a.isDark(e,d)&&!a.isDark(e+1,d)&&a.isDark(e+2,d)&&a.isDark(e+3,d)&&a.isDark(e+4,d)&&!a.isDark(e+5,d)&&a.isDark(e+6,d))&&(c+=40)}for(var l=0,d=0;b>d;d++)for(var e=0;b>e;e++)a.isDark(d,e)&&l++;var m=Math.abs(100*l/b/b-50)/5;return c+=10*m}},g={glog:function(a){if(1>a)throw new Error("glog("+a+")");return g.LOG_TABLE[a]},gexp:function(a){for(;0>a;)a+=255;for(;a>=256;)a-=255;return g.EXP_TABLE[a]},EXP_TABLE:new Array(256),LOG_TABLE:new Array(256)};for(var h=0;8>h;h++)g.EXP_TABLE[h]=1<<h;for(var h=8;256>h;h++)g.EXP_TABLE[h]=g.EXP_TABLE[h-4]^g.EXP_TABLE[h-5]^g.EXP_TABLE[h-6]^g.EXP_TABLE[h-8];for(var h=0;255>h;h++)g.LOG_TABLE[g.EXP_TABLE[h]]=h;var i=function(a,b){if(void 0==a.length)throw new Error(a.length+"/"+b);this.num=new Array(a.length+b);for(var c=0;c<a.length;c++)this.num[c]=a[c]};i.prototype={get:function(a){return this.num[a]},getLength:function(){return this.num.length},multiply:function(a){for(var b=new Array(this.getLength()+a.getLength()-1),c=0;c<this.getLength();c++)for(var d=0;d<a.getLength();d++)b[c+d]^=g.gexp(g.glog(this.get(c))+g.glog(a.get(d)));return new i(b,0)},mod:function(a){if(this.getLength()-a.getLength()<0)return this;var b=g.glog(this.get(0))-g.glog(a.get(0));for(var c=new Array(this.getLength()),d=0;d<this.getLength();d++)c[d]=this.get(d);for(var d=0;d<a.getLength();d++)c[d]^=g.gexp(g.glog(a.get(d))+b);return new i(c,0).mod(a)}};b.prototype={addData:function(b){var c=new a(b);this.dataList.push(c),this.dataCache=null},isDark:function(a,b){if(0>a||this.moduleCount<=a||0>b||this.moduleCount<=b)throw new Error(a+","+b);return this.modules[a][b]},getModuleCount:function(){return this.moduleCount},make:function(){this.makeImpl(!1,this.getBestMaskPattern())},makeImpl:function(a,c){this.moduleCount=4*this.typeNumber+17,this.modules=new Array(this.moduleCount);for(var d=0;d<this.moduleCount;d++){this.modules[d]=new Array(this.moduleCount);for(var e=0;e<this.moduleCount;e++)this.modules[d][e]=null}this.setupPositionProbePattern(0,0),this.setupPositionProbePattern(this.moduleCount-7,0),this.setupPositionProbePattern(0,this.moduleCount-7),this.setupPositionAdjustPattern(),this.setupTimingPattern(),this.setupTypeInfo(a,c),this.typeNumber>=7&&this.setupTypeNumber(a),null==this.dataCache&&(this.dataCache=b.createData(this.typeNumber,this.errorCorrectLevel,this.dataList)),this.mapData(this.dataCache,c)},setupPositionProbePattern:function(a,b){for(var c=-1;7>=c;c++)if(!(-1>a+c||this.moduleCount<=a+c))for(var d=-1;7>=d;d++)-1>b+d||this.moduleCount<=b+d||(this.modules[a+c][b+d]=c>=0&&6>=c&&(0==d||6==d)||d>=0&&6>=d&&(0==c||6==c)||c>=2&&4>=c&&d>=2&&4>=d?!0:!1)},getBestMaskPattern:function(){for(var a=0,b=0,c=0;8>c;c++){this.makeImpl(!0,c);var d=f.getLostPoint(this);(0==c||a>d)&&(a=d,b=c)}return b},setupTimingPattern:function(){for(var a=8;this.moduleCount-8>a;a++)null==this.modules[a][6]&&(this.modules[a][6]=a%2==0);for(var b=8;this.moduleCount-8>b;b++)null==this.modules[6][b]&&(this.modules[6][b]=b%2==0)},setupPositionAdjustPattern:function(){for(var a=f.getPatternPosition(this.typeNumber),b=0;b<a.length;b++)for(var c=0;c<a.length;c++){var d=a[b],e=a[c];if(null==this.modules[d][e])for(var g=-2;2>=g;g++)for(var h=-2;2>=h;h++)this.modules[d+g][e+h]=-2==g||2==g||-2==h||2==h||0==g&&0==h?!0:!1}},setupTypeNumber:function(a){for(var b=f.getBCHTypeNumber(this.typeNumber),c=0;18>c;c++){var d=!a&&1==(b>>c&1);this.modules[Math.floor(c/3)][c%3+this.moduleCount-8-3]=d}for(var c=0;18>c;c++){var d=!a&&1==(b>>c&1);this.modules[c%3+this.moduleCount-8-3][Math.floor(c/3)]=d}},setupTypeInfo:function(a,b){for(var c=this.errorCorrectLevel<<3|b,d=f.getBCHTypeInfo(c),e=0;15>e;e++){var g=!a&&1==(d>>e&1);6>e?this.modules[e][8]=g:8>e?this.modules[e+1][8]=g:this.modules[this.moduleCount-15+e][8]=g}for(var e=0;15>e;e++){var g=!a&&1==(d>>e&1);8>e?this.modules[8][this.moduleCount-e-1]=g:9>e?this.modules[8][15-e-1+1]=g:this.modules[8][15-e-1]=g}this.modules[this.moduleCount-8][8]=!a},mapData:function(a,b){for(var c=-1,d=this.moduleCount-1,g=7,h=0,i=this.moduleCount-1;i>0;i-=2)for(6==i&&i--;;){for(var j=0;2>j;j++)if(null==this.modules[d][i-j]){var k=!1;h<a.length&&(k=1==(a[h]>>>g&1)),f.getMask(b,d,i-j)&&(k=!k),this.modules[d][i-j]=k,g--,-1==g&&(h++,g=7)}if(d+=c,0>d||this.moduleCount<=d){d-=c,c=-c;break}}},b.PAD0:236,b.PAD1:17,b.createData:function(a,c,d){for(var e=b.getRSBlocks(a,c),g=new j,h=0;h<d.length;h++){var i=d[h];g.put(i.mode,4),g.put(i.getLength(),f.getLengthInBits(i.mode,a)),i.write(g)}for(var k=0,h=0;h<e.length;h++)k+=e[h].dataCount;if(g.getLengthInBits()>8*k)throw new Error("code length overflow. ("+g.getLengthInBits()+">"+8*k+")");for(g.getLengthInBits()+4<=8*k&&g.put(0,4);g.getLengthInBits()%8!=0;)g.putBit(!1);for(;;){if(g.getLengthInBits()>=8*k)break;if(g.put(b.PAD0,8),g.getLengthInBits()>=8*k)break;g.put(b.PAD1,8)}return b.createBytes(g,e)},b.createBytes:function(a,b){for(var c=0,d=0,e=0,f=new Array(b.length),h=new Array(b.length),j=0;j<b.length;j++){var k=b[j].dataCount,l=b[j].totalCount-k;d=Math.max(d,k),e=Math.max(e,l),f[j]=new Array(k);for(var m=0;m<f[j].length;m++)f[j][m]=255&a.get(c++);h[j]=new Array(l);for(var m=0;m<h[j].length;m++)h[j][m]=0}var n=0,o=new Array(b.length);for(var m=0;m<d;m++)for(var j=0;j<b.length;j++)m<f[j].length&&(o[n++]=f[j][m]);for(var m=0;m<e;m++)for(var j=0;j<b.length;j++)m<h[j].length&&(o[n++]=h[j][m]);return o}};var j=function(){this.buffer=[],this.length=0};j.prototype={get:function(a){var b=Math.floor(a/8);return 1==(this.buffer[b]>>>7-a%8&1)},put:function(a,b){for(var c=0;b>c;c++)this.putBit(1==(a>>>b-c-1&1))},getLengthInBits:function(){return this.length},putBit:function(a){var b=Math.floor(this.length/8);this.buffer.length<=b&&this.buffer.push(0),a&&(this.buffer[b]|=128>>>this.length%8),this.length++}};var k=function(a,b){this.totalCount=a,this.dataCount=b};b.getRSBlocks=function(a,c){var d=b.getRsBlockTable(a,c);if(void 0==d)throw new Error("bad rs block @ typeNumber:"+a+"/errorCorrectLevel:"+c);for(var e=d.length/3,f=[],g=0;e>g;g++)for(var h=d[3*g+0],i=d[3*g+1],j=d[3*g+2],k=0;h>k;k++)f.push(new k(i,j));return f};b.getRsBlockTable=function(a,b){switch(b){case d.L:return f.RS_BLOCK_TABLE[(a-1)*4+0];case d.M:return f.RS_BLOCK_TABLE[(a-1)*4+1];case d.Q:return f.RS_BLOCK_TABLE[(a-1)*4+2];case d.H:return f.RS_BLOCK_TABLE[(a-1)*4+3];default:void 0}};f.RS_BLOCK_TABLE=[[1,26,19],[1,26,16],[1,26,13],[1,26,9],[1,44,34],[1,44,28],[1,44,22],[1,44,16],[1,70,55],[1,70,44],[2,35,17],[2,35,13],[1,100,80],[2,50,32],[2,50,24],[4,25,9],[1,134,108],[2,67,43],[2,33,15,2,34,16],[2,33,11,2,34,12],[2,86,68],[4,43,27],[4,43,19],[4,43,15],[2,98,78],[4,49,31],[2,32,14,4,33,15],[4,39,13,1,40,14],[2,121,97],[2,60,38,2,61,39],[4,40,18,2,41,19],[4,40,14,2,41,15],[2,146,116],[3,58,36,2,59,37],[4,36,16,4,37,17],[4,36,12,4,37,13],[2,86,68,2,87,69],[4,69,43,1,70,44],[6,43,19,2,44,20],[6,43,15,2,44,16],[4,101,81],[1,80,50,4,81,51],[4,50,22,4,51,23],[3,36,12,8,37,13],[2,116,92,2,117,93],[6,58,36,2,59,37],[4,46,20,6,47,21],[7,42,14,4,43,15],[4,133,107],[8,59,37,1,60,38],[8,44,20,4,45,21],[12,33,11,4,34,12],[3,145,115,1,146,116],[4,64,40,5,65,41],[11,36,16,5,37,17],[11,36,12,5,37,13],[5,109,87,1,110,88],[5,65,41,5,66,42],[5,54,24,7,55,25],[11,36,12],[5,122,98,1,123,99],[7,73,45,3,74,46],[15,43,19,2,44,20],[3,45,15,13,46,16],[1,135,107,5,136,108],[10,74,46,1,75,47],[1,50,22,15,51,23],[2,42,14,17,43,15],[5,150,120,1,151,121],[9,69,43,4,70,44],[17,50,22,1,51,23],[2,42,14,19,43,15],[3,141,113,4,142,114],[3,70,44,11,71,45],[17,47,21,4,48,22],[9,39,13,16,40,14],[3,135,107,5,136,108],[3,67,41,13,68,42],[15,54,24,5,55,25],[15,43,15,10,44,16],[4,144,116,4,145,117],[17,68,42],[17,50,22,6,51,23],[19,46,16,6,47,17],[2,139,111,7,140,112],[17,74,46],[7,54,24,16,55,25],[34,37,13],[4,151,121,5,152,122],[4,75,47,14,76,48],[11,54,24,14,55,25],[16,45,15,14,46,16],[6,147,117,4,148,118],[6,73,45,14,74,46],[11,54,24,16,55,25],[30,46,16,2,47,17],[8,132,106,4,133,107],[8,75,47,13,76,48],[7,54,24,22,55,25],[22,45,15,13,46,16],[10,142,114,2,143,115],[19,74,46,4,75,47],[28,50,22,6,51,23],[33,46,16,4,47,17],[8,152,122,4,153,123],[22,73,45,3,74,46],[8,53,23,26,54,24],[12,45,15,28,46,16],[3,147,117,10,148,118],[3,73,45,23,74,46],[4,54,24,31,55,25],[11,45,15,31,46,16],[7,146,116,7,147,117],[21,73,45,7,74,46],[1,53,23,37,54,24],[19,45,15,26,46,16],[5,145,115,10,146,116],[19,75,47,10,76,48],[15,54,24,25,55,25],[23,45,15,25,46,16],[13,145,115,3,146,116],[2,74,46,29,75,47],[42,54,24,1,55,25],[23,45,15,28,46,16],[17,145,115],[10,74,46,23,75,47],[10,54,24,35,55,25],[19,45,15,35,46,16],[17,145,115,1,146,116],[14,74,46,21,75,47],[29,54,24,19,55,25],[11,45,15,46,46,16],[13,145,115,6,146,116],[14,74,46,23,75,47],[44,54,24,7,55,25],[59,46,16,1,47,17],[12,151,121,7,152,122],[12,75,47,26,76,48],[39,54,24,14,55,25],[22,45,15,41,46,16],[6,151,121,14,152,122],[6,75,47,34,76,48],[46,54,24,10,55,25],[2,45,15,64,46,16],[17,152,122,4,153,123],[29,74,46,14,75,47],[49,54,24,10,55,25],[24,45,15,46,46,16],[4,152,122,18,153,123],[13,74,46,32,75,47],[48,54,24,14,55,25],[42,45,15,32,46,16],[20,147,117,4,148,118],[40,75,47,7,76,48],[43,54,24,22,55,25],[10,45,15,67,46,16],[19,148,118,6,149,119],[18,75,47,31,76,48],[34,54,24,34,55,25],[20,45,15,61,46,16]];a.prototype={getLength:function(){return this.parsedData.length},write:function(a){for(var b=0,c=this.parsedData.length;c>b;b++)a.put(this.parsedData[b],8)}};var l=function(){this.el=document.createElement("canvas"),this.el.setAttribute("width",0),this.el.setAttribute("height",0),this._oContext=this.el.getContext("2d"),this._bIsPainted=!1};l.prototype.draw=function(a){var b=a.getModuleCount();this.el.setAttribute("width",b*4),this.el.setAttribute("height",b*4);var c=this._oContext;c.clearRect(0,0,this.el.width,this.el.height);for(var d=0;b>d;d++)for(var e=0;b>e;e++){var f=a.isDark(d,e);c.fillStyle=f?"#000000":"#ffffff",c.fillRect(e*4,d*4,4,4)}this._bIsPainted=!0};var m=function(a,b){this._htOption={width:1.5*96,height:1.5*96,typeNumber:4,colorDark:"#000000",colorLight:"#ffffff",correctLevel:d.M},this._el=a,this._oQRCode=null,this._bCorrectLevel=!0,this.makeCode(b)};m.prototype.makeCode=function(a){this._oQRCode=new b(this._htOption.typeNumber,this._htOption.correctLevel);this._oQRCode.addData(a);this._oQRCode.make();var c=new l;c.draw(this._oQRCode);this._el.appendChild(c.el)};
+
+// Generate QR code pointing to the getting-started page
+new m(document.getElementById("qr-canvas"), "https://upgraded-spork-1q2q6zp.pages.github.io/getting-started.html");
+</script>
+
+</body>
+</html>
