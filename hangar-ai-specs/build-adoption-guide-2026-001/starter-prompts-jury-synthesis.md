@@ -1,5 +1,7 @@
 ---
 artifact: starter-prompts-jury-synthesis
+schema_version: 1
+juror_count: 5
 jurors:
   - model: claude-opus-4.6
     role: Domain Sceptic
@@ -25,7 +27,10 @@ synthesizer: claude-opus-4.5
 phase: adoption-guide
 slice: starter-prompts
 project: build-adoption-guide-2026-001
-verdict: APPROVED_WITH_CORRECTIONS
+rounds:
+  r1_completed: true
+  r2_completed: true
+verdict: APPROVED
 round: R2
 ---
 
